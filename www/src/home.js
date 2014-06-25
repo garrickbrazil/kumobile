@@ -25,5 +25,5 @@ $(document).on("pagecreate", "#home", function(event){
 	if(KU_Config.ISCROLL) KU_Mods.fixIscroll('#home');
 	
 	// Resize screen
-	else $(window).trigger("throttledresize");
+	$(window).trigger("throttledresize");
 });

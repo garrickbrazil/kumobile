@@ -33,7 +33,7 @@ var KU_Mods = {
 
 		// Create a new iScroll container
 		var iscroller = $('<div></div>', {
-			'class': 'example-wrapper',
+			'class': 'iscroll-custom',
 			'data-iscroll':''
 		});
 		
@@ -41,12 +41,17 @@ var KU_Mods = {
 		$(page).append(iscroller);
 		
 		// Move regular content into the new iScroll
-		$(page + ' .example-wrapper').append($(page + ' .scroller'));
+		$(page + ' .iscroll-custom').append($(page + ' .scroller'));
 		
 		// Remove styling and class for the old scroller (uses overflow)
 		$(page + ' .scroller').attr('style','');
 		$(page + ' .scroller').removeClass('scroller');
 		$(page + ' .header').css('position','relative');
+	
+		//$(page + ' .searchbar').css('position','relative');
+		//$(page + ' .searchbar').css('height','32px');
+		//$(page + ' .searchbar').css('top','');
+		//$(page + ' .searchbar').removeClass('searchbar');
 		
 		// Resize the window for iScroll container
 		$(window).trigger("resize");
@@ -66,6 +71,29 @@ var KU_Mods = {
 	hideLoading: function(id){
 		
 		$('#' + id + " .loading-indicator").css('display','none');
+	},
+	
+	/**********************************************************
+	 * Kettering Obfuscate?
+	 *********************************************************/
+	ketteringObfuscate: function(message) {
+
+		var aZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+		var nM = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0123456789"
+		
+		var map = []
+		var converted = ""
+
+		for (var index = 0; index <= aZ.length; index++) {map[aZ.substr(index, 1)] = nM.substr(index, 1)}
+
+		for (var index = 0; index <= message.length; index++) {
+			
+			var c = message.charAt(index)
+			converted  += (c in map ? map[c] : c)
+		}
+
+		return converted;
+
 	}
 };
 
@@ -79,5 +107,15 @@ $(window).on("throttledresize", function (event){
 	// not needed for iscroll which is setup differently
 	// throttle has limited freq compared to regular resize
 	// TODO make header height dynamic!
-	if(!KU_Config.ISCROLL) $('.scroller').css('height', $(window).height() - 49.5);
+	if(!KU_Config.ISCROLL) {
+		$('.scroller').css('height', $(window).height() - 49.5);
+		$('.scroller.fixed-searchbar-above').css('height', $(window).height() - 49.5 - 36);
+	}
+	
+	// Fix search bar size 
+	// calc(100% - 151px)
+	// 151 is the width of the select and 1px for border !
+	// TODO make this more dynamic size!!
+	$('#directory .searchbar .ui-input-search').css('width', $(window).width() - 136);
+	
 });

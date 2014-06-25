@@ -17,6 +17,71 @@
 
 
 /**********************************************************
+ * Directory search bar (overrides)
+ *********************************************************/
+#directory .ui-input-search{
+	position:relative;
+	float:left;
+	width:0px;
+	height:32px;
+	border-width:0px; 
+	margin-top:0px !important;
+	padding-right:0px !important;
+	display: inline-block;
+}
+
+/**********************************************************
+ * Directory select (remove padding and shadow)
+ *********************************************************/
+#directory .searchbar .ui-select .ui-btn{
+	padding-top:0px !important;
+	padding-bottom:0px !important;
+	padding-left:2px !important;
+	height:32px !important;
+	webkit-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+	-moz-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+	box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+	border-style: none;
+	border-left: 1px solid #AAA;
+	display:block;
+}
+
+/**********************************************************
+ * Directory select (center text)
+ *********************************************************/
+#directory .ui-select span{
+	position:relative;
+	-webkit-transform:translateY(-50%);
+	-ms-transform:translateY(-50%);
+	transform:translateY(-50%);
+	top:50%;
+}
+
+/**********************************************************
+ * Directory select (size appropriately)
+ *********************************************************/
+#directory .ui-select{
+	float:right;
+	height:32px;
+	width:136px;
+	margin: 0px !important;
+	padding:0px !important;
+	display: inline-block;
+}
+
+/**********************************************************
+ * Search bar setup
+ *********************************************************/
+.searchbar{
+
+	top:49.5px;
+	position:absolute;
+	height:32px;
+	border-top: 1px solid #AAA;
+	border-bottom: 1px solid #AAA;
+}
+
+/**********************************************************
  * Loading indicator
  *********************************************************/
 .loading-indicator{
@@ -49,6 +114,11 @@ a {
 	-ms-transform:translateY(-50%);
 	transform:translateY(-50%);
 	top:50%;
+	position:absolute;
+	text-align:center;
+	display:inline;
+	vertical-align:middle;
+	margin:0px;
 }
 
 /**********************************************************
@@ -101,6 +171,12 @@ a {
   -webkit-overflow-scrolling: touch;
 }
 
+/**********************************************************
+ * Scroller (override when search bar is above!!!)
+ *********************************************************/
+.fixed-searchbar-above{
+	top: 83px;
+}
 
 /**********************************************************
  * Main icon (home page icons)
@@ -139,6 +215,17 @@ a {
 	max-width:70px !important;
 }
 
+/**********************************************************
+ * Directory list icons
+ *********************************************************/
+.directory-icon{
+	left:11px !important;
+	top:15px !important;
+	height:110px !important;
+	width:90px !important;
+	max-height:110px !important;
+	max-width:90px !important;
+}
 
 /**********************************************************
  * Main text (list items on home)

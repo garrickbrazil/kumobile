@@ -73,12 +73,12 @@ var KU_Events = {
 				$(window).trigger("resize");
 
 				// TODO calculate time here so the delay is *ONLY* a minimum not addition
-				setTimeout(function(){
+				//setTimeout(function(){
 					
 					// Hide and stop loading
 					KU_Mods.hideLoading(id);
 					KU_Events.loading = false;
-				}, KU_Config.LOAD_INDICATOR_DELAY);
+				//}, KU_Config.LOAD_INDICATOR_DELAY);
 			},
 			
 			error: function(data){
@@ -274,7 +274,7 @@ var KU_Events = {
 						}
 					);
 				  
-					setTimeout(function(){
+					//setTimeout(function(){
 						
 						KU_Events.loading = false;	// not loading
 						KU_Events.queue--;			// one less in the queue!
@@ -307,7 +307,7 @@ var KU_Events = {
 						
 						// More in the queue? Cool, grab another page. 
 						else KU_Events.getNextPage();
-					}, KU_Config.LOAD_INDICATOR_DELAY);        
+					//}, KU_Config.LOAD_INDICATOR_DELAY);        
 				},
 					
 				error: function(data){
@@ -338,7 +338,7 @@ $(document).on("pageinit","#events",function(event){
 			var current = d.iscrollview.y()*-1;
 			
 			if(!KU_Events.loading && current > (max - KU_Events.LOAD_THRESHOLD_PX) && $('#events').is(':visible') 
-				&& $('#events .ui-input-clear-hidden').length > 0 && !(KU_Events.loading)){
+				&& !(KU_Events.loading)){
 				
 				// Get next page then refresh iScroll
 				KU_Events.getNextPage();
@@ -365,8 +365,7 @@ $(document).on("pageinit","#events",function(event){
 
 			// Break threshold?
 			if($('#events-list').height() < (KU_Events.LOAD_THRESHOLD_PX + $('#events-scroller').scrollTop() 
-				+ $('#events-scroller').outerHeight()) && $('#events').is(':visible') 
-				&& $('#events .ui-input-clear-hidden').length > 0 && !(KU_Events.loading)){
+				+ $('#events-scroller').outerHeight()) && $('#events').is(':visible') && !(KU_Events.loading)){
 
 				// Get the next page!
 				KU_Events.getNextPage();

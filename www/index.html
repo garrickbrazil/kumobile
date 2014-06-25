@@ -22,6 +22,7 @@
 		<script src="src/config.js"></script>
 		<script src="src/news.js"></script>
 		<script src="src/events.js"></script>
+		<script src="src/directory.js"></script>
 		<script src="src/home.js"></script>
 		<script src="src/misc.js"></script>
 				
@@ -67,7 +68,7 @@
 					
 					<!-- Directory item -->
 					<li>
-						<a class="grey-grad" href="#">
+						<a class="grey-grad" href="#directory">
 						<img class="ui-li-icon main-icon" src="images/directory.png" alt="directory.png"/>
 						<h1 class="main-text">Directory</h1>
 						<p class="main-text">Search for additional information on faculty/staff.</p>
@@ -132,7 +133,7 @@
 			
 			<!-- News list -->
 			<div id="news-scroller" class="scroller">
-				<ul data-corners="false" data-filter="true" id='news-list' data-role="listview"></ul>
+				<ul data-corners="false" id='news-list' data-role="listview"></ul>
 			</div>
 			
 		</div>
@@ -155,7 +156,50 @@
 			
 			<!-- Events list -->
 			<div id="events-scroller" class="scroller"> 
-				<ul data-corners="false" data-filter="true" id='events-list' data-role="listview"></ul>
+				<ul data-corners="false" id='events-list' data-role="listview"></ul>
+			</div>
+		</div>
+		
+		<!-- Directory Page -->
+		<div data-role="page" id="directory">
+			
+			<!-- Fixed Header -->
+			<div id="directory-header" style="height:83px;" data-role="header">	
+				
+				<!-- Actual header contents --> 
+				<div style="position:relative;width:100%;height:49.5px;" class="header blue-grad">
+					
+					<!-- Loading Indicator -->	
+					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+						
+					<!-- Title -->
+					<div class="header-title">Directory</div>
+					
+					<!-- Back button -->
+					<a class="back-button button-grad " style="margin-left:6px;height:17px" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				<div>
+			
+				<!-- Search bar (also fixed inside the header) --> 
+				<div class="searchbar">
+				
+					<!-- Search box --> 
+					<input placeholder="Find people..." id="directory-search" data-corners="false" type="search" name="search" id="search-basic" value="" />
+					
+					<!-- Department selector --> 
+					<select data-native-menu="true" data-mini="true" data-corners="false"  id="directory-select">
+					
+							<!-- All departments -->
+						   <option value="All">All Departments</option><option value="206">Academic Success Center</option><option value="115">Admissions</option><option value="9">Alumni</option><option value="209">Auxiliary Services</option><option value="85">Biogas/Incubator</option><option value="215">Biology</option><option value="178">Business Office</option><option value="203">Campus Safety</option><option value="187">Center for Culminating Undergraduate Experiences</option><option value="184">CETL</option><option value="88">Chemical Engineering</option><option value="89">Chemistry / Biochemistry</option><option value="91">Computer Science</option><option value="92">Cooperative Education</option><option value="199">Customer Service and Programs</option><option value="86">Department of Business</option><option value="185">Development</option><option value="94">Electrical &amp; Computer Engineering</option><option value="95">Engineering Physics</option><option value="24">Faculty</option><option value="197">Financial Aid</option><option value="192">Graduate Office</option><option value="181">Human Resources</option><option value="100">Industrial Engineering</option><option value="175">Information Technology</option><option value="190">Institutional Effectiveness</option><option value="198">International Programs</option><option value="214">Kagle Leadership Initiatives</option><option value="230">Kettering Dining Services</option><option value="102">Liberal Studies</option><option value="183">Library</option><option value="200">Marketing, Communications and Enrollment</option><option value="81">Math</option><option value="110">Mechanical Engineering</option><option value="234">Michigan Small Business Development Center (MI-SBDC)</option><option value="111">Office of Multicultural Student Initiatives</option><option value="193">Office of Sponsored Research</option><option value="217">-Graduate Assistants Program</option><option value="189">Office of the President</option><option value="177">Physical Plant</option><option value="82">Physics</option><option value="179">PR</option><option value="113">Pre-College Programs</option><option value="201">Provost's Office</option><option value="188">Recreation Center</option><option value="176">Registrar's Office</option><option value="211">Residence Life</option><option value="25">Staff</option><option value="186">Student Life</option><option value="213">Student Life Programs</option><option value="212">Student Life Administrators</option><option value="205">Greek Life</option><option value="180">University Advancement</option><option value="194">Video Studios</option><option value="195">Wellness Center</option>
+					</select>
+				</div>
+			</div>
+			
+			
+			<!-- Directory Scroller -->
+			<div id="directory-scroller" style="margin-top:1px" class="scroller fixed-searchbar-above"> 
+				
+				<!-- Directory results --> 
+				<ul style="margin-top:-1px" id='directory-list' data-role="listview"></ul>
 			</div>
 		</div>
 	</body>	

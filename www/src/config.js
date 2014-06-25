@@ -24,7 +24,8 @@ var KU_Config = {
 	LOAD_INDICATOR_DELAY: 400,						// minimum spinner time
 	ISCROLL: !(overthrow.support === "native"),		// iScroll only?
 	PAGES_TO_LOAD: 2,								// number of pages to load at a time
-
+	INCR_WAIT_TIME: 800,							// ms to wait before incremental search
+	
 	/**********************************************************
 	 * Global error message
 	 *********************************************************/
