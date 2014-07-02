@@ -47,11 +47,6 @@ var KU_Mods = {
 		$(page + ' .scroller').attr('style','');
 		$(page + ' .scroller').removeClass('scroller');
 		$(page + ' .header').css('position','relative');
-	
-		//$(page + ' .searchbar').css('position','relative');
-		//$(page + ' .searchbar').css('height','32px');
-		//$(page + ' .searchbar').css('top','');
-		//$(page + ' .searchbar').removeClass('searchbar');
 		
 		// Resize the window for iScroll container
 		$(window).trigger("resize");
@@ -108,8 +103,8 @@ $(window).on("throttledresize", function (event){
 	// throttle has limited freq compared to regular resize
 	// TODO make header height dynamic!
 	if(!KU_Config.ISCROLL) {
-		$('.scroller').css('height', $(window).height() - 49.5);
-		$('.scroller.fixed-searchbar-above').css('height', $(window).height() - 49.5 - 36);
+		$('.scroller').css('height', $(window).height() - 50);
+		$('.scroller.fixed-searchbar-above').css('height', $(window).height() - 50 - 36);
 	}
 	
 	// Fix search bar size 
@@ -117,5 +112,5 @@ $(window).on("throttledresize", function (event){
 	// 151 is the width of the select and 1px for border !
 	// TODO make this more dynamic size!!
 	$('#directory .searchbar .ui-input-search').css('width', $(window).width() - 136);
-	
+	$('#library .searchbar .ui-input-search').css('width', $(window).width() - 136);
 });

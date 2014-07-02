@@ -17,9 +17,9 @@
 
 
 /**********************************************************
- * Directory search bar (overrides)
+ * Directory or library search bar (overrides)
  *********************************************************/
-#directory .ui-input-search{
+#directory .ui-input-search, #library .ui-input-search{
 	position:relative;
 	float:left;
 	width:0px;
@@ -31,9 +31,9 @@
 }
 
 /**********************************************************
- * Directory select (remove padding and shadow)
+ * Directory or library select (remove padding and shadow)
  *********************************************************/
-#directory .searchbar .ui-select .ui-btn{
+#directory .searchbar .ui-select .ui-btn, #library .searchbar .ui-select .ui-btn{
 	padding-top:0px !important;
 	padding-bottom:0px !important;
 	padding-left:2px !important;
@@ -47,9 +47,9 @@
 }
 
 /**********************************************************
- * Directory select (center text)
+ * Directory or library select (center text)
  *********************************************************/
-#directory .ui-select span{
+#directory .ui-select span, #library .ui-select span{
 	position:relative;
 	-webkit-transform:translateY(-50%);
 	-ms-transform:translateY(-50%);
@@ -58,9 +58,9 @@
 }
 
 /**********************************************************
- * Directory select (size appropriately)
+ * Directory or library select (size appropriately)
  *********************************************************/
-#directory .ui-select{
+#directory .ui-select, #library .ui-select{
 	float:right;
 	height:32px;
 	width:136px;
@@ -74,7 +74,7 @@
  *********************************************************/
 .searchbar{
 
-	top:49.5px;
+	top:49px;
 	position:absolute;
 	height:32px;
 	border-top: 1px solid #AAA;
@@ -97,6 +97,7 @@
  *********************************************************/
 .iscroll-custom, .iscroll-custom div.iscroll-scroller {
 	width: 100% !important;
+	
 }
 
 /**********************************************************
@@ -160,7 +161,7 @@ a {
   width: 100%;
   height: 0px;
   position: absolute;
-  top: 49.5px;
+  top: 50px;
   right: 0;
   bottom: 20%;
   left: 0;
@@ -226,6 +227,20 @@ a {
 	max-height:110px !important;
 	max-width:90px !important;
 }
+
+
+/**********************************************************
+ * Library list icons
+ *********************************************************/
+.library-icon{
+	left:11px !important;
+	top:15px !important;
+	height:110px !important;
+	width:90px !important;
+	max-height:110px !important;
+	max-width:90px !important;
+}
+
 
 /**********************************************************
  * Main text (list items on home)

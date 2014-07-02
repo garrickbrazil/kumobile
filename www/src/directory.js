@@ -27,6 +27,7 @@
 	loading: false,				// is directory loading ?
 	LOAD_THRESHOLD_PX: 660,		// pixels from the bottom trigger load
 	reachedEnd: false,			// have we reached the end?
+	typing: false,						// currently typing?
 	
 	/**********************************************************
 	 * Get next page
@@ -53,7 +54,7 @@
 				// Compile URL
 				var url = 'http://www.kettering.edu/faculty-staff/directory?' 
 							+ 'field_faculty_staff_first_value=' 
-							+ '&field_faculty_staff_last_value=' + this.lastValue 
+							+ '&field_faculty_staff_last_value=' + encodeURIComponent(this.lastValue) 
 							+ '&field_phone_extension_value=&tid=' + this.tid
 							+ '&page=0' + this.page;
 			}
@@ -67,7 +68,7 @@
 				// Compile URL
 				var url = 'http://www.kettering.edu/faculty-staff/directory?' 
 							+ 'field_faculty_staff_first_value=' 
-							+ '&field_faculty_staff_last_value=' + this.lastValue 
+							+ '&field_faculty_staff_last_value=' + encodeURIComponent(this.lastValue) 
 							+ '&field_phone_extension_value=&tid=' + this.tid;	
 			}
 			
@@ -92,8 +93,8 @@
 						function(index){
 							
 							// Defaults
-							var padding = 72;
-							var minH = "110px;";
+							var padding = 76;
+							var minH = "120px;";
 							var imgClass = "directory-icon";
 							var defaultIcon = '/sites/all/themes/kettering/images/placeholders/11.jpg';
 							
@@ -200,6 +201,10 @@
 			});	
 		}
 	},
+	
+	/**********************************************************
+	 * Reinitialize
+	 *********************************************************/
 	reinitialize: function(){
 		
 		this.listQueue = new Array();
@@ -207,6 +212,9 @@
 		this.queue = 0;
 		this.loading = false;
 		this.reachedEnd = false;
+
+		// Clear previous scrollbar!
+		if(KU_Config.ISCROLL) $(window).trigger("resize");
 	}
 };
 
@@ -230,7 +238,7 @@ $(document).on("pageinit","#directory",function(event){
 			
 			// At or past the threshold?
 			if(!KU_Directory.loading && current > (max - KU_Directory.LOAD_THRESHOLD_PX) 
-				&& $('#directory').is(':visible') && $('#directory .ui-input-clear-hidden').length > 0
+				&& $('#directory').is(':visible') && !(KU_Directory.typing)
 				&& !(KU_Directory.loading) && !(KU_Directory.reachedEnd)){
 				
 				// Get next page then refresh iScroll
@@ -260,7 +268,7 @@ $(document).on("pageinit","#directory",function(event){
 			// Break threshold?
 			if($('#directory-list').height() < (KU_Directory.LOAD_THRESHOLD_PX 
 				+ $('#directory-scroller').scrollTop() + $('#directory-scroller').outerHeight())
-				&& $('#directory').is(':visible') && $('#directory .ui-input-clear-hidden').length > 0 
+				&& $('#directory').is(':visible') && !(KU_Directory.typing) 
 				&& !(KU_Directory.loading) && !(KU_Directory.reachedEnd)){
 				
 				// Get the next page!
@@ -295,7 +303,6 @@ $(document).on("pagecreate","#directory",function(event){
 			
 			// Change TID then reinitialize
 			KU_Directory.tid = this.value;
-			console.log("Sending Change TID --> " + KU_Directory.tid + " " + KU_Directory.lastValue);
 			KU_Directory.reinitialize();
 			
 			// Download results
@@ -333,6 +340,7 @@ $(document).on("pagecreate","#directory",function(event){
 		
 			// Clear timeout
 			if(KU_Directory.timeoutSent) clearTimeout(KU_Directory.timeoutSent);
+			KU_Directory.typing = true;
 			
 			KU_Directory.timeoutSent = setTimeout(function(latestValue){
 				
@@ -347,6 +355,9 @@ $(document).on("pagecreate","#directory",function(event){
 					KU_Directory.reinitialize();
 					KU_Directory.getNextPage();
 				}
+				
+				KU_Directory.typing = false;
+				
 			}, KU_Config.INCR_WAIT_TIME, this.value);
 		}
 	});
