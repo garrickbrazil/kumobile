@@ -131,26 +131,25 @@ var KU_Mods = {
  *********************************************************/
 $(window).on("throttledresize", function (event){
 	
-	// calc(100% - 49.5px)
-	// This must be performed based on height of header
-	// not needed for iscroll which is setup differently
-	// throttle has limited freq compared to regular resize
-	// TODO make header height dynamic!
+	// Calculate scroller size
+	// More usable than css calc() which isn't always supported.
 	if(!KU_Config.ISCROLL) {
-		$('.scroller').css('height', $(window).height() - 50);
-		$('.scroller.below-searchbar').css('height', $(window).height() - 50 - 33);
+
+		// Regular scroller
+		$('.scroller').css('height', $(window).height() - $('.header').height() - 2);
+		$('.scroller').css('top', $('.header').height() + 2);
+		
+		// Scroller with search bar!
+		$('.scroller.below-searchbar').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
+		$('.scroller.below-searchbar').css('top', $('.header-above-searchbar').height() + 2);
 	}
 	
-	// Fix search bar size 
-	// calc(100% - 151px)
-	// 151 is the width of the select and 1px for border !
-	// TODO make this more dynamic size!!
+	// Fix search bar size
+	// More usable than css calc() which isn't always supported.	
+	$('.searchbar .ui-input-search').css('width', $(window).width() - $('.searchbar .ui-select').width());
+	$('.searchbar').css('top', $('.header').height());
 	
-	// General search bar minus select size
-	$('.searchbar .ui-input-search').css('width', $(window).width() - 136);
-	
-	// Transfer search bar minus transfer selects
-	$('#transfer .searchbar .ui-input-search').css('width', $(window).width() - 136);
-	$('#transfer-container-college .ui-select').css('width', $(window).width() - 136);
+	// Transfer college select bar minus transfer selects
+	$('#transfer-container-college .ui-select').css('width', $(window).width() - $('.searchbar .ui-select').width());
 
 });

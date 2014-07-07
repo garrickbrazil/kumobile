@@ -19,8 +19,8 @@
  * Container for header (proper sizing)
  *********************************************************/
 .header-above-searchbar{
-
-	height:81px!important;
+	height: 5.5em!important;
+	margin-bottom:1px;
 }
 
 /**********************************************************
@@ -45,124 +45,64 @@ ul.below-searchbar{
 	position:relative!important;
 	float:left!important;
 	width:0px;
-	height:32px!important;
 	border-width:0px!important;
-	margin-top:0px !important;
 	padding-right:0px !important;
 	display: inline-block!important;
+	height:100%!important;
 }
 
 /**********************************************************
  * Searchbar select dropdown  (remove padding and shadow)
  *********************************************************/
 .searchbar .ui-select .ui-btn{
-	padding-top:0px !important;
-	padding-bottom:0px !important;
-	padding-left:2px !important;
-	height:32px !important;
 	webkit-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	-moz-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	border-style: none!important;
 	border-left: 1px solid #AAA!important;
 	display:block!important;
-}
-
-/**********************************************************
- * Searchbar clear input right center
- *********************************************************/
-.searchbar .ui-input-search a:after{
-
-	left:14px!important;
-	top:14px!important;
+	height:100%!important;
+	padding:0px!important;
+	padding-right:2.5em!important;
+	padding-left:.5em!important;
 }
 
 /**********************************************************
  * Searchbar clear input right center
  *********************************************************/
 .searchbar .ui-input-search a{
-	width:28px!important;
-	margin-right:5px!important;
+	margin-top:-.875em!important;
 }
 /**********************************************************
  * Searchbar select dropdown  (center text)
  *********************************************************/
 .searchable{
-	position:relative!important;
-	-webkit-transform:translateY(-50%)!important;
-	-ms-transform:translateY(-50%)!important;
-	transform:translateY(-50%)!important;
-	top:50%!important;
-	padding-left:26px!important;
-	padding-left:26px!important;
-	padding-top:5px!important;
+	height:100%!important;
 }
 
 /**********************************************************
  * Searchbar select dropdown (center text)
  *********************************************************/
 .searchbar .ui-select span{
-	position:relative!important;;
-	-webkit-transform:translateY(-50%)!important;;
-	-ms-transform:translateY(-50%)!important;;
-	transform:translateY(-50%)!important;;
-	top:50%!important;;
+	position:relative!important;
+	-webkit-transform:translateY(-50%)!important;
+	-ms-transform:translateY(-50%)!important;
+	transform:translateY(-50%)!important;
+	top:50%!important;
+	font-size:1em;
 }
 
 /**********************************************************
  * Searchbar select dropdown (size appropriately)
  *********************************************************/
 .searchbar .ui-select{
-	float:right;
-	height:32px;
-	width:136px;
-	margin: 0px !important;
-	padding:0px !important;
-	display: inline-block;
-}
-
-/**********************************************************
- * DISABLED Transfer State select dropdown (size appropriately)
- *********************************************************/
-.transfer-container-secondary-select .ui-select{
-	float:right;
-	height:32px;
-	width:auto;
-	margin: 0px !important;
-	padding:0px !important;
-	display: inline-block;
-}
-
-/**********************************************************
- * Transfer College select dropdown (size appropriately)
- *********************************************************/
-#transfer-container-college .ui-select{
 	position:relative!important;
-	float:left!important;
-	width:0px;
-	height:32px!important;
-	border-width:0px!important;
-	margin-top:0px !important;
-	padding-right:0px !important;
-	display: inline-block!important;
-	text-align: left!important;
-}
-/**********************************************************
- * Transfer Type select dropdown (size appropriately)
- *********************************************************/
-.hidden{
-	display:none!important;
-}
-/**********************************************************
- * Transfer Type select dropdown (size appropriately)
- *********************************************************/
-.transfer-container-type .ui-select{
-	float:right;
-	height:32px;
-	width:136px;
+	float:right!important;
+	width:136px; /* Purposely not em */
 	margin: 0px !important;
 	padding:0px !important;
 	display: inline-block;
+	height:100%!important;
 }
 
 /**********************************************************
@@ -171,24 +111,15 @@ ul.below-searchbar{
 #transfer-container-college .ui-select .ui-btn{
 	text-align: left!important;
 	font-weight:normal!important;
-	font:15px sans-serif!important;
+	font:1.2em sans-serif!important;
 }
 
-/**********************************************************
- * Transfer College button dropdown (override webkit small)
- *********************************************************/
-#transfer-container-college .ui-select .ui-btn {
-	font:15px sans-serif!important;
-	border-left: 0px solid #AAA!important;
-}
 /**********************************************************
  * Search bar setup
  *********************************************************/
 .searchbar{
-	width:100%;
-	top:48px;
 	position:absolute;
-	height:32px;
+	height:2.3em!important;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #AAA;
 }
@@ -198,10 +129,13 @@ ul.below-searchbar{
  *********************************************************/
 .loading-indicator{
 	display:none;
-	padding-top:10px;
-	padding-right:12px;
-	width:20px;
-	height:20px;
+	width:1.65em!important;
+	height:1.65em!important;
+	padding-right:1.15em!important;
+	-webkit-transform:translateY(-50%)!important;
+	-ms-transform:translateY(-50%)!important;
+	transform:translateY(-50%)!important;
+	top:50%!important;
 }
 
 /**********************************************************
@@ -244,7 +178,7 @@ a {
  *********************************************************/
 .header{
   width: 100%;
-  height: 48px;
+  height: 3.2em;
   position: absolute;
   padding:0px;
   margin:0px;
@@ -262,7 +196,7 @@ a {
 	position:absolute;
 	font-family:serif;
 	font-weight:bold;
-	font-size:21px;
+	font-size:1.4em;
 	margin:0;
 	padding:0;
 	text-align:center;
@@ -278,7 +212,7 @@ a {
   width: 100%;
   height: 0px;
   position: absolute;
-  top: 50px;
+  top: 0;
   right: 0;
   bottom: 20%;
   left: 0;
@@ -293,7 +227,6 @@ a {
  * Scroller (override when search bar is above!!!)
  *********************************************************/
 .scroller.below-searchbar{
-	top: 82px !important;
 	margin-top:1px!important;
 }
 
@@ -301,24 +234,24 @@ a {
  * Main icon (home page icons)
  *********************************************************/
 .main-icon{
-	left:13px !important;
-	top:5px !important;
-	height:63px !important;
-	width:63px !important;
-	max-height:63px !important;
-	max-width:63px !important;
+	left:.8em !important;
+	top:.2em !important;
+	height:4.0em !important;
+	width:4.0em !important;
+	max-height:4.0em !important;
+	max-width:4.0em !important;
 }
 
 /**********************************************************
  * News list icons
  *********************************************************/
 .news-icon{
-	left:13px !important;
-	top:10px !important;
-	height:70px !important;
-	width:70px !important;
-	max-height:70px !important;
-	max-width:70px !important;
+	left:.7em !important;
+	top:.8em !important;
+	height:4.5em !important;
+	width:4.5em !important;
+	max-height:4.5em !important;
+	max-width:4.5em !important;
 }
 
 
@@ -326,24 +259,25 @@ a {
  * Events list icons
  *********************************************************/
 .events-icon{
-	left:10px !important;
-	top:8px !important;
-	height:70px !important;
-	width:70px !important;
-	max-height:70px !important;
-	max-width:70px !important;
+	left:.7em !important;
+	top:.8em !important;
+	height:4.5em !important;
+	width:4.5em !important;
+	max-height:4.5em !important;
+	max-width:4.5em !important;
 }
 
 /**********************************************************
  * Directory list icons
  *********************************************************/
 .directory-icon{
-	left:11px !important;
-	top:15px !important;
-	height:110px !important;
-	width:90px !important;
-	max-height:110px !important;
-	max-width:90px !important;
+	
+	left:.7em !important;
+	top:1em !important;
+	height:7.333em !important;
+	width:6.0em !important;
+	max-height:7.33em !important;
+	max-width:6.0em !important;
 }
 
 
@@ -351,12 +285,13 @@ a {
  * Library list icons
  *********************************************************/
 .library-icon{
-	left:11px !important;
-	top:15px !important;
-	height:110px !important;
-	width:90px !important;
-	max-height:110px !important;
-	max-width:90px !important;
+	
+	left:.7em !important;
+	top:1em !important;
+	height:7.333em !important;
+	width:6.0em !important;
+	max-height:7.33em !important;
+	max-width:6.0em !important;
 }
 
 
@@ -364,10 +299,9 @@ a {
  * Main text (list items on home)
  *********************************************************/
 .main-text{
-	padding-left:54px !important;
+	padding-left:3.45em !important;
 	padding-top:0px !important;
 	padding-bottom:0px !important;
-	margin:4px !important;
 }
 
 /**********************************************************

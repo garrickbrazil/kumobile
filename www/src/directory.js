@@ -33,7 +33,7 @@
 	 * Get next page
 	 *********************************************************/
 	getNextPage: function (){
-
+		
 		if(!this.loading){
 			
 			// Now loading
@@ -93,8 +93,8 @@
 						function(index){
 							
 							// Defaults
-							var padding = 76;
-							var minH = "120px;";
+							var padding = "5.2em";
+							var minH = "7.85em;";
 							var imgClass = "directory-icon";
 							var defaultIcon = '/sites/all/themes/kettering/images/placeholders/11.jpg';
 							
@@ -126,12 +126,15 @@
 								'src': source
 							}).appendTo(listitem);
 							
+							var textContainer = $('<div></div>', {
+								'style':'line-height:1.1em!important;padding-left:' + padding + "!important;"
+							}).appendTo(listitem);
+							
 							// Make h1
 							$('<h1></h1>',{
-								'class':"main-text",
-								'style':'white-space:normal;padding-left:' + padding + 'px!important;',
+								'style':'white-space:normal;',
 								'text': title
-							}).appendTo(listitem);
+							}).appendTo(textContainer);
 							
 							$('.inside span', this).each(
 								function(i){
@@ -149,10 +152,9 @@
 									if(!(info.replace(/\s+/g, '') == "" || $(this).find('.tel').length > 0)){
 										// Make p
 										$('<p></p>',{
-											'class':'main-text',
 											'text': info,
-											'style': (bold)?('font-weight:bold;padding-left:' + padding + 'px!important;'):('padding-left:' + padding + 'px!important;')
-										}).appendTo(listitem);
+											'style': (bold)?('font-weight:bold;'):('')
+										}).appendTo(textContainer);
 									}
 							});
 							

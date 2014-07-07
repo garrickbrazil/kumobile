@@ -140,7 +140,7 @@ var KU_Events = {
 							// Make link
 							var link = $('<a></a>',{
 								'class':"grey-grad",
-								'style':"min-height:65px;",
+								'style':"min-height:4.6em;",
 								'data-transition':'none',
 								'href':'#' + pageid
 							});
@@ -151,19 +151,22 @@ var KU_Events = {
 								'src': source
 							}).appendTo(link);
 							
+							var textContainer = $('<div></div>', {
+								'class':'main-text',
+								'style':'line-height:1.1em!important;'
+							}).appendTo(link);
+							
 							// Make h1
 							$('<h1></h1>',{
-								'class':"main-text",
 								'style':'white-space:normal',
 								'text': title
-							}).appendTo(link);
+							}).appendTo(textContainer);
 							
 							// Make p
 							$('<p></p>',{
-								'class':'main-text',
-								//style:'font-weight:bold',
+								'style':'white-space:normal',
 								'text': info
-							}).appendTo(link);
+							}).appendTo(textContainer);
 							
 							
 							var page = $('<div></div>',{

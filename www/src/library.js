@@ -88,8 +88,8 @@
 						function(index){
 							
 							// Defaults
-							var padding = 76;
-							var minH = "120px;";
+							var padding = "5.2em";
+							var minH = "7.85em;";
 							var imgClass = "library-icon";
 							var defaultIcon = '/sites/all/themes/kettering/images/placeholders/11.jpg';
 							
@@ -157,34 +157,32 @@
 								})
 							.appendTo(listitem);
 							
+							var textContainer = $('<div></div>', {
+								'style':'line-height:1.1em!important;padding-left:' + padding + "!important;"
+							}).appendTo(listitem);
 							
 							// Make h1
 							$('<h1></h1>',{
-								'class':"main-text",
-								'style':'white-space:normal;padding-left:' + padding + 'px!important;',
+								'style':'white-space:normal;',
 								'text': title
-							}).appendTo(listitem);
+							}).appendTo(textContainer);
 							
 							// Make p
 							$('<p></p>',{
-								'class':'main-text',
 								'text': "By " + author,
-								'style': 'padding-left:' + padding + 'px!important;'
-							}).appendTo(listitem);
+							}).appendTo(textContainer);
 							
 							// Make p
 							$('<p></p>',{
-								'class':'main-text',
 								'text': "Call number: " + call_number,
-								'style': 'white-space:normal;padding-left:' + padding + 'px!important;'
-							}).appendTo(listitem);
+								'style': 'white-space:normal;'
+							}).appendTo(textContainer);
 							
 							// Make p
 							$('<p></p>',{
-								'class':'main-text',
 								'text': holdings_statement,
-								'style': 'white-space:normal;padding-left:' + padding + 'px!important;'
-							}).appendTo(listitem);
+								'style': 'white-space:normal;'
+							}).appendTo(textContainer);
 							
 							
 							// If no lists then make them!

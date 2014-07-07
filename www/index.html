@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, height=device-height, target-densitydpi=medium-dpi">
+	
 	<head>
 		
 		<title>KU App</title>
@@ -39,7 +40,7 @@
 				<div class="header-title">
 					
 					<!-- The Bulldog! --> 
-					<img border="0" src="images/bulldog.png" alt="Bulldog" style="vertical-align:bottom;width:38px;height:28px;padding-right:13px;"/>
+					<img border="0" src="images/bulldog.png" alt="Bulldog" style="vertical-align:bottom;height:1.4em!important;padding-right:.3em!important;"/>
 					
 					Kettering University
 				</div>
@@ -54,8 +55,11 @@
 					<li>
 						<a class="grey-grad"  href="#news">
 						<img class="ui-li-icon main-icon" src="images/news.png" alt="news.png"/>
-						<h1 class="main-text">News</h1>
-						<p class="main-text">See the latest news on campus.</p>
+						
+						<div class="main-text">
+							<h1>News</h1>
+							<p>See the latest news on campus.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -63,8 +67,11 @@
 					<li>
 						<a class="grey-grad"  href="#events">
 						<img class="ui-li-icon main-icon" src="images/events.png" alt="events.png"/>
-						<h1 class="main-text">Events</h1>
-						<p class="main-text">Get information on the upcoming campus events.</p>
+						
+						<div class="main-text">
+							<h1>Events</h1>
+							<p>Get information on the upcoming campus events.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -72,8 +79,10 @@
 					<li>
 						<a class="grey-grad" href="#directory">
 						<img class="ui-li-icon main-icon" src="images/directory.png" alt="directory.png"/>
-						<h1 class="main-text">Directory</h1>
-						<p class="main-text">Search for additional information on faculty/staff.</p>
+						<div class="main-text">
+							<h1>Directory</h1>
+							<p>Search for additional information on faculty/staff.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -81,8 +90,10 @@
 					<li>
 						<a class="grey-grad" href="#library">
 						<img class="ui-li-icon main-icon" src="images/library.png" alt="library.png"/>
-						<h1 class="main-text">Library</h1>
-						<p class="main-text">See the available books in the Kettering library.</p>
+						<div class="main-text">
+							<h1>Library</h1>
+							<p>See the available books in the Kettering library.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -90,8 +101,10 @@
 					<li>
 						<a class="grey-grad" href="#transfer">
 						<img class="ui-li-icon main-icon" src="images/transfer.png" alt="transfer.png"/>
-						<h1 class="main-text">Transfer</h1>
-						<p class="main-text">Find out which courses will transfer to Kettering.</p>
+						<div class="main-text">						
+							<h1>Transfer</h1>
+							<p>Find out which courses will transfer to Kettering.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -99,8 +112,10 @@
 					<li>
 						<a class="grey-grad" href="#">
 						<img class="ui-li-icon main-icon" src="images/scheduler.png" alt="scheduler.png"/>
-						<h1 class="main-text">Scheduler</h1>
-						<p class="main-text">Get help figuring out your schedule.</p>
+						<div class="main-text">
+							<h1>Scheduler</h1>
+							<p>Get help figuring out your schedule.</p>
+						</div>
 						</a>
 					</li>
 					
@@ -108,8 +123,10 @@
 					<li>
 						<a class="grey-grad" href="#">
 						<img class="ui-li-icon main-icon" src="images/map.png" alt="map.png"/>
-						<h1 class="main-text">Map</h1>
-						<p class="main-text">View a map of the campus and nearby POI's</p>
+						<div class="main-text">
+							<h1>Map</h1>
+							<p>View a map of the campus and nearby POI's</p>
+						</div>
 						</a>
 					</li>
 				</ul>
@@ -286,19 +303,19 @@
 				<!-- Search bar for college --> 
 				<div style="display:none;" class="searchbar" id="transfer-collegeBar">
 					
-					<span id="transfer-container-college">
-						
-						<!-- College box --> 
-						<select class="long-select-inner" id="transfer-college" data-native-menu="true" data-mini="true" data-corners="false">
-						</select>
-					</span>
-					
 					<span class="transfer-container-type">
 						<!-- Type selector --> 
 						<select data-native-menu="true" data-mini="true" data-corners="false"  id="transfer-select">
 								
 							<!-- Type departments -->
 							<option value="course">Course</option> <option selected="selected" value="college">College</option>
+						</select>
+					</span>
+					
+					<span id="transfer-container-college">
+						
+						<!-- College box --> 
+						<select class="long-select-inner" id="transfer-college" data-native-menu="true" data-mini="true" data-corners="false">
 						</select>
 					</span>
 				</div>
