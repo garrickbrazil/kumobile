@@ -15,25 +15,47 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 /**********************************************************
- * Directory or library search bar (overrides)
+ * Container for header (proper sizing)
  *********************************************************/
-#directory .ui-input-search, #library .ui-input-search{
-	position:relative;
-	float:left;
-	width:0px;
-	height:32px;
-	border-width:0px; 
-	margin-top:0px !important;
-	padding-right:0px !important;
-	display: inline-block;
+.header-above-searchbar{
+
+	height:81px!important;
 }
 
 /**********************************************************
- * Directory or library select (remove padding and shadow)
+ * long-select-inner
  *********************************************************/
-#directory .searchbar .ui-select .ui-btn, #library .searchbar .ui-select .ui-btn{
+.long-select-inner{
+	
+	padding-left: 8px!important;
+}
+
+/**********************************************************
+ * Search bar input box (overrides)
+ *********************************************************/
+ul.below-searchbar{
+	margin-top:-1px!important;
+}
+
+/**********************************************************
+ * Search bar input box (overrides)
+ *********************************************************/
+.searchbar .ui-input-search{
+	position:relative!important;
+	float:left!important;
+	width:0px;
+	height:32px!important;
+	border-width:0px!important;
+	margin-top:0px !important;
+	padding-right:0px !important;
+	display: inline-block!important;
+}
+
+/**********************************************************
+ * Searchbar select dropdown  (remove padding and shadow)
+ *********************************************************/
+.searchbar .ui-select .ui-btn{
 	padding-top:0px !important;
 	padding-bottom:0px !important;
 	padding-left:2px !important;
@@ -41,26 +63,56 @@
 	webkit-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	-moz-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
-	border-style: none;
-	border-left: 1px solid #AAA;
-	display:block;
+	border-style: none!important;
+	border-left: 1px solid #AAA!important;
+	display:block!important;
 }
 
 /**********************************************************
- * Directory or library select (center text)
+ * Searchbar clear input right center
  *********************************************************/
-#directory .ui-select span, #library .ui-select span{
-	position:relative;
-	-webkit-transform:translateY(-50%);
-	-ms-transform:translateY(-50%);
-	transform:translateY(-50%);
-	top:50%;
+.searchbar .ui-input-search a:after{
+
+	left:14px!important;
+	top:14px!important;
 }
 
 /**********************************************************
- * Directory or library select (size appropriately)
+ * Searchbar clear input right center
  *********************************************************/
-#directory .ui-select, #library .ui-select{
+.searchbar .ui-input-search a{
+	width:28px!important;
+	margin-right:5px!important;
+}
+/**********************************************************
+ * Searchbar select dropdown  (center text)
+ *********************************************************/
+.searchable{
+	position:relative!important;
+	-webkit-transform:translateY(-50%)!important;
+	-ms-transform:translateY(-50%)!important;
+	transform:translateY(-50%)!important;
+	top:50%!important;
+	padding-left:26px!important;
+	padding-left:26px!important;
+	padding-top:5px!important;
+}
+
+/**********************************************************
+ * Searchbar select dropdown (center text)
+ *********************************************************/
+.searchbar .ui-select span{
+	position:relative!important;;
+	-webkit-transform:translateY(-50%)!important;;
+	-ms-transform:translateY(-50%)!important;;
+	transform:translateY(-50%)!important;;
+	top:50%!important;;
+}
+
+/**********************************************************
+ * Searchbar select dropdown (size appropriately)
+ *********************************************************/
+.searchbar .ui-select{
 	float:right;
 	height:32px;
 	width:136px;
@@ -70,14 +122,74 @@
 }
 
 /**********************************************************
+ * DISABLED Transfer State select dropdown (size appropriately)
+ *********************************************************/
+.transfer-container-secondary-select .ui-select{
+	float:right;
+	height:32px;
+	width:auto;
+	margin: 0px !important;
+	padding:0px !important;
+	display: inline-block;
+}
+
+/**********************************************************
+ * Transfer College select dropdown (size appropriately)
+ *********************************************************/
+#transfer-container-college .ui-select{
+	position:relative!important;
+	float:left!important;
+	width:0px;
+	height:32px!important;
+	border-width:0px!important;
+	margin-top:0px !important;
+	padding-right:0px !important;
+	display: inline-block!important;
+	text-align: left!important;
+}
+/**********************************************************
+ * Transfer Type select dropdown (size appropriately)
+ *********************************************************/
+.hidden{
+	display:none!important;
+}
+/**********************************************************
+ * Transfer Type select dropdown (size appropriately)
+ *********************************************************/
+.transfer-container-type .ui-select{
+	float:right;
+	height:32px;
+	width:136px;
+	margin: 0px !important;
+	padding:0px !important;
+	display: inline-block;
+}
+
+/**********************************************************
+ * Transfer College button dropdown (left align, no bold)
+ *********************************************************/
+#transfer-container-college .ui-select .ui-btn{
+	text-align: left!important;
+	font-weight:normal!important;
+	font:15px sans-serif!important;
+}
+
+/**********************************************************
+ * Transfer College button dropdown (override webkit small)
+ *********************************************************/
+#transfer-container-college .ui-select .ui-btn {
+	font:15px sans-serif!important;
+	border-left: 0px solid #AAA!important;
+}
+/**********************************************************
  * Search bar setup
  *********************************************************/
 .searchbar{
-
-	top:49px;
+	width:100%;
+	top:48px;
 	position:absolute;
 	height:32px;
-	border-top: 1px solid #AAA;
+	border-top: 1px solid #000;
 	border-bottom: 1px solid #AAA;
 }
 
@@ -97,7 +209,6 @@
  *********************************************************/
 .iscroll-custom, .iscroll-custom div.iscroll-scroller {
 	width: 100% !important;
-	
 }
 
 /**********************************************************
@@ -111,15 +222,21 @@ a {
  * Back buttons
  *********************************************************/
 .back-button{
-	-webkit-transform:translateY(-50%);
-	-ms-transform:translateY(-50%);
-	transform:translateY(-50%);
-	top:50%;
-	position:absolute;
-	text-align:center;
-	display:inline;
-	vertical-align:middle;
-	margin:0px;
+	-webkit-transform:translateY(-50%)!important;
+	-ms-transform:translateY(-50%)!important;
+	transform:translateY(-50%)!important;
+	top:50%!important;
+	position:absolute!important;
+	text-align:center!important;
+	display:inline!important;
+	vertical-align:middle!important;
+	margin:0px!important;
+	left:6px!important;
+	font-size:13.5px!important;
+	padding-top:10x!important;
+	padding-bottom:10px!important;
+	padding-right:11.5px!important;
+	padding-left:32px!important;
 }
 
 /**********************************************************
@@ -175,8 +292,9 @@ a {
 /**********************************************************
  * Scroller (override when search bar is above!!!)
  *********************************************************/
-.fixed-searchbar-above{
-	top: 83px;
+.scroller.below-searchbar{
+	top: 82px !important;
+	margin-top:1px!important;
 }
 
 /**********************************************************

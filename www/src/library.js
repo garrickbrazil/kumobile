@@ -176,7 +176,7 @@
 							$('<p></p>',{
 								'class':'main-text',
 								'text': "Call number: " + call_number,
-								'style': 'padding-left:' + padding + 'px!important;'
+								'style': 'white-space:normal;padding-left:' + padding + 'px!important;'
 							}).appendTo(listitem);
 							
 							// Make p
@@ -248,6 +248,10 @@
  *********************************************************/
 $(document).on("pageinit","#library",function(event){
 	
+	// Bug in JQM? Clear button flashes when loading page?
+	// This line will fix it.
+	$("#library .ui-input-clear").addClass("ui-input-clear-hidden");
+	
 	// Need to initialize iScroll scrolling?
 	if(KU_Config.ISCROLL){
 		
@@ -299,6 +303,7 @@ $(document).on("pageinit","#library",function(event){
 			}
 		});
 	}
+	
 });
 
 

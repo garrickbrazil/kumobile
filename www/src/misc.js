@@ -76,19 +76,53 @@ var KU_Mods = {
 		var aZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 		var nM = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0123456789"
 		
-		var map = []
-		var converted = ""
+		var map = [];
+		var converted = "";
 
 		for (var index = 0; index <= aZ.length; index++) {map[aZ.substr(index, 1)] = nM.substr(index, 1)}
 
 		for (var index = 0; index <= message.length; index++) {
 			
-			var c = message.charAt(index)
-			converted  += (c in map ? map[c] : c)
+			var c = message.charAt(index);
+			converted  += (c in map ? map[c] : c);
 		}
 
 		return converted;
 
+	},
+	convertStateToFull: function(abr){
+		
+		var states = new Array(                         {'name':'Alabama', 'abbrev':'AL'},          {'name':'Alaska', 'abbrev':'AK'},
+			{'name':'Arizona', 'abbrev':'AZ'},          {'name':'Arkansas', 'abbrev':'AR'},         {'name':'California', 'abbrev':'CA'},
+			{'name':'Colorado', 'abbrev':'CO'},         {'name':'Connecticut', 'abbrev':'CT'},      {'name':'Delaware', 'abbrev':'DE'},
+			{'name':'Florida', 'abbrev':'FL'},          {'name':'Georgia', 'abbrev':'GA'},          {'name':'Hawaii', 'abbrev':'HI'},
+			{'name':'Idaho', 'abbrev':'ID'},            {'name':'Illinois', 'abbrev':'IL'},         {'name':'Indiana', 'abbrev':'IN'},
+			{'name':'Iowa', 'abbrev':'IA'},             {'name':'Kansas', 'abbrev':'KS'},           {'name':'Kentucky', 'abbrev':'KY'},
+			{'name':'Louisiana', 'abbrev':'LA'},        {'name':'Maine', 'abbrev':'ME'},            {'name':'Maryland', 'abbrev':'MD'},
+			{'name':'Massachusetts', 'abbrev':'MA'},    {'name':'Michigan', 'abbrev':'MI'},         {'name':'Minnesota', 'abbrev':'MN'},
+			{'name':'Mississippi', 'abbrev':'MS'},      {'name':'Missouri', 'abbrev':'MO'},         {'name':'Montana', 'abbrev':'MT'},
+			{'name':'Nebraska', 'abbrev':'NE'},         {'name':'Nevada', 'abbrev':'NV'},           {'name':'New Hampshire', 'abbrev':'NH'},
+			{'name':'New Jersey', 'abbrev':'NJ'},       {'name':'New Mexico', 'abbrev':'NM'},       {'name':'New York', 'abbrev':'NY'},
+			{'name':'North Carolina', 'abbrev':'NC'},   {'name':'North Dakota', 'abbrev':'ND'},     {'name':'Ohio', 'abbrev':'OH'},
+			{'name':'Oklahoma', 'abbrev':'OK'},         {'name':'Oregon', 'abbrev':'OR'},           {'name':'Pennsylvania', 'abbrev':'PA'},
+			{'name':'Rhode Island', 'abbrev':'RI'},     {'name':'South Carolina', 'abbrev':'SC'},   {'name':'South Dakota', 'abbrev':'SD'},
+			{'name':'Tennessee', 'abbrev':'TN'},        {'name':'Texas', 'abbrev':'TX'},            {'name':'Utah', 'abbrev':'UT'},
+			{'name':'Vermont', 'abbrev':'VT'},          {'name':'Virginia', 'abbrev':'VA'},         {'name':'Washington', 'abbrev':'WA'},
+			{'name':'West Virginia', 'abbrev':'WV'},    {'name':'Wisconsin', 'abbrev':'WI'},        {'name':'Wyoming', 'abbrev':'WY'},
+			{'name':'British Columbia', 'abbrev':'BC'}, {'name':'District of Columnia', 'abbrev':'DC'}, {'name':'Ontario', 'abbrev':'ON'},
+			{'name':'Puerto Rico', 'abbrev':'PR'}, 		{'name':'Alberta', 'abbrev':'AB'}, 			{'name':'New Brunswick', 'abbrev':'NB'},
+			{'name':'Nova Scotia', 'abbrev':'NS'},		{'name':'Quebec', 'abbrev':'PQ'}
+			);
+		
+		
+		for(var index = 0; index < states.length; index++){
+			var value = states[index];
+			
+			if (value.abbrev == abr){
+				console.log("HEREERERE");
+				return value.name;
+			}
+		}
 	}
 };
 
@@ -104,13 +138,19 @@ $(window).on("throttledresize", function (event){
 	// TODO make header height dynamic!
 	if(!KU_Config.ISCROLL) {
 		$('.scroller').css('height', $(window).height() - 50);
-		$('.scroller.fixed-searchbar-above').css('height', $(window).height() - 50 - 36);
+		$('.scroller.below-searchbar').css('height', $(window).height() - 50 - 33);
 	}
 	
 	// Fix search bar size 
 	// calc(100% - 151px)
 	// 151 is the width of the select and 1px for border !
 	// TODO make this more dynamic size!!
-	$('#directory .searchbar .ui-input-search').css('width', $(window).width() - 136);
-	$('#library .searchbar .ui-input-search').css('width', $(window).width() - 136);
+	
+	// General search bar minus select size
+	$('.searchbar .ui-input-search').css('width', $(window).width() - 136);
+	
+	// Transfer search bar minus transfer selects
+	$('#transfer .searchbar .ui-input-search').css('width', $(window).width() - 136);
+	$('#transfer-container-college .ui-select').css('width', $(window).width() - 136);
+
 });

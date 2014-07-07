@@ -24,6 +24,7 @@
 		<script src="src/events.js"></script>
 		<script src="src/directory.js"></script>
 		<script src="src/library.js"></script>
+		<script src="src/transfer.js"></script>
 		<script src="src/home.js"></script>
 		<script src="src/misc.js"></script>
 				
@@ -87,7 +88,7 @@
 					
 					<!-- Transfer item -->
 					<li>
-						<a class="grey-grad" href="#">
+						<a class="grey-grad" href="#transfer">
 						<img class="ui-li-icon main-icon" src="images/transfer.png" alt="transfer.png"/>
 						<h1 class="main-text">Transfer</h1>
 						<p class="main-text">Find out which courses will transfer to Kettering.</p>
@@ -128,7 +129,7 @@
 				<div class="header-title">News</div>	
 				
 				<!-- Back button -->
-				<a class="button-grad back-button" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				<a class="button-grad back-button above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				
 			</div>
 			
@@ -165,10 +166,10 @@
 		<div data-role="page" id="directory">
 			
 			<!-- Fixed Header -->
-			<div id="directory-header" style="height:82px;" data-role="header">	
+			<div id="directory-header" class="header-above-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
-				<div style="height:49px" class="header blue-grad">
+				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
 					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
@@ -177,14 +178,14 @@
 					<div class="header-title">Directory</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad " style="top:49%;margin-left:6px;height:17px" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
 				<!-- Search bar (also fixed inside the header) --> 
 				<div class="searchbar">
 				
 					<!-- Search box --> 
-					<input placeholder="Find people..." id="directory-search" data-corners="false" type="search" name="search" id="search-basic" value="" />
+					<input class="searchable" placeholder="Find people..." id="directory-search" data-corners="false" type="search" value="" />
 					
 					<!-- Department selector --> 
 					<select data-native-menu="true" data-mini="true" data-corners="false"  id="directory-select">
@@ -197,10 +198,10 @@
 			
 			
 			<!-- Directory Scroller -->
-			<div id="directory-scroller" style="margin-top:1px" class="scroller fixed-searchbar-above"> 
+			<div id="directory-scroller" class="scroller below-searchbar"> 
 				
 				<!-- Directory results --> 
-				<ul style="margin-top:-1px" id='directory-list' data-role="listview"></ul>
+				<ul class="below-searchbar" id='directory-list' data-role="listview"></ul>
 			</div>
 		</div>
 		
@@ -208,10 +209,10 @@
 		<div data-role="page" id="library">
 			
 			<!-- Fixed Header -->
-			<div id="library-header" style="height:82px;" data-role="header">	
+			<div id="library-header" class="header-above-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
-				<div style="height:49px" class="header blue-grad">
+				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
 					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
@@ -220,30 +221,94 @@
 					<div class="header-title">Library</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad " style="top:49%;margin-left:6px;height:17px" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
 				<!-- Search bar (also fixed inside the header) --> 
 				<div class="searchbar">
 				
 					<!-- Search box --> 
-					<input placeholder="Find books..." id="library-search" data-corners="false" type="search" name="search" id="search-basic" value="" />
+					<input class="searchable" placeholder="Find books..." id="library-search" data-corners="false" type="search" value="" />
 					
 					<!-- Type selector --> 
 					<select data-native-menu="true" data-mini="true" data-corners="false"  id="library-select">
 							
-							<!-- Type departments -->
-							<option selected="selected" value="GENERAL^SUBJECT^GENERAL^^words or phrase">Words or phrase</option> <option value="AU^AUTHOR^AUTHORS^Author Processing^author">Author</option> <option value="TI^TITLE^SERIES^Title Processing^title">Title</option><option value="SU^SUBJECT^SUBJECTS^^subject">Subject</option> <option value="SER^SERIES^SERIES^Title Processing^series">Series</option> <option value="PER^PERTITLE^SERIES^Title Processing^periodical title">Periodical title</option>
+						<!-- Type departments -->
+						<option selected="selected" value="GENERAL^SUBJECT^GENERAL^^words or phrase">Words or phrase</option> <option value="AU^AUTHOR^AUTHORS^Author Processing^author">Author</option> <option value="TI^TITLE^SERIES^Title Processing^title">Title</option><option value="SU^SUBJECT^SUBJECTS^^subject">Subject</option> <option value="SER^SERIES^SERIES^Title Processing^series">Series</option> <option value="PER^PERTITLE^SERIES^Title Processing^periodical title">Periodical title</option>
 					</select>
 				</div>
 			</div>
 			
 			
 			<!-- Library Scroller -->
-			<div id="library-scroller" style="margin-top:1px" class="scroller fixed-searchbar-above"> 
+			<div id="library-scroller" class="scroller below-searchbar"> 
 				
 				<!-- Library results --> 
-				<ul style="margin-top:-1px" id='library-list' data-role="listview"></ul>
+				<ul class="below-searchbar" id='library-list' data-role="listview"></ul>
+			</div>
+		</div>
+		
+		<!-- Transfer Page -->
+		<div data-role="page" id="transfer">
+			
+			<!-- Fixed Header -->
+			<div id="transfer-header" class="header-above-searchbar" data-role="header">	
+				
+				<!-- Actual header contents --> 
+				<div class="header blue-grad">
+					
+					<!-- Loading Indicator -->	
+					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+						
+					<!-- Title -->
+					<div class="header-title">Transfer</div>
+					
+					<!-- Back button -->
+					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				</div>
+			
+				<!-- Search bar for course ID--> 
+				<div class="searchbar" id="transfer-courseBar">
+				
+					<!-- Search box --> 
+					<input data-clear-btn="false" class="searchable" placeholder="Course-ID..." id="transfer-search" data-corners="false" type="search" value="" />
+					
+					<span class="transfer-container-type">
+						<!-- Type selector --> 
+						<select data-native-menu="true" data-mini="true" data-corners="false"  id="transfer-select">
+								
+							<!-- Type departments -->
+							<option selected="selected" value="course">Course</option> <option value="college">College</option>
+						</select>
+					</span>
+				</div>
+				
+				<!-- Search bar for college --> 
+				<div style="display:none;" class="searchbar" id="transfer-collegeBar">
+					
+					<span id="transfer-container-college">
+						
+						<!-- College box --> 
+						<select class="long-select-inner" id="transfer-college" data-native-menu="true" data-mini="true" data-corners="false">
+						</select>
+					</span>
+					
+					<span class="transfer-container-type">
+						<!-- Type selector --> 
+						<select data-native-menu="true" data-mini="true" data-corners="false"  id="transfer-select">
+								
+							<!-- Type departments -->
+							<option value="course">Course</option> <option selected="selected" value="college">College</option>
+						</select>
+					</span>
+				</div>
+			</div>
+			
+			<!-- Transfer Scroller -->
+			<div id="transfer-scroller"  class="scroller below-searchbar"> 
+				
+				<!-- Transfer results --> 
+				<ul class="below-searchbar" id='transfer-list' data-role="listview"></ul>
 			</div>
 		</div>
 	</body>	

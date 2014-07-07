@@ -224,6 +224,10 @@
  *********************************************************/
 $(document).on("pageinit","#directory",function(event){
 	
+	// Bug in JQM? Clear button flashes when loading page?
+	// This line will fix it.
+	$("#directory .ui-input-clear").addClass("ui-input-clear-hidden");
+	
 	// Need to initialize iScroll scrolling?
 	if(KU_Config.ISCROLL){
 		
