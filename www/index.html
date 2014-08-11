@@ -13,6 +13,10 @@
 		<link rel="stylesheet" href="themes/ku.theme.custom.css" />
 		<link rel="stylesheet" href="themes/jquery.mobile.iscrollview.css" />
 		<link rel="stylesheet" href="themes/jquery.mobile.iscrollview-pull.css" />
+		<link rel="stylesheet" href="themes/leaflet.css" />
+		
+		<!-- Device only -->
+		<script src="cordova.js"></script>
 		
 		<!-- Javascript -->
 		<script src="libs/jquery-1.10.2.min.js"></script>
@@ -20,13 +24,16 @@
 		<script src="libs/iscroll.js"></script>
 		<script src="libs/jquery.mobile.iscrollview.js"></script>
 		<script src="libs/overthrow-detect.js"></script>
+		<script src="libs/leaflet.js"></script>
 		<script src="src/config.js"></script>
 		<script src="src/news.js"></script>
 		<script src="src/events.js"></script>
 		<script src="src/directory.js"></script>
 		<script src="src/library.js"></script>
 		<script src="src/transfer.js"></script>
+		<script src="src/map.js"></script>
 		<script src="src/home.js"></script>
+		<script src="src/file_io.js"></script>
 		<script src="src/misc.js"></script>
 				
 	</head>
@@ -36,7 +43,7 @@
 		<div id="home" data-role="page">
 			
 			<!-- Header -->
-			<div data-role="header" class="header blue-grad">	
+			<div data-role="header" class="header">	
 				<div class="header-title">
 					
 					<!-- The Bulldog! --> 
@@ -108,20 +115,9 @@
 						</a>
 					</li>
 					
-					<!-- Scheduler item -->
-					<li>
-						<a class="grey-grad" href="#">
-						<img class="ui-li-icon main-icon" src="images/scheduler.png" alt="scheduler.png"/>
-						<div class="main-text">
-							<h1>Scheduler</h1>
-							<p>Get help figuring out your schedule.</p>
-						</div>
-						</a>
-					</li>
-					
 					<!-- Map item -->
 					<li>
-						<a class="grey-grad" href="#">
+						<a class="grey-grad" href="#map">
 						<img class="ui-li-icon main-icon" src="images/map.png" alt="map.png"/>
 						<div class="main-text">
 							<h1>Map</h1>
@@ -328,5 +324,53 @@
 				<ul class="below-searchbar" id='transfer-list' data-role="listview"></ul>
 			</div>
 		</div>
+		
+		
+		<!-- Map Page -->
+		<div data-role="page" id="map">
+			
+			<!-- Fixed Header -->
+			<div id="map-header" class="header-above-searchbar" data-role="header">	
+				
+				<!-- Actual header contents --> 
+				<div class="header blue-grad">
+					
+					<!-- Loading Indicator -->	
+					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+						
+					<!-- Title -->
+					<div class="header-title">Map</div>
+					
+					<!-- Back button -->
+					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				</div>
+			
+				<!-- Search bar (also fixed inside the header) --> 
+				<div class="searchbar">
+				
+					<!-- Search box --> 
+					<input class="searchable" placeholder="Find places..." id="map-search" data-corners="false" type="search" value="" />
+					
+					<!-- Type selector --> 
+					<select data-native-menu="true" data-mini="true" data-corners="false"  id="map-select">
+						<option value="-1" selected>All</option>
+						<option value="0">Restaurant</option>
+						<option value="1">Entertainment</option>
+						<option value="2">Shopping</option>
+						<option value="3">Bank</option>
+						<option value="4">Gas Station</option>
+						<option value="5">Automotive Repair</option>
+						<option value="6">Fitness</option>
+						<option value="7">Bar</option>
+						<option value="8">Travel</option>						
+					</select>
+				</div>
+			</div>
+			
+			<div class="scroller below-searchbar">
+				<div  id="map_view"></div>
+			</div>
+		</div>
+		
 	</body>	
 </html>

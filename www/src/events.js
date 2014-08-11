@@ -71,14 +71,10 @@ var KU_Events = {
 
 				// Resize anyways! in case there was nothing to load from above
 				$(window).trigger("resize");
-
-				// TODO calculate time here so the delay is *ONLY* a minimum not addition
-				//setTimeout(function(){
-					
-					// Hide and stop loading
-					KU_Mods.hideLoading(id);
-					KU_Events.loading = false;
-				//}, KU_Config.LOAD_INDICATOR_DELAY);
+				
+				// Hide and stop loading
+				KU_Mods.hideLoading(id);
+				KU_Events.loading = false;
 			},
 			
 			error: function(data){
@@ -247,8 +243,10 @@ var KU_Events = {
 									'id':month +  $('.datebox',this).find('.day').text()
 								}).append(monthDay).append(dayOfWeek);
 								
+								
 								// Add the date_bar to the queue only if it does NOT already exist
-								if($("#" + month +  $('.datebox',this).find('.day').text()).length == 0){
+								if($("#" + month +  $('.datebox',this).find('.day').text()).length == 0
+									&& KU_Events.latestDividerMonth != month +  $('.datebox',this).find('.day').text()){
 									
 									// If no lists then make them!
 									if(KU_Events.listQueue==null) KU_Events.listQueue = new Array();
@@ -257,6 +255,8 @@ var KU_Events = {
 									// Add the item to the queue to be added after complete download
 									KU_Events.listQueue[KU_Events.listQueue.length] = date_bar;	
 								}
+								
+								KU_Events.latestDividerMonth = month +  $('.datebox',this).find('.day').text();
 								
 							}
 							

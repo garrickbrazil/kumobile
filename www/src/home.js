@@ -23,7 +23,7 @@ $(document).on("pagecreate", "#home", function(event){
 	
 	// Adjust for iscroll?
 	if(KU_Config.ISCROLL) KU_Mods.fixIscroll('#home');
-	
+
 	// Resize screen
 	$(window).trigger("throttledresize");
 });

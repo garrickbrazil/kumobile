@@ -144,6 +144,10 @@ $(window).on("throttledresize", function (event){
 		$('.scroller.below-searchbar').css('top', $('.header-above-searchbar').height() + 2);
 	}
 	
+	// Fix map
+	$('.map_container').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
+	$('.map_container').css('top', $('.header-above-searchbar').height() + 3);
+	
 	// Fix search bar size
 	// More usable than css calc() which isn't always supported.	
 	$('.searchbar .ui-input-search').css('width', $(window).width() - $('.searchbar .ui-select').width());

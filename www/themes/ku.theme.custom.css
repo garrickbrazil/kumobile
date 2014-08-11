@@ -15,6 +15,11 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+html, body, #map_view {
+   width: 100%;
+   height: 100%;
+}
+
 /**********************************************************
  * Container for header (proper sizing)
  *********************************************************/

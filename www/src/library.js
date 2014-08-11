@@ -246,6 +246,7 @@
  *********************************************************/
 $(document).on("pageinit","#library",function(event){
 	
+	
 	// Bug in JQM? Clear button flashes when loading page?
 	// This line will fix it.
 	$("#library .ui-input-clear").addClass("ui-input-clear-hidden");
@@ -390,4 +391,5 @@ $(document).on("pagecreate","#library",function(event){
 	
 	// Get page when page is first created
 	KU_Library.getNextPage(); 
+	
 });
