@@ -126,6 +126,10 @@ var KU_Mods = {
 	}
 };
 
+$(window).on( "pagechange", function( event ) { $(window).trigger("resize"); setTimeout(function(){
+			KU_Map.map.invalidateSize();
+		},0); } );
+
 /**********************************************************
  * Throttled resize
  *********************************************************/
@@ -142,7 +146,16 @@ $(window).on("throttledresize", function (event){
 		// Scroller with search bar!
 		$('.scroller.below-searchbar').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
 		$('.scroller.below-searchbar').css('top', $('.header-above-searchbar').height() + 2);
+		console.log($('#poi-info').height());
+		// Map!
+		$('#poi-info').css('top', $(window).height() - $('#poi-info').height() - 2);
+		$('.map-scroller.below-searchbar').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
+		$('.map-scroller.below-searchbar').css('top', $('.header-above-searchbar').height() + 2);
+		$('#map_view').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
 	}
+	
+	$('#poi-button-directions').css('width', $(window).width()/2 - 10 - 5);
+	$('#poi-button-phone').css('width', $(window).width()/2 - 5 - 10-5);
 	
 	// Fix map
 	$('.map_container').css('height', $(window).height() - $('.header-above-searchbar').height() - 3);
@@ -151,7 +164,9 @@ $(window).on("throttledresize", function (event){
 	// Fix search bar size
 	// More usable than css calc() which isn't always supported.	
 	$('.searchbar .ui-input-search').css('width', $(window).width() - $('.searchbar .ui-select').width());
+	$('#map .searchbar .ui-input-search').css('width', $(window).width());
 	$('.searchbar').css('top', $('.header').height());
+	
 	
 	// Transfer college select bar minus transfer selects
 	$('#transfer-container-college .ui-select').css('width', $(window).width() - $('.searchbar .ui-select').width());

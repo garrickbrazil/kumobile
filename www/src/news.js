@@ -339,6 +339,44 @@ $(document).on("pageinit","#news",function(event){
 	}
 });
 
+var load = 0;
+/*
+function getSchedule(username, password){
+	
+	var frameName = "temporaryFrame";
+	
+	$(document.body).append("<iframe style='display:none' id='" + frameName + "' src='https://jweb.kettering.edu/cku1/twbkwbis.P_WWWLogin'>");
+	
+	$('iframe#' + frameName).load(function() {
+
+		if(load == 0){
+			$('iframe#' + frameName).attr('src', "https://jweb.kettering.edu/cku1/twbkwbis.P_ValLogin?sid=" + username + "&PIN=" + password);
+			load++;
+		}
+		else if(load == 1){
+			alert("HI");
+			load++;
+		
+		}
+		else if(load == 2){
+			alert("Signed in...");
+			$.ajax({
+				url: 'https://jweb.kettering.edu/cku1/bwskfshd.P_CrseSchd',
+				type: 'GET',
+				dataType: 'html',
+				success: function(data) {
+					
+					// Load downloaded document
+					var doc = $("<div>").html(data);
+					
+					alert(doc.find(".ddlabel").text());
+				}
+			});		
+		}
+    });	
+}
+*/
+
 /**********************************************************
  * News page create
  *********************************************************/
@@ -350,4 +388,5 @@ $(document).on("pagecreate","#news",function(event){
 	// Resize and get first page for overflow
 	else $(window).trigger("throttledresize");
 	KU_News.getNextPage(); 
+	
 });

@@ -42,7 +42,7 @@
 		<param name="ios-package" value="CDVLocation" />
 	</feature>
 
-	<feature name="GoogleNavigate">
+	<feature name="googlenavigate">
 	  <param name="android-package" value="dk.interface.cordova.plugin.googlenavigate" />
 	</feature>
 	

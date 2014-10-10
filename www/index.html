@@ -145,6 +145,7 @@
 				<a class="button-grad back-button above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				
 			</div>
+		
 			
 			<!-- News list -->
 			<div id="news-scroller" class="scroller">
@@ -351,26 +352,43 @@
 					<!-- Search box --> 
 					<input class="searchable" placeholder="Find places..." id="map-search" data-corners="false" type="search" value="" />
 					
-					<!-- Type selector --> 
-					<select data-native-menu="true" data-mini="true" data-corners="false"  id="map-select">
+					<!-- Type selector
+					<select style="display: none;" data-native-menu="true" data-mini="true" data-corners="false"  id="map-select">
 						<option value="-1" selected>All</option>
-						<option value="0">Restaurant</option>
+						<option value="0">Food</option>
 						<option value="1">Entertainment</option>
-						<option value="2">Shopping</option>
+						<option value="2">Shop/Services</option>
 						<option value="3">Bank</option>
 						<option value="4">Gas Station</option>
 						<option value="5">Automotive Repair</option>
 						<option value="6">Fitness</option>
 						<option value="7">Bar</option>
-						<option value="8">Travel</option>						
+						<option value="8">Travel</option>
+						<option value="9">Emergency</option>						
 					</select>
+					-->
+					 
 				</div>
 			</div>
 			
-			<div class="scroller below-searchbar">
-				<div  id="map_view"></div>
+			<div class="map-scroller below-searchbar">
+				<div id="map_view" style="position:absolute;"></div>
+				<div style="display:none;border-top: solid 1px #aaaaaa;padding-left:10px!important;padding-right:10px!important;position:absolute;width:100%;z-index:2000;background-color:rgba(255,255,255,0.9);" id="poi-info">
+					
+					<h1 id="poi-info-name" style='padding-right:10px!important;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin:0px!important'>&nbsp;</h1>
+					<div id="poi-info-categories">&nbsp;</div>
+					<div id="poi-info-address">&nbsp;</div>
+					<div id="poi-info-phone">&nbsp;</div>
+					
+					
+					<div style="padding-bottom:5px!important;padding-top:5px!important;">
+					<a id="poi-button-phone" data-role="button" style="margin-top:0!important;margin-bottom:0!important;margin-left:0!important;margin-right:10!important;padding-left:0!important;padding-right:0!important;" data-icon="phone" data-inline='true' >Call</a>
+					<a id="poi-button-directions" data-role="button" style="margin:0!important;padding-left:0!important;padding-right:0!important;" data-icon="navigation" data-inline='true' >Directions</a>
+					</div>
+				</div>
 			</div>
 		</div>
+		
 		
 	</body>	
 </html>

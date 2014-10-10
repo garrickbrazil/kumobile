@@ -24,6 +24,7 @@ var KU_Config = {
 	ISCROLL: !(overthrow.support === "native"),		// iScroll only?
 	isDevice: (typeof cordova != "undefined"),		// device or emulator?
 	isAndroid: null,								// is android? cannot check until ready
+	isIOS: null,								// is iOS? cannot check until ready
 	PAGES_TO_LOAD: 2,								// number of pages to load at a time
 	INCR_WAIT_TIME: 800,							// ms to wait before incremental search
 	
@@ -33,6 +34,7 @@ var KU_Config = {
 		
 			// Android?
 			KU_Config.isAndroid = (window.device.platform.toLowerCase() == "android");
+			KU_Config.isIOS = (window.device.platform.toLowerCase() == "ios");
 		}
 	},
 	
