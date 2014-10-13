@@ -15,27 +15,353 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**********************************************************
- * KU Transfer
- *********************************************************/
- var KU_Transfer = {
+
+
+/******************************************************************************/
+/**  Contains all transfer related functions for loading and controlling the
+ *   transfer page.
+ *   @namespace
+ ******************************************************************************/
+KU.Transfer = {
 	
-	type:'course',						// type of searching?
-	lastCourse:'',						// value for last course
-	lastCollege:'',						// latest college value
-	loading: false,						// is transfer loading ?
-	typing: false,						// currently typing?
-	initialized: false,					// initialized?
 	
-	/**********************************************************
-	 * Download colleges
-	 *********************************************************/
+	
+	/******************************************************************************/
+	/**  Type of search, either can be course or college. By course will result
+	 *   in searching by course ID via the search bar, whereas by college will
+	 *   search by college name through college dropdown. 
+	 *   @type {string}
+	 ******************************************************************************/
+	type: 'course',
+	
+	
+	
+	/******************************************************************************/
+	/**  Last value the the user searched for by course id (e.g MATH-102 or MATH102)
+	 *   @type {string}
+	 ******************************************************************************/
+	lastCourse:'',
+	
+	
+	
+	/******************************************************************************/
+	/**  Last value the the user searched for by college ID. These college ID's
+	 *   are specified by Kettering and downloaded dynamically with the function
+	 *   {@link KU.Transfer.downloadColleges}
+	 *   @type {string}
+	 ******************************************************************************/
+	lastCollege:'',
+	
+	
+	
+	/******************************************************************************/
+	/**  Tells whether or not transfer is currently attempting to download
+	 *   or parse article lists. Essentially used to tell whether transfer is
+	 *   considered to be busy. 
+	 *   @type {boolean}
+	 ******************************************************************************/
+	loading: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Is the user currently typing? This is mainly used to ensure we do not do 
+	 *   certain loads or other things when we consider the user is typing.
+	 *   @type {boolean}
+	 ******************************************************************************/
+	typing: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the current list of article DOM li tag items that still need
+	 *   to be added to the DOM (much faster to add all at once after load
+	 *   is done downloading). This helps prevent the app from seeming to 
+	 *   hang or become unresponsive.
+	 *   @type {Object[]}
+	 ******************************************************************************/
+	listQueue: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last ajax call sent! This allows us to abort the call if the
+	 *   user re-searches in any way (dropdown, or searchbar)
+	 *   @type {Ajax}
+	 ******************************************************************************/
+	sentAjax: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last timeout call sent! This allows us to restart the timeout if
+	 *   the user re-searches in any way (dropdown, or searchbar). The major benefit
+	 *   of this is that it gives us the feeling of incremental searching, e.g we send
+	 *   a timeout of some milliseconds whenever the KEY_UP event triggers, as well
+	 *   as cancelling out the last timeout we sent. 
+	 *   @type {Timeout}
+	 ******************************************************************************/
+	sentTimeout: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the transfer page is first initialized based on 
+	 *   jQM page init event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageInit: function(event){
+		
+		
+		// Bug in JQM? Clear button flashes when loading page?
+		// This line will fix it.
+		$("#transfer .ui-input-clear").addClass("ui-input-clear-hidden");
+		
+		$(window).trigger("resize");
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the transfer page is first created based on 
+	 *   jQM page create event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageCreate: function(event){
+	
+		// Fix iScroll?
+		if(KU.ISCROLL) KU.fixIscroll("#transfer"); 
+		
+		// Resize and get first page for overflow
+		$(window).trigger("resize");
+		
+		
+		// Change type from Course --> College
+		$("#transfer-courseBar #transfer-select").bind("change", KU.Transfer.changeTypeToCollege);
+		
+		// Change type from Course <-- College
+		$("#transfer-collegeBar #transfer-select").bind("change", KU.Transfer.changeTypeToCourse);
+		
+		
+		// Trigger for direct change in college dropdown box
+		$("#transfer-college").bind("change", KU.Transfer.collegeDropdownChangeEvent);
+		
+		
+		// Trigger for direct change in search box
+		$("#transfer-search").bind("change", KU.Transfer.searchDirectChangeEvent);
+		
+		
+		// Trigger for incremental change in search box
+		$("#transfer-search").keyup(KU.Transfer.searchIncrementalChangeEvent);
+		
+		// Download college list?
+		if($("#transfer-college option").length == 0){
+		
+			KU.Transfer.downloadColleges();
+		}
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a key up event in order to simulate incremental
+	 *   searching for the attached search bar. Note that this is done for searching
+	 *   by course-ID only!
+	 *   @event
+	 ******************************************************************************/
+	searchIncrementalChangeEvent: function() {
+			
+		// Definitely a change?
+		if(this.value != KU.Transfer.lastCourse){
+		
+			// Store value
+			KU.Transfer.lastCourse = this.value;
+		
+			// Clear timeout
+			if(KU.Transfer.sentTimeout) clearTimeout(KU.Transfer.sentTimeout);
+			KU.Transfer.typing = true;
+			
+			KU.Transfer.sentTimeout = setTimeout(function(latestValue){
+				
+				// Definitely not a change?
+				if(latestValue == KU.Transfer.lastCourse){
+					
+					// Abort ajax
+					if(KU.Transfer.sentAjax) KU.Transfer.sentAjax.abort();
+					
+					// Save new value, reinit, download
+					KU.Transfer.lastCourse = latestValue;
+					KU.Transfer.reinitialize();
+					KU.Transfer.downloadCourseTrans();
+				}
+				
+				KU.Transfer.typing = false;
+				
+			}, KU.INCR_WAIT_TIME, this.value);
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a direct change to search bar. Includes 
+	 *   typing then changing focus or pressing the clear button. This is redundant
+	 *   to the incremental search event, except for the clear button! Note that this
+	 *   is done for searching by course-ID only!
+	 *   @event
+	 ******************************************************************************/
+	searchDirectChangeEvent: function(e,u){
+			
+		// Definitely a change?
+		if(this.value != KU.Transfer.lastCourse){
+		
+			// Clear timeout and ajax
+			if(KU.Transfer.sentTimeout) clearTimeout(KU.Transfer.sentTimeout);
+			if(KU.Transfer.sentAjax) KU.Transfer.sentAjax.abort();
+			
+			// Change last value and reinitialize
+			KU.Transfer.lastCourse = this.value;
+			KU.Transfer.reinitialize();
+			
+			// Download results
+			KU.Transfer.downloadCourseTrans();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a direct change to the college drop down.
+	 *   When this occurs we need to do another search and display the results.
+	 *   @event
+	 ******************************************************************************/
+	collegeDropdownChangeEvent: function(e,u){
+		
+		// Definitely a change?
+		if(this.value != KU.Transfer.lastCollege){
+		
+			// Clear timeout and ajax
+			if(KU.Transfer.sentTimeout) clearTimeout(KU.Transfer.sentTimeout);
+			if(KU.Transfer.sentAjax) KU.Transfer.sentAjax.abort();
+			
+			// Change last value and reinitialize
+			KU.Transfer.lastCollege = this.value;
+			KU.Transfer.reinitialize();
+			
+			// Download results
+			KU.Transfer.downloadCollegeTrans();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when user chooses the type 'course'. For this we need to rearrange
+	 *   some of the DOM elements (switch between drop down to a searchbar!).
+	 *   @event
+	 ******************************************************************************/
+	changeTypeToCourse: function(e,u){
+		
+		if(this.value == "course"){
+			// Reset back to course
+			$(this).val('college');
+			$(this).selectmenu('refresh', true) 
+			
+			// Stop downloading
+			if(KU.Transfer.sentTimeout) clearTimeout(KU.Transfer.sentTimeout);
+			if(KU.Transfer.sentAjax) KU.Transfer.sentAjax.abort();
+			
+			// Change type then reinitialize
+			KU.Transfer.type = this.value;	
+			KU.Transfer.reinitialize();
+			$("#transfer-list li").remove();
+			
+			// Hide yourself
+			$("#transfer-collegeBar").hide();
+			
+			// Show the college bar
+			$("#transfer-courseBar").show();
+			
+			// Need to show last course?
+			if(KU.Transfer.lastCourse != ""){
+				KU.Transfer.downloadCourseTrans();
+			}
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when user chooses the type 'college'. For this we need to rearrange
+	 *   some of the DOM elements (switch between searchbar to a drop down!).
+	 *   @event
+	 ******************************************************************************/
+	changeTypeToCollege: function(e,u){
+		
+		if(this.value == "college"){
+			// Reset back to course
+			$(this).val('course');
+			$(this).selectmenu('refresh', true) 
+			
+			// Stop downloading
+			if(KU.Transfer.sentTimeout) clearTimeout(KU.Transfer.sentTimeout);
+			if(KU.Transfer.sentAjax) KU.Transfer.sentAjax.abort();
+			
+			// Change type then reinitialize
+			KU.Transfer.type = this.value;	
+			KU.Transfer.reinitialize();
+			$("#transfer-list li").remove();
+			
+			// Hide yourself
+			$("#transfer-courseBar").hide();
+			
+			// Show the college bar
+			$("#transfer-collegeBar").show();
+			
+			// Download college list?
+			if($("#transfer-college option").length == 0){
+			
+				KU.Transfer.downloadColleges();
+				$("#transfer-collegeBar select").prop('selectedIndex', -1);
+				$("#transfer-container-college .ui-select span").text("Select college...");
+				$("#transfer-container-college .ui-select span").css("color","#A0A0A0");
+			}
+			
+			// Download last college?
+			else if(KU.Transfer.lastCollege != ""){
+				KU.Transfer.downloadCollegeTrans();
+			}
+			
+			// Show select college hint!
+			else{
+				$("#transfer-collegeBar select").prop('selectedIndex', -1);
+				$("#transfer-container-college .ui-select span").text("Select college...");
+				$("#transfer-container-college .ui-select span").css("color","#A0A0A0");
+			}
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Downloads the list of colleges and their corresponding ID's from Kettering's
+	 *   website/restful API. Then we add this to our dropdown so the user can 
+	 *   select his/her preferred college to search by. 
+	 ******************************************************************************/
 	downloadColleges: function(){
 		
 		// Compile URL
 		var url = 'https://okras.kettering.edu/kuapps/apex_apps.transfer_art_pkg.get_json_ces_colleges';
 		
-		// Store ajax (in case we need to cancel later)
+
 		$.ajax({
 			url: url,
 			type: 'GET',
@@ -65,21 +391,24 @@
 			// Nothing much to do 
 			error: function(data){
 			
-				KU_Config.showGlobalError();
+				KU.showGlobalError();
 			}
 		});	
 	},
 	
-	/**********************************************************
-	 * Download course transfers
-	 *********************************************************/
+	
+	
+	/******************************************************************************/
+	/**  Downloads and displays the transfer information by course-ID. Note that 
+	 *   this method does not contain any arguments but still uses namespace variables.
+	 ******************************************************************************/
 	downloadCourseTrans: function (){
 
 		if(!this.loading){
 			
 			// Now loading
 			this.loading = true;
-			KU_Mods.showLoading("transfer-header");
+			KU.showLoading("transfer-header");
 				
 			// Clear entire list for page 0
 			$("#transfer-list li").remove();
@@ -116,7 +445,7 @@
 			
 			// No match?
 			else {
-				KU_Mods.hideLoading("transfer-header");
+				KU.hideLoading("transfer-header");
 				this.loading = false;
 				return;
 			}
@@ -206,30 +535,30 @@
 						}
 						
 						// If no lists then make them!
-						if(KU_Transfer.listQueue==null) KU_Transfer.listQueue = new Array();
-						if(KU_Transfer.listInfoQueue==null) KU_Transfer.listInfoQueue = new Array();
+						if(KU.Transfer.listQueue==null) KU.Transfer.listQueue = new Array();
+						if(KU.Transfer.listInfoQueue==null) KU.Transfer.listInfoQueue = new Array();
 						
 						// Add the item to the queue to be added after complete download
 						// NOTE: This is intentional so the DOM processing does not create
 						// a lag and unfriendly experience, we process all at the end
-						KU_Transfer.listQueue[KU_Transfer.listQueue.length] = listitem;
-						KU_Transfer.listInfoQueue[KU_Transfer.listInfoQueue.length] = {"state":course.course_state};
+						KU.Transfer.listQueue[KU.Transfer.listQueue.length] = listitem;
+						KU.Transfer.listInfoQueue[KU.Transfer.listInfoQueue.length] = {"state":course.course_state};
 						
 					}
 					
 	
 					// No longer loading
-					KU_Transfer.loading = false;
-					KU_Mods.hideLoading("transfer-header");
+					KU.Transfer.loading = false;
+					KU.hideLoading("transfer-header");
 
 					// Go through all items in the list queue
-					for(var index = 0; index < KU_Transfer.listQueue.length; index++){
+					for(var index = 0; index < KU.Transfer.listQueue.length; index++){
 						
-						var state = KU_Transfer.listInfoQueue[index].state;
+						var state = KU.Transfer.listInfoQueue[index].state;
 						
 						if($('#transfer-list #' + state).length == 0){
 							
-							var fullState = KU_Mods.convertStateToFull(KU_Transfer.listInfoQueue[index].state);
+							var fullState = KU.convertStateToFull(KU.Transfer.listInfoQueue[index].state);
 							if(fullState == null) fullState = state;
 														
 							var stateDiv = $('<div></div>',{
@@ -247,37 +576,40 @@
 						}
 						
 						// Append to list
-						KU_Transfer.listQueue[index].appendTo('#transfer-list');		
+						KU.Transfer.listQueue[index].appendTo('#transfer-list');		
 					}
 					
 					// Refresh and create new arrays
 					$('#transfer-list').listview('refresh');
-					KU_Transfer.listQueue = new Array();
-					KU_Transfer.listInfoQueue = new Array();
+					KU.Transfer.listQueue = new Array();
+					KU.Transfer.listInfoQueue = new Array();
 						
 					// Clear previous scrollbar!
-					if(KU_Config.ISCROLL) $(window).trigger("resize");
+					if(KU.ISCROLL) $(window).trigger("resize");
 				},
 				
 				error: function(data){
 				
-					KU_Mods.hideLoading("transfer-header");
-					KU_Transfer.loading = false;
+					KU.hideLoading("transfer-header");
+					KU.Transfer.loading = false;
 				}
 			});	
 		}
 	},
 	
-	/**********************************************************
-	 * Download college transfers
-	 *********************************************************/
+	
+	
+	/******************************************************************************/
+	/**  Downloads and displays the transfer information by college-ID. Note that 
+	 *   this method does not contain any arguments but still uses namespace variables.
+	 ******************************************************************************/
 	downloadCollegeTrans: function (){
 
 		if(!this.loading){
 			
 			// Now loading
 			this.loading = true;
-			KU_Mods.showLoading("transfer-header");
+			KU.showLoading("transfer-header");
 				
 			// Clear entire list for page 0
 			$("#transfer-list li").remove();
@@ -374,26 +706,26 @@
 							}
 							
 							// If no lists then make them!
-							if(KU_Transfer.listInfoQueue==null) KU_Transfer.listInfoQueue = new Array();
+							if(KU.Transfer.listInfoQueue==null) KU.Transfer.listInfoQueue = new Array();
 						
 							// Add the item to the queue to be added after complete download
 							// NOTE: This is intentional so the DOM processing does not create
 							// a lag and unfriendly experience, we process all at the end
-							KU_Transfer.listQueue[KU_Transfer.listQueue.length] = listitem;
-							KU_Transfer.listInfoQueue[KU_Transfer.listInfoQueue.length] = {"subject":course.kucourse};
+							KU.Transfer.listQueue[KU.Transfer.listQueue.length] = listitem;
+							KU.Transfer.listInfoQueue[KU.Transfer.listInfoQueue.length] = {"subject":course.kucourse};
 						}
 						
 					}
 					
 	
 					// No longer loading
-					KU_Transfer.loading = false;
-					KU_Mods.hideLoading("transfer-header");
+					KU.Transfer.loading = false;
+					KU.hideLoading("transfer-header");
 
 					// Go through all items in the list queue
-					for(var index = 0; index < KU_Transfer.listQueue.length; index++){
+					for(var index = 0; index < KU.Transfer.listQueue.length; index++){
 						
-						var subject = KU_Transfer.listInfoQueue[index].subject;
+						var subject = KU.Transfer.listInfoQueue[index].subject;
 
 						// Pattern and exec
 						var coursePattern = /([a-zA-Z]+)\s([\d]+)/g;
@@ -421,30 +753,33 @@
 							}
 							
 							// Append to list
-							KU_Transfer.listQueue[index].appendTo('#transfer-list');	
+							KU.Transfer.listQueue[index].appendTo('#transfer-list');	
 						}
 					}
 					
 					// Refresh and create new arrays
 					$('#transfer-list').listview('refresh');
-					KU_Transfer.listQueue = new Array();
+					KU.Transfer.listQueue = new Array();
 						
 					// Clear previous scrollbar!
-					if(KU_Config.ISCROLL) $(window).trigger("resize");
+					if(KU.ISCROLL) $(window).trigger("resize");
 				},
 				
 				error: function(data){
 				
-					KU_Mods.hideLoading("transfer-header");
-					KU_Transfer.loading = false;
+					KU.hideLoading("transfer-header");
+					KU.Transfer.loading = false;
 				}
 			});	
 		}
 	},
 	
-	/**********************************************************
-	 * Reinitialize
-	 *********************************************************/
+	
+	
+	/******************************************************************************/
+	/**  Reinitializes all properties of {@link KU.Transfer} as if to restore
+	 *   a new/default instance of the namespace.
+	 ******************************************************************************/
 	reinitialize: function(){
 		
 		this.listQueue = new Array();
@@ -452,185 +787,9 @@
 		this.loading = false;
 		
 		// Clear previous scrollbar!
-		if(KU_Config.ISCROLL) $(window).trigger("resize");
+		if(KU.ISCROLL) $(window).trigger("resize");
 	}
+	
+	
+	
 };
-
-/**********************************************************
- * Transfer page init
- *********************************************************/
-$(document).on("pageinit","#transfer",function(event){
-	KU_Transfer.initialized = true;
-	
-	// Bug in JQM? Clear button flashes when loading page?
-	// This line will fix it.
-	$("#transfer .ui-input-clear").addClass("ui-input-clear-hidden");
-	
-	$(window).trigger("resize");
-});
-
-/**********************************************************
- * Transfer page create
- *********************************************************/
-$(document).on("pagecreate","#transfer",function(event){
-	
-	// Fix iScroll?
-	if(KU_Config.ISCROLL) KU_Mods.fixIscroll("#transfer"); 
-	
-	// Resize and get first page for overflow
-	$(window).trigger("resize");
-	
-	
-	// Change type from Course --> College
-	$("#transfer-courseBar #transfer-select").bind("change", function(e,u){
-		
-		if(this.value == "college"){
-			// Reset back to course
-			$(this).val('course');
-			$(this).selectmenu('refresh', true) 
-			
-			// Stop downloading
-			if(KU_Transfer.timeoutSent) clearTimeout(KU_Transfer.timeoutSent);
-			if(KU_Transfer.sentAjax) KU_Transfer.sentAjax.abort();
-			
-			// Change type then reinitialize
-			KU_Transfer.type = this.value;	
-			KU_Transfer.reinitialize();
-			$("#transfer-list li").remove();
-			
-			// Hide yourself
-			$("#transfer-courseBar").hide();
-			
-			// Show the college bar
-			$("#transfer-collegeBar").show();
-			
-			// Download college list?
-			if($("#transfer-college option").length == 0){
-			
-				KU_Transfer.downloadColleges();
-				$("#transfer-collegeBar select").prop('selectedIndex', -1);
-				$("#transfer-container-college .ui-select span").text("Select college...");
-				$("#transfer-container-college .ui-select span").css("color","#A0A0A0");
-			}
-			
-			// Download last college?
-			else if(KU_Transfer.lastCollege != ""){
-				KU_Transfer.downloadCollegeTrans();
-			}
-			
-			// Show select college hint!
-			else{
-				$("#transfer-collegeBar select").prop('selectedIndex', -1);
-				$("#transfer-container-college .ui-select span").text("Select college...");
-				$("#transfer-container-college .ui-select span").css("color","#A0A0A0");
-			}
-		}
-	});
-	
-	// Change type from College --> Course
-	$("#transfer-collegeBar #transfer-select").bind("change", function(e,u){
-		
-		if(this.value == "course"){
-			// Reset back to course
-			$(this).val('college');
-			$(this).selectmenu('refresh', true) 
-			
-			// Stop downloading
-			if(KU_Transfer.timeoutSent) clearTimeout(KU_Transfer.timeoutSent);
-			if(KU_Transfer.sentAjax) KU_Transfer.sentAjax.abort();
-			
-			// Change type then reinitialize
-			KU_Transfer.type = this.value;	
-			KU_Transfer.reinitialize();
-			$("#transfer-list li").remove();
-			
-			// Hide yourself
-			$("#transfer-collegeBar").hide();
-			
-			// Show the college bar
-			$("#transfer-courseBar").show();
-			
-			// Need to show last course?
-			if(KU_Transfer.lastCourse != ""){
-				KU_Transfer.downloadCourseTrans();
-			}
-		}
-	});
-	
-	// Trigger for direct change in search box
-	$("#transfer-search").bind("change", function(e,u){
-		
-		// Definitely a change?
-		if(this.value != KU_Transfer.lastCourse){
-		
-			// Clear timeout and ajax
-			if(KU_Transfer.timeoutSent) clearTimeout(KU_Transfer.timeoutSent);
-			if(KU_Transfer.sentAjax) KU_Transfer.sentAjax.abort();
-			
-			// Change last value and reinitialize
-			KU_Transfer.lastCourse = this.value;
-			KU_Transfer.reinitialize();
-			
-			// Download results
-			KU_Transfer.downloadCourseTrans();
-		}
-	});
-	
-	// Trigger for direct change in search box
-	$("#transfer-college").bind("change", function(e,u){
-		
-		// Definitely a change?
-		if(this.value != KU_Transfer.lastCollege){
-		
-			// Clear timeout and ajax
-			if(KU_Transfer.timeoutSent) clearTimeout(KU_Transfer.timeoutSent);
-			if(KU_Transfer.sentAjax) KU_Transfer.sentAjax.abort();
-			
-			// Change last value and reinitialize
-			KU_Transfer.lastCollege = this.value;
-			KU_Transfer.reinitialize();
-			
-			// Download results
-			KU_Transfer.downloadCollegeTrans();
-		}
-	});
-	
-	// Trigger for incremental change in search box
-	$("#transfer-search").keyup( function() {
-		
-		// Definitely a change?
-		if(this.value != KU_Transfer.lastCourse){
-		
-			// Store value
-			KU_Transfer.lastCourse = this.value;
-		
-			// Clear timeout
-			if(KU_Transfer.timeoutSent) clearTimeout(KU_Transfer.timeoutSent);
-			KU_Transfer.typing = true;
-			
-			KU_Transfer.timeoutSent = setTimeout(function(latestValue){
-				
-				// Definitely not a change?
-				if(latestValue == KU_Transfer.lastCourse){
-					
-					// Abort ajax
-					if(KU_Transfer.sentAjax) KU_Transfer.sentAjax.abort();
-					
-					// Save new value, reinit, download
-					KU_Transfer.lastCourse = latestValue;
-					KU_Transfer.reinitialize();
-					KU_Transfer.downloadCourseTrans();
-				}
-				
-				KU_Transfer.typing = false;
-				
-			}, KU_Config.INCR_WAIT_TIME, this.value);
-		}
-	});
-	
-	// Download college list?
-	if($("#transfer-college option").length == 0){
-	
-		KU_Transfer.downloadColleges();
-	}
-});

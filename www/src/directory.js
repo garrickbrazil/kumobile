@@ -15,23 +15,345 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**********************************************************
- * KU Directory
- *********************************************************/
- var KU_Directory = {
+
+
+/******************************************************************************/
+/**  Contains all directory related functions for loading and controlling the
+ *   directory page. This only takes faculty directory into consideration.
+ *   @namespace
+ ******************************************************************************/
+ KU.Directory = {
 	
-	page: 0,					// last page downloaded
-	queue: 0,					// queue of pages that need downloading
-	tid:'All',					// tid, topic identifier
-	lastValue:'',				// last value searched!
-	loading: false,				// is directory loading ?
-	LOAD_THRESHOLD_PX: 660,		// pixels from the bottom trigger load
-	reachedEnd: false,			// have we reached the end?
-	typing: false,						// currently typing?
 	
-	/**********************************************************
-	 * Get next page
-	 *********************************************************/
+	
+	/******************************************************************************/
+	/**  Stores the last page number downloaded as denoted from Kettering's
+	 *   directory website kettering.edu/faculty-staff/directory. Indexing starts off
+	 *   at 0 and continues on to an unbounded limit.
+	 *   @type {int} 
+	 ******************************************************************************/
+	page: 0,
+	
+	
+	
+	/******************************************************************************/
+	/**  Number of pages that need to be downloaded still. This is used to
+	 *   dynamically and asynchronously download more than one page at a time,
+	 *   which is configured at {@link KU.PAGES_TO_LOAD}
+	 *   @type {int}
+	 ******************************************************************************/
+	queue: 0,
+	
+	
+	
+	/******************************************************************************/
+	/**  Tells whether or not directory is currently attempting to download
+	 *   or parse article lists. Essentially used to tell whether directory is
+	 *   considered to be busy. 
+	 *   @type {boolean}
+	 ******************************************************************************/
+	loading: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Designates the minimum number of pixels that the user can scroll
+	 *   (calculated from the bottom) before another load event is triggered.
+	 *   @constant {int}
+	 ******************************************************************************/
+	LOAD_THRESHOLD_PX: 660,
+	
+	
+	
+	/******************************************************************************/
+	/**  Topic identifier for Kettering's directory searching. This basically
+	 *   represents the department the user has selected to filter by. We use
+	 *   'All' as the default value.
+	 *   @type {string}
+	 ******************************************************************************/
+	tid:'All',
+	
+	
+	
+	/******************************************************************************/
+	/**  Represents the last/current value the user has searched for from the free
+	 *   text field / search bar located on the directory page. 
+	 *   @type {string}
+	 ******************************************************************************/
+	lastValue:'',
+	
+	
+	
+	/******************************************************************************/
+	/**  Tells whether or not the user has reached the end of the scrolling. This is
+	 *   useful mainly to prevent the load to continuously trigger when there are no
+	 *   more results that need to be shown. Obviously this starts off false and 
+	 *   is detected during {@link KU.Directory.getNextPage}.
+	 *   @type {boolean}
+	 ******************************************************************************/
+	reachedEnd: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Is the user currently typing? This is mainly used to ensure we do not do 
+	 *   certain loads or other things when we consider the user is typing.
+	 *   @type {boolean}
+	 ******************************************************************************/
+	typing: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the current list of article DOM li tag items that still need
+	 *   to be added to the DOM (much faster to add all at once after load
+	 *   is done downloading). This helps prevent the app from seeming to 
+	 *   hang or become unresponsive.
+	 *   @type {Object[]}
+	 ******************************************************************************/
+	listQueue: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last ajax call sent! This allows us to abort the call if the
+	 *   user re-searches in any way (dropdown, or searchbar)
+	 *   @type {Ajax}
+	 ******************************************************************************/
+	sentAjax: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last timeout call sent! This allows us to restart the timeout if
+	 *   the user re-searches in any way (dropdown, or searchbar). The major benefit
+	 *   of this is that it gives us the feeling of incremental searching, e.g we send
+	 *   a timeout of some milliseconds whenever the KEY_UP event triggers, as well
+	 *   as cancelling out the last timeout we sent. 
+	 *   @type {Timeout}
+	 ******************************************************************************/
+	sentTimeout: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the directory page is first initialized based on 
+	 *   jQM page init event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageInit: function(event){
+		
+		// Bug in JQM? Clear button flashes when loading page?
+		// This line will fix it.
+		$("#directory .ui-input-clear").addClass("ui-input-clear-hidden");
+		
+		// Need to initialize iScroll scrolling?
+		if(KU.ISCROLL){
+			
+			// Bind check scroll to moving and ending events
+			$("#directory .iscroll-wrapper").bind({
+				"iscroll_onscrollmove": KU.Directory.checkIScroll,
+				"iscroll_onscrollend": KU.Directory.checkIScroll,
+			});
+		}
+		
+		// Regular overflow scrolling
+		else{
+			
+			// Check overflow scroll position
+			$('#directory-scroller').on("scroll", KU.Directory.checkScroll);
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the directory page is first created based on 
+	 *   jQM page create event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageCreate: function(event){
+	
+		// Fix iScroll?
+		if(KU.ISCROLL) KU.fixIscroll("#directory"); 
+		
+		// Resize and get first page for overflow
+		$(window).trigger("resize");
+		
+		
+		// Trigger for change in TID select
+		$("#directory-select").bind("change", KU.Directory.tidChangeEvent);
+		
+		// Trigger for direct change in search box
+		$("#directory-search").bind("change", KU.Directory.searchDirectChangeEvent);
+		
+		// Trigger for incremental change in search box
+		$("#directory-search").keyup( KU.Directory.searchIncrementalChangeEvent);
+		
+		// Get page when page is first created
+		KU.Directory.getNextPage(); 
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a key up event in order to simulate incremental
+	 *   searching for the attached search bar. 
+	 *   @event
+	 ******************************************************************************/
+	searchIncrementalChangeEvent: function() {
+			
+		// Definitely a change?
+		if(this.value != KU.Directory.lastValue){
+		
+			// Store value
+			KU.Directory.lastValue = this.value;
+		
+			// Clear timeout
+			if(KU.Directory.sentTimeout) clearTimeout(KU.Directory.sentTimeout);
+			KU.Directory.typing = true;
+			
+			KU.Directory.sentTimeout = setTimeout(function(latestValue){
+				
+				// Definitely not a change?
+				if(latestValue == KU.Directory.lastValue){
+					
+					// Abort ajax
+					if(KU.Directory.sentAjax) KU.Directory.sentAjax.abort();
+					
+					// Save new value, reinit, download
+					KU.Directory.lastValue = latestValue;
+					KU.Directory.reinitialize();
+					KU.Directory.getNextPage();
+				}
+				
+				KU.Directory.typing = false;
+				
+			}, KU.INCR_WAIT_TIME, this.value);
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a direct change. The direct change includes 
+	 *   typing then changing focus or pressing the clear button. This is redundant
+	 *   to the incremental search event, except for the clear button!
+	 *   @event
+	 ******************************************************************************/
+	searchDirectChangeEvent: function(e,u){
+			
+		// Definitely a change?
+		if(this.value != KU.Directory.lastValue){
+		
+			// Clear timeout and ajax
+			if(KU.Directory.sentTimeout) clearTimeout(KU.Directory.sentTimeout);
+			if(KU.Directory.sentAjax) KU.Directory.sentAjax.abort();
+			
+			// Change last value and reinitialize
+			KU.Directory.lastValue = this.value;
+			KU.Directory.reinitialize();
+			
+			// Download results
+			KU.Directory.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a change to the TID/department drop down box.
+	 *   When this happens, we generally need to redo the search. 
+	 *   @event
+	 ******************************************************************************/
+	tidChangeEvent: function(e,u){
+		
+		// Definitely a change?
+		if(this.value != KU.Directory.tid){		
+	
+			// Clear timeout and ajax
+			if(KU.Directory.sentTimeout) clearTimeout(KU.Directory.sentTimeout);
+			if(KU.Directory.sentAjax) KU.Directory.sentAjax.abort();
+			
+			// Change TID then reinitialize
+			KU.Directory.tid = this.value;
+			KU.Directory.reinitialize();
+			
+			// Download results
+			KU.Directory.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when regular scroll event happens in directory scroller window
+	 *   This should be used for most, or all, modern devices that support it.
+	 *   Note: this detection is setup in {@link KU.ISCROLL} using
+	 *   overthrow-detect library.
+	 * 
+	 *   @param {Object} event - event properties, not used
+	 *   @event
+	 ******************************************************************************/
+	checkScroll: function(event){
+				
+		var scrollPosition = $('#directory-scroller').scrollTop() 
+							 + $('#directory-scroller').outerHeight();
+
+		// Break threshold?
+		if($('#directory-list').height() < (KU.Directory.LOAD_THRESHOLD_PX 
+			+ $('#directory-scroller').scrollTop() + $('#directory-scroller').outerHeight())
+			&& $('#directory').is(':visible') && !(KU.Directory.typing) 
+			&& !(KU.Directory.loading) && !(KU.Directory.reachedEnd)){
+			
+			// Get the next page!
+			KU.Directory.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when iScroll is moved or ended during a scrolling
+	 *   transition. Note this is only used at the moment for older devices
+	 *   which do not support overflow. 
+	 * 
+	 *   @param {Object} e - event, not used
+	 *   @param {Object} d - contains iscrollview and alike properties
+	 *   @event
+	 ******************************************************************************/
+	checkIScroll: function (e,d){
+
+		// Calculate current and maximum y coordinate
+		var max = d.iscrollview.maxScrollY()*-1;
+		var current = d.iscrollview.y()*-1;
+		
+		// At or past the threshold?
+		if(!KU.Directory.loading && current > (max - KU.Directory.LOAD_THRESHOLD_PX) 
+			&& $('#directory').is(':visible') && !(KU.Directory.typing)
+			&& !(KU.Directory.loading) && !(KU.Directory.reachedEnd)){
+			
+			// Get next page then refresh iScroll
+			KU.Directory.getNextPage();
+			d.iscrollview.refresh();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Downloads the next page in order to gain another 10 articles
+	 *   as part of the article list for the main directory page. Note that
+	 *   there are no arguments, but the function uses namespace members
+	 *   such as {@link KU.Directory.page} and {@link KU.Directory.queue}.
+	 ******************************************************************************/
 	getNextPage: function (){
 		
 		if(!this.loading){
@@ -44,8 +366,8 @@
 			
 				// Initialize the queue
 				// show loading indicator!
-				this.queue = KU_Config.PAGES_TO_LOAD;
-				KU_Mods.showLoading("directory-header");
+				this.queue = KU.PAGES_TO_LOAD;
+				KU.showLoading("directory-header");
 			}
 			
 			// Found at least one occasion where ?page=0 was different than default
@@ -80,12 +402,12 @@
 				success: function(data) {
 					
 					// Next page
-					KU_Directory.page++;
+					KU.Directory.page++;
 					
 					// Check for end? Reset queue if true
 					var downloaded = $("<div>").html(data).find('.directory-caption');
-					KU_Directory.reachedEnd = (downloaded.length < 10);					
-					if(KU_Directory.reachedEnd) KU_Directory.queue = 0;
+					KU.Directory.reachedEnd = (downloaded.length < 10);					
+					if(KU.Directory.reachedEnd) KU.Directory.queue = 0;
 
 			
 					// Go through each directory item
@@ -144,7 +466,7 @@
 									var bold = $(this).hasClass("bold");
 									if($(this).hasClass("obfuscated")){
 										info = info.split("").reverse().join("");
-										info = KU_Mods.ketteringObfuscate(info);
+										info = KU.ketteringObfuscate(info);
 									}
 									
 									//info = info.replace("1700 University Ave",""); 
@@ -159,54 +481,57 @@
 							});
 							
 							// If no lists then make them!
-							if(KU_Directory.listQueue==null) KU_Directory.listQueue = new Array();
+							if(KU.Directory.listQueue==null) KU.Directory.listQueue = new Array();
 							
 							// Add the item to the queue to be added after complete download
 							// NOTE: This is intentional so the DOM processing does not create
 							// a lag and unfriendly experience, we process all at the end
-							KU_Directory.listQueue[KU_Directory.listQueue.length] = listitem;
+							KU.Directory.listQueue[KU.Directory.listQueue.length] = listitem;
 						
 						}	
 					);
 					
 	
-					KU_Directory.loading = false;	// not loading
-					KU_Directory.queue--;			// one less in the queue!
+					KU.Directory.loading = false;	// not loading
+					KU.Directory.queue--;			// one less in the queue!
 					
 					// Last in the queue?
-					if(KU_Directory.queue <= 0){
+					if(KU.Directory.queue <= 0){
 						
-						KU_Mods.hideLoading("directory-header");
+						KU.hideLoading("directory-header");
 
 						// Go through all items in the list queue
-						for(var index = 0; index < KU_Directory.listQueue.length; index++){
+						for(var index = 0; index < KU.Directory.listQueue.length; index++){
 							
 							// Append to list
-							KU_Directory.listQueue[index].appendTo('#directory-list');		
+							KU.Directory.listQueue[index].appendTo('#directory-list');		
 						}
 						
 						// Refresh and create new arrays
 						$('#directory-list').listview('refresh');
-						KU_Directory.listQueue = new Array();
+						KU.Directory.listQueue = new Array();
 						
 					}
 					
 					// More in the queue? Cool, grab another page. 
-					else KU_Directory.getNextPage();
+					else KU.Directory.getNextPage();
 				},
 				
 				error: function(data){
 				
-					KU_Mods.hideLoading("directory-header");
-					KU_Directory.loading = false;
+					KU.hideLoading("directory-header");
+					KU.Directory.loading = false;
 				}
 			});	
 		}
 	},
 	
-	/**********************************************************
-	 * Reinitialize
-	 *********************************************************/
+	
+	
+	/******************************************************************************/
+	/**  Reinitializes all properties of {@link KU.Directory} as if to restore
+	 *   a new/default instance of the namespace.
+	 ******************************************************************************/
 	reinitialize: function(){
 		
 		this.listQueue = new Array();
@@ -216,158 +541,9 @@
 		this.reachedEnd = false;
 
 		// Clear previous scrollbar!
-		if(KU_Config.ISCROLL) $(window).trigger("resize");
+		if(KU.ISCROLL) $(window).trigger("resize");
 	}
+	
+	
+	
 };
-
-
-/**********************************************************
- * Directory page init
- *********************************************************/
-$(document).on("pageinit","#directory",function(event){
-	
-	// Bug in JQM? Clear button flashes when loading page?
-	// This line will fix it.
-	$("#directory .ui-input-clear").addClass("ui-input-clear-hidden");
-	
-	// Need to initialize iScroll scrolling?
-	if(KU_Config.ISCROLL){
-		
-		/**********************************************************
-		 * Check iScroll position
-		 *********************************************************/
-		var checkScroll = function (e,d){
-
-			// Calculate current and maximum y coordinate
-			var max = d.iscrollview.maxScrollY()*-1;
-			var current = d.iscrollview.y()*-1;
-			
-			// At or past the threshold?
-			if(!KU_Directory.loading && current > (max - KU_Directory.LOAD_THRESHOLD_PX) 
-				&& $('#directory').is(':visible') && !(KU_Directory.typing)
-				&& !(KU_Directory.loading) && !(KU_Directory.reachedEnd)){
-				
-				// Get next page then refresh iScroll
-				KU_Directory.getNextPage();
-				d.iscrollview.refresh();
-			}
-		}
-		
-		// Bind check scroll to moving and ending events
-		$("#directory .iscroll-wrapper").bind({
-			"iscroll_onscrollmove": checkScroll,
-			"iscroll_onscrollend": checkScroll,
-		});
-	}
-	
-	// Regular overflow scrolling
-	else{
-		
-		/**********************************************************
-		 * Check overflow scroll position
-		 *********************************************************/
-		$('#directory-scroller').on("scroll",function(event){
-			
-			var scrollPosition = $('#directory-scroller').scrollTop() 
-								 + $('#directory-scroller').outerHeight();
-
-			// Break threshold?
-			if($('#directory-list').height() < (KU_Directory.LOAD_THRESHOLD_PX 
-				+ $('#directory-scroller').scrollTop() + $('#directory-scroller').outerHeight())
-				&& $('#directory').is(':visible') && !(KU_Directory.typing) 
-				&& !(KU_Directory.loading) && !(KU_Directory.reachedEnd)){
-				
-				// Get the next page!
-				KU_Directory.getNextPage();
-			}
-		});
-	}
-});
-
-
-/**********************************************************
- * Directory page create
- *********************************************************/
-$(document).on("pagecreate","#directory",function(event){
-	
-	// Fix iScroll?
-	if(KU_Config.ISCROLL) KU_Mods.fixIscroll("#directory"); 
-	
-	// Resize and get first page for overflow
-	$(window).trigger("resize");
-	
-	
-	// Trigger for change in TID select
-	$("#directory-select").bind("change", function(e,u){
-	
-		// Definitely a change?
-		if(this.value != KU_Directory.tid){		
-	
-			// Clear timeout and ajax
-			if(KU_Directory.timeoutSent) clearTimeout(KU_Directory.timeoutSent);
-			if(KU_Directory.sentAjax) KU_Directory.sentAjax.abort();
-			
-			// Change TID then reinitialize
-			KU_Directory.tid = this.value;
-			KU_Directory.reinitialize();
-			
-			// Download results
-			KU_Directory.getNextPage();
-		}
-	});
-	
-	// Trigger for direct change in search box
-	$("#directory-search").bind("change", function(e,u){
-		
-		// Definitely a change?
-		if(this.value != KU_Directory.lastValue){
-		
-			// Clear timeout and ajax
-			if(KU_Directory.timeoutSent) clearTimeout(KU_Directory.timeoutSent);
-			if(KU_Directory.sentAjax) KU_Directory.sentAjax.abort();
-			
-			// Change last value and reinitialize
-			KU_Directory.lastValue = this.value;
-			KU_Directory.reinitialize();
-			
-			// Download results
-			KU_Directory.getNextPage();
-		}
-	});
-	
-	// Trigger for incremental change in search box
-	$("#directory-search").keyup( function() {
-		
-		// Definitely a change?
-		if(this.value != KU_Directory.lastValue){
-		
-			// Store value
-			KU_Directory.lastValue = this.value;
-		
-			// Clear timeout
-			if(KU_Directory.timeoutSent) clearTimeout(KU_Directory.timeoutSent);
-			KU_Directory.typing = true;
-			
-			KU_Directory.timeoutSent = setTimeout(function(latestValue){
-				
-				// Definitely not a change?
-				if(latestValue == KU_Directory.lastValue){
-					
-					// Abort ajax
-					if(KU_Directory.sentAjax) KU_Directory.sentAjax.abort();
-					
-					// Save new value, reinit, download
-					KU_Directory.lastValue = latestValue;
-					KU_Directory.reinitialize();
-					KU_Directory.getNextPage();
-				}
-				
-				KU_Directory.typing = false;
-				
-			}, KU_Config.INCR_WAIT_TIME, this.value);
-		}
-	});
-	
-	// Get page when page is first created
-	KU_Directory.getNextPage(); 
-});

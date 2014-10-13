@@ -15,31 +15,354 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**********************************************************
- * KU Library
- *********************************************************/
- var KU_Library = {
+
+
+/******************************************************************************/
+/**  Contains all library related functions for loading and controlling the
+ *   library page.
+ *   @namespace
+ ******************************************************************************/
+ KU.Library = {
 	
-	page: 0,							// last page downloaded
-	type:'GENERAL^SUBJECT^GENERAL'+		// type, topic identifier
-		'^^words or phrase',	
-	lastValue:'',						// last value searched!
-	lastestAction:'',					// latest action (contains key)
-	loading: false,						// is library loading ?
-	LOAD_THRESHOLD_PX: 660,				// pixels from the bottom trigger load
-	reachedEnd: false,					// have we reached the end?
-	typing: false,						// currently typing?
 	
-	/**********************************************************
-	 * Get next page
-	 *********************************************************/
+	
+	/******************************************************************************/
+	/**  Stores the last page number downloaded. Note: for library we use the external
+	 *   site at http://catalog.palnet.info instead of Kettering's own site, therefore
+	 *   this page number is only used as a convenience for us. Their system works by
+	 *   a complex hitlist, see {@link KU.Library.getNextPage} for more details.
+	 *   @type {int} 
+	 ******************************************************************************/
+	page: 0,
+	
+
+	
+	/******************************************************************************/
+	/**  Tells whether or not library is currently attempting to download
+	 *   or parse article lists. Essentially used to tell whether library is
+	 *   considered to be busy. 
+	 *   @type {boolean}
+	 ******************************************************************************/
+	loading: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Designates the minimum number of pixels that the user can scroll
+	 *   (calculated from the bottom) before another load event is triggered.
+	 *   @constant {int}
+	 ******************************************************************************/
+	LOAD_THRESHOLD_PX: 660,
+	
+	
+	
+	/******************************************************************************/
+	/**  Type of searching for Kettering's library. This basically represents the 
+	 *   method of searching that will be used by the system. Note: the naming 
+	 *   convention is a bit funky and NOT controlled by KU-Mobile.
+	 *   @type {string}
+	 ******************************************************************************/
+	type: 'GENERAL^SUBJECT^GENERAL^^words or phrase',
+	
+	
+	
+	/******************************************************************************/
+	/**  Represents the last/current value the user has searched for from the free
+	 *   text field / search bar located on the library page. 
+	 *   @type {string}
+	 ******************************************************************************/
+	lastValue:'',
+	
+	
+	
+	/******************************************************************************/
+	/**  Represents the last/current action from catalog planet's site. This is
+	 *   essentially a key needed to continue cycling through pages from the most
+	 *   recent search on catalog planets Kettering site. See {@link KU.Library.getNextPage}
+	 *   @type {string}
+	 ******************************************************************************/
+	lastAction:'',
+	
+	
+	
+	/******************************************************************************/
+	/**  Tells whether or not the user has reached the end of the scrolling. This is
+	 *   useful mainly to prevent the load to continuously trigger when there are no
+	 *   more results that need to be shown. Obviously this starts off false and 
+	 *   is detected during {@link KU.Library.getNextPage}.
+	 *   @type {boolean}
+	 ******************************************************************************/
+	reachedEnd: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Is the user currently typing? This is mainly used to ensure we do not do 
+	 *   certain loads or other things when we consider the user is typing.
+	 *   @type {boolean}
+	 ******************************************************************************/
+	typing: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the current list of article DOM li tag items that still need
+	 *   to be added to the DOM (much faster to add all at once after load
+	 *   is done downloading). This helps prevent the app from seeming to 
+	 *   hang or become unresponsive.
+	 *   @type {Object[]}
+	 ******************************************************************************/
+	listQueue: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last ajax call sent! This allows us to abort the call if the
+	 *   user re-searches in any way (dropdown, or searchbar)
+	 *   @type {Ajax}
+	 ******************************************************************************/
+	sentAjax: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the last timeout call sent! This allows us to restart the timeout if
+	 *   the user re-searches in any way (dropdown, or searchbar). The major benefit
+	 *   of this is that it gives us the feeling of incremental searching, e.g we send
+	 *   a timeout of some milliseconds whenever the KEY_UP event triggers, as well
+	 *   as cancelling out the last timeout we sent. 
+	 *   @type {Timeout}
+	 ******************************************************************************/
+	sentTimeout: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the library page is first initialized based on 
+	 *   jQM page init event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageInit: function(event){
+		
+		// Bug in JQM? Clear button flashes when loading page?
+		// This line will fix it.
+		$("#library .ui-input-clear").addClass("ui-input-clear-hidden");
+		
+		// Need to initialize iScroll scrolling?
+		if(KU.ISCROLL){
+			
+			
+			// Bind check scroll to moving and ending events
+			$("#library .iscroll-wrapper").bind({
+				"iscroll_onscrollmove": KU.Library.checkIScroll,
+				"iscroll_onscrollend": KU.Library.checkIScroll,
+			});
+		}
+		
+		// Regular overflow scrolling
+		else{
+			
+			
+			// Check overflow scroll position
+			$('#library-scroller').on("scroll", KU.Library.checkScroll);
+		}
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the library page is first created based on 
+	 *   jQM page create event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageCreate: function(event){
+	
+		// Fix iScroll?
+		if(KU.ISCROLL) KU.fixIscroll("#library"); 
+		
+		// Resize and get first page for overflow
+		$(window).trigger("resize");
+		
+		
+		// Trigger for change in type select
+		$("#library-select").bind("change", KU.Library.typeChangeEvent);
+		
+		// Trigger for direct change in search box
+		$("#library-search").bind("change", KU.Library.searchDirectChangeEvent);
+		
+		// Trigger for incremental change in search box
+		$("#library-search").keyup(KU.Library.searchIncrementalChangeEvent);
+		
+		// Get page when page is first created
+		KU.Library.getNextPage(); 
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a key up event in order to simulate incremental
+	 *   searching for the attached search bar. 
+	 *   @event
+	 ******************************************************************************/
+	searchIncrementalChangeEvent: function() {
+			
+		// Definitely a change?
+		if(this.value != KU.Library.lastValue){
+		
+			// Store value
+			KU.Library.lastValue = this.value;
+		
+			// Clear timeout
+			if(KU.Library.sentTimeout) clearTimeout(KU.Library.sentTimeout);
+			KU.Library.typing = true;
+			
+			KU.Library.sentTimeout = setTimeout(function(latestValue){
+				
+				// Definitely not a change?
+				if(latestValue == KU.Library.lastValue){
+					
+					// Abort ajax
+					if(KU.Library.sentAjax) KU.Library.sentAjax.abort();
+					
+					// Save new value, reinit, download
+					KU.Library.lastValue = latestValue;
+					KU.Library.reinitialize();
+					KU.Library.getNextPage();
+				}
+				
+				KU.Library.typing = false;
+				
+			}, KU.INCR_WAIT_TIME, this.value);
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a direct change. The direct change includes 
+	 *   typing then changing focus or pressing the clear button. This is redundant
+	 *   to the incremental search event, except for the clear button!
+	 *   @event
+	 ******************************************************************************/
+	searchDirectChangeEvent: function(e,u){
+			
+		// Definitely a change?
+		if(this.value != KU.Library.lastValue){
+		
+			// Clear timeout and ajax
+			if(KU.Library.sentTimeout) clearTimeout(KU.Library.sentTimeout);
+			if(KU.Library.sentAjax) KU.Library.sentAjax.abort();
+			
+			// Change last value and reinitialize
+			KU.Library.lastValue = this.value;
+			KU.Library.reinitialize();
+			
+			// Download results
+			KU.Library.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the user does a change to the TID/department drop down box.
+	 *   When this happens, we generally need to redo the search. 
+	 *   @event
+	 ******************************************************************************/
+	typeChangeEvent: function(e,u){
+		
+		// Definitely a change?
+		if(this.value != KU.Library.type){		
+	
+			// Clear timeout and ajax
+			if(KU.Library.sentTimeout) clearTimeout(KU.Library.sentTimeout);
+			if(KU.Library.sentAjax) KU.Library.sentAjax.abort();
+			
+			// Change type then reinitialize
+			KU.Library.type = this.value;	
+			KU.Library.reinitialize();
+			
+			// Download results
+			KU.Library.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when regular scroll event happens in library scroller window
+	 *   This should be used for most, or all, modern devices that support it.
+	 *   Note: this detection is setup in {@link KU.ISCROLL} using
+	 *   overthrow-detect library.
+	 * 
+	 *   @param {Object} event - event properties, not used
+	 *   @event
+	 ******************************************************************************/
+	checkScroll: function(event){
+				
+		var scrollPosition = $('#library-scroller').scrollTop() 
+							 + $('#library-scroller').outerHeight();
+
+		// Break threshold?
+		if($('#library-list').height() < (KU.Library.LOAD_THRESHOLD_PX 
+			+ $('#library-scroller').scrollTop() + $('#library-scroller').outerHeight()) && !(KU.Library.typing)
+			&& $('#library').is(':visible') && !(KU.Library.loading) && !(KU.Library.reachedEnd)){
+			
+			// Get the next page!
+			KU.Library.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when iScroll is moved or ended during a scrolling
+	 *   transition. Note this is only used at the moment for older devices
+	 *   which do not support overflow. 
+	 * 
+	 *   @param {Object} e - event, not used
+	 *   @param {Object} d - contains iscrollview and alike properties
+	 *   @event
+	 ******************************************************************************/
+	checkIScroll: function (e,d){
+
+		// Calculate current and maximum y coordinate
+		var max = d.iscrollview.maxScrollY()*-1;
+		var current = d.iscrollview.y()*-1;
+		
+		// At or past the threshold?
+		if(!KU.Library.loading && current > (max - KU.Library.LOAD_THRESHOLD_PX) 
+			&& $('#library').is(':visible') && !(KU.Library.typing)
+			&& !(KU.Library.loading) && !(KU.Library.reachedEnd)){
+			
+			// Get next page then refresh iScroll
+			KU.Library.getNextPage();
+			d.iscrollview.refresh();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Downloads the next page in order to gain another 10 articles
+	 *   as part of the article list for the main library page. Note that
+	 *   there are no arguments, but the function uses namespace members.
+	 ******************************************************************************/
 	getNextPage: function (){
 
 		if(!this.loading){
 			
 			// Now loading
 			this.loading = true;
-			KU_Mods.showLoading("library-header");
+			KU.showLoading("library-header");
 				
 			// First page is restful based
 			if(this.page == 0){ 
@@ -58,7 +381,7 @@
 			else{
 			
 				// Compile URL
-				var url = "http://catalog.palnet.info" + this.lastestAction + "?"
+				var url = "http://catalog.palnet.info" + this.lastAction + "?"
 							+ "firsthit=&lasthit=&form_type=" + "JUMP%5E" + ((this.page*20) + 1);
 			}
 			
@@ -73,15 +396,15 @@
 					// Check for end? Reset queue if true
 					var downloaded = $("<div>").html(data);
 					var hitlist = downloaded.find('.hit_list_row');
-					KU_Library.reachedEnd = (hitlist.length < 20);
+					KU.Library.reachedEnd = (hitlist.length < 20);
 					
 					// Snag the action for this session?
-					if(KU_Library.page == 0){
-						KU_Library.lastestAction = downloaded.find("#hitlist").first().attr("action");
+					if(KU.Library.page == 0){
+						KU.Library.lastAction = downloaded.find("#hitlist").first().attr("action");
 					}
 			
 					// Next page
-					KU_Library.page++;
+					KU.Library.page++;
 			
 					// Go through each library item
 					hitlist.each(
@@ -186,48 +509,49 @@
 							
 							
 							// If no lists then make them!
-							if(KU_Library.listQueue==null) KU_Library.listQueue = new Array();
+							if(KU.Library.listQueue==null) KU.Library.listQueue = new Array();
 							
 							// Add the item to the queue to be added after complete download
 							// NOTE: This is intentional so the DOM processing does not create
 							// a lag and unfriendly experience, we process all at the end
-							KU_Library.listQueue[KU_Library.listQueue.length] = listitem;
+							KU.Library.listQueue[KU.Library.listQueue.length] = listitem;
 						
 						}	
 					);
 					
 	
-					KU_Library.loading = false;	// not loading
+					KU.Library.loading = false;	// not loading
 					
 						
-					KU_Mods.hideLoading("library-header");
+					KU.hideLoading("library-header");
 
 					// Go through all items in the list queue
-					for(var index = 0; index < KU_Library.listQueue.length; index++){
+					for(var index = 0; index < KU.Library.listQueue.length; index++){
 						
 						// Append to list
-						KU_Library.listQueue[index].appendTo('#library-list');		
+						KU.Library.listQueue[index].appendTo('#library-list');		
 					}
 					
 					// Refresh and create new arrays
 					$('#library-list').listview('refresh');
-					KU_Library.listQueue = new Array();
+					KU.Library.listQueue = new Array();
 						
 					
 				},
 				
 				error: function(data){
 				
-					KU_Mods.hideLoading("library-header");
-					KU_Library.loading = false;
+					KU.hideLoading("library-header");
+					KU.Library.loading = false;
 				}
 			});	
 		}
 	},
 	
-	/**********************************************************
-	 * Reinitialize
-	 *********************************************************/
+	/******************************************************************************/
+	/**  Reinitializes all properties of {@link KU.Library} as if to restore
+	 *   a new/default instance of the namespace.
+	 ******************************************************************************/
 	reinitialize: function(){
 		
 		this.listQueue = new Array();
@@ -236,160 +560,9 @@
 		this.reachedEnd = false;
 		
 		// Clear previous scrollbar!
-		if(KU_Config.ISCROLL) $(window).trigger("resize");
+		if(KU.ISCROLL) $(window).trigger("resize");
 	}
+	
+	
+	
 };
-
-
-/**********************************************************
- * Library page init
- *********************************************************/
-$(document).on("pageinit","#library",function(event){
-	
-	
-	// Bug in JQM? Clear button flashes when loading page?
-	// This line will fix it.
-	$("#library .ui-input-clear").addClass("ui-input-clear-hidden");
-	
-	// Need to initialize iScroll scrolling?
-	if(KU_Config.ISCROLL){
-		
-		/**********************************************************
-		 * Check iScroll position
-		 *********************************************************/
-		var checkScroll = function (e,d){
-
-			// Calculate current and maximum y coordinate
-			var max = d.iscrollview.maxScrollY()*-1;
-			var current = d.iscrollview.y()*-1;
-			
-			// At or past the threshold?
-			if(!KU_Library.loading && current > (max - KU_Library.LOAD_THRESHOLD_PX) 
-				&& $('#library').is(':visible') && !(KU_Library.typing)
-				&& !(KU_Library.loading) && !(KU_Library.reachedEnd)){
-				
-				// Get next page then refresh iScroll
-				KU_Library.getNextPage();
-				d.iscrollview.refresh();
-			}
-		}
-		
-		// Bind check scroll to moving and ending events
-		$("#library .iscroll-wrapper").bind({
-			"iscroll_onscrollmove": checkScroll,
-			"iscroll_onscrollend": checkScroll,
-		});
-	}
-	
-	// Regular overflow scrolling
-	else{
-		
-		/**********************************************************
-		 * Check overflow scroll position
-		 *********************************************************/
-		$('#library-scroller').on("scroll",function(event){
-			
-			var scrollPosition = $('#library-scroller').scrollTop() 
-								 + $('#library-scroller').outerHeight();
-
-			// Break threshold?
-			if($('#library-list').height() < (KU_Library.LOAD_THRESHOLD_PX 
-				+ $('#library-scroller').scrollTop() + $('#library-scroller').outerHeight()) && !(KU_Library.typing)
-				&& $('#library').is(':visible') && !(KU_Library.loading) && !(KU_Library.reachedEnd)){
-				
-				// Get the next page!
-				KU_Library.getNextPage();
-			}
-		});
-	}
-	
-});
-
-
-/**********************************************************
- * Library page create
- *********************************************************/
-$(document).on("pagecreate","#library",function(event){
-	
-	// Fix iScroll?
-	if(KU_Config.ISCROLL) KU_Mods.fixIscroll("#library"); 
-	
-	// Resize and get first page for overflow
-	$(window).trigger("resize");
-	
-	
-	// Trigger for change in type select
-	$("#library-select").bind("change", function(e,u){
-	
-		// Definitely a change?
-		if(this.value != KU_Library.type){		
-	
-			// Clear timeout and ajax
-			if(KU_Library.timeoutSent) clearTimeout(KU_Library.timeoutSent);
-			if(KU_Library.sentAjax) KU_Library.sentAjax.abort();
-			
-			// Change type then reinitialize
-			KU_Library.type = this.value;	
-			KU_Library.reinitialize();
-			
-			// Download results
-			KU_Library.getNextPage();
-		}
-	});
-	
-	// Trigger for direct change in search box
-	$("#library-search").bind("change", function(e,u){
-		
-		// Definitely a change?
-		if(this.value != KU_Library.lastValue){
-		
-			// Clear timeout and ajax
-			if(KU_Library.timeoutSent) clearTimeout(KU_Library.timeoutSent);
-			if(KU_Library.sentAjax) KU_Library.sentAjax.abort();
-			
-			// Change last value and reinitialize
-			KU_Library.lastValue = this.value;
-			KU_Library.reinitialize();
-			
-			// Download results
-			KU_Library.getNextPage();
-		}
-	});
-	
-	// Trigger for incremental change in search box
-	$("#library-search").keyup( function() {
-		
-		// Definitely a change?
-		if(this.value != KU_Library.lastValue){
-		
-			// Store value
-			KU_Library.lastValue = this.value;
-		
-			// Clear timeout
-			if(KU_Library.timeoutSent) clearTimeout(KU_Library.timeoutSent);
-			KU_Library.typing = true;
-			
-			KU_Library.timeoutSent = setTimeout(function(latestValue){
-				
-				// Definitely not a change?
-				if(latestValue == KU_Library.lastValue){
-					
-					// Abort ajax
-					if(KU_Library.sentAjax) KU_Library.sentAjax.abort();
-					
-					// Save new value, reinit, download
-					KU_Library.lastValue = latestValue;
-					KU_Library.reinitialize();
-					KU_Library.getNextPage();
-				}
-				
-				KU_Library.typing = false;
-				
-			}, KU_Config.INCR_WAIT_TIME, this.value);
-		}
-	});
-	
-	// Get page when page is first created
-	KU_Library.getNextPage(); 
-	
-});

@@ -16,20 +16,191 @@
 */
 
 
-/**********************************************************
- * KU News
- *********************************************************/
- var KU_News = {
+
+/******************************************************************************/
+/**  Contains all news related functions for loading and controlling the news page.
+ *   @namespace
+ ******************************************************************************/
+KU.News = {
+ 
+ 
+ 
+	/******************************************************************************/
+	/**  Stores the last page number downloaded as denoted from Kettering's
+	 *   news website kettering.edu/news/current-news. Indexing starts off
+	 *   at 0 and continues on to an unbounded limit.
+	 *   @type {int} 
+	 ******************************************************************************/
+	page: 0,
 	
-	page: 0,					// last page downloaded
-	queue: 0,					// queue of pages that need downloading
-	loading: false,				// is news loading ?
-	LOAD_THRESHOLD_PX: 660,		// pixels from the bottom trigger load
 	
-	/**********************************************************
-	 * Download article
-	 *********************************************************/
-	downloadArticle:function (id, link){
+	
+	/******************************************************************************/
+	/**  Number of pages that need to be downloaded still. This is used to
+	 *   dynamically and asynchronously download more than one page at a time,
+	 *   which is configured at {@link KU.PAGES_TO_LOAD}
+	 *   @type {int}
+	 ******************************************************************************/
+	queue: 0,
+	
+	
+	
+	/******************************************************************************/
+	/**  Tells whether or not news is currently attempting to download
+	 *   or parse article lists. Essentially used to tell whether news is
+	 *   considered to be busy. 
+	 *   @type {boolean}
+	 ******************************************************************************/
+	loading: false,
+	
+	
+	
+	/******************************************************************************/
+	/**  Designates the minimum number of pixels that the user can scroll
+	 *   (calculated from the bottom) before another load event is triggered.
+	 *   @constant {int}
+	 ******************************************************************************/
+	LOAD_THRESHOLD_PX: 660,
+
+	
+	
+	/******************************************************************************/
+	/**  Contains the current list of article DOM li tag items that still need
+	 *   to be added to the DOM (much faster to add all at once after load
+	 *   is done downloading). This helps prevent the app from seeming to 
+	 *   hang or become unresponsive.
+	 *   @type {Object[]}
+	 ******************************************************************************/
+	listQueue: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Contains the current list of pages DOM data-role="page" 
+	 *   items that still need to be added to the DOM (much faster to 
+	 *   add all at once after load is done downloading). This helps 
+	 *   prevent the app from seeming to hang or become unresponsive.
+	 *   @type {Object[]}
+	 ******************************************************************************/
+	pageQueue: null,
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the news page is first initialized based on 
+	 *   jQM page init event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageInit: function(event){
+
+		// Need to initialize iScroll scrolling?
+		if(KU.ISCROLL){
+			
+			// Bind check scroll to moving and ending events
+			$("#news .iscroll-wrapper").bind({
+				"iscroll_onscrollmove": KU.News.checkIScroll,
+				"iscroll_onscrollend": KU.News.checkIScroll,
+			});
+		}
+		
+		// Regular overflow scrolling
+		else{
+			
+			
+			// Check overflow scroll position
+			$('#news-scroller').on("scroll", KU.News.checkScroll);
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when the news page is first created based on 
+	 *   jQM page create event. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	pageCreate: function(event){
+	
+		// Fix iScroll?
+		if(KU.ISCROLL) KU.fixIscroll("#news"); 
+		
+		// Resize and get first page for overflow
+		else $(window).trigger("throttledresize");
+		KU.News.getNextPage(); 
+		
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when regular scroll event happens in news scroller window
+	 *   This should be used for most, or all, modern devices that support it.
+	 *   Note: this detection is setup in {@link KU.ISCROLL} using
+	 *   overthrow-detect library.
+	 * 
+	 *   @param {Object} event - event properties, not used
+	 *   @event
+	 ******************************************************************************/
+	checkScroll: function(event){
+				
+		var scrollPosition = $('#news-scroller').scrollTop() + $('#news-scroller').outerHeight();
+
+		// Break threshold?
+		if($('#news-list').height() < (KU.News.LOAD_THRESHOLD_PX + $('#news-scroller').scrollTop() + 
+			$('#news-scroller').outerHeight()) && $('#news').is(':visible') && !(KU.News.loading)){
+			
+			// Get the next page!
+			KU.News.getNextPage();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Triggered when iScroll is moved or ended during a scrolling
+	 *   transition. Note this is only used at the moment for older devices
+	 *   which do not support overflow. 
+	 * 
+	 *   @param {Object} e - event, not used
+	 *   @param {Object} d - contains iscrollview and alike properties
+	 *   @event
+	 ******************************************************************************/
+	checkIScroll: function (e,d){
+
+		// Calculate current and maximum y coordinate
+		var max = d.iscrollview.maxScrollY()*-1;
+		var current = d.iscrollview.y()*-1;
+		
+		// At or past the threshold?
+		if(!KU.News.loading && current > (max - KU.News.LOAD_THRESHOLD_PX) && $('#news').is(':visible') 
+			&& !(KU.News.loading)){
+			
+			// Get next page then refresh iScroll
+			KU.News.getNextPage();
+			d.iscrollview.refresh();
+		}
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Downloads and parses a Kettering news article in order to display
+	 *   detailed article to the user. Usually this is triggered by a user
+	 *   clicking on an article link from the main news page.
+	 *
+	 *   @param {string} domId - The article DOM identifier for the link that
+	 *          was clicked by the user (e.g in html format, id="News-1-0")
+	 *          which represents the first page article 0.
+	 *   @param {string} link - Directly link to the news article located on
+	 *          Kettering's main website.
+	 ******************************************************************************/
+	downloadArticle:function (domId, link){
 	
 		// Now loading
 		this.loading = true;
@@ -39,9 +210,12 @@
 			type: 'GET',
 			dataType: 'html',
 			beforeSend: function(){
-			
-				KU_Mods.showLoading(id);
+		
+				// Before downloading, we should show the loading dialog on the
+				// correct page
+				KU.showLoading(domId);
 			},
+			
 			success: function(data) {
 			
 				// Load downloaded document
@@ -61,7 +235,7 @@
 				main_paragraph.css('padding','4px');
 
 				// Get scroller content
-				var scroller = $("#" + id + "-scroller");
+				var scroller = $("#" + domId + "-scroller");
 
 				// Make h1
 				var header = $('<h2></h2>',{
@@ -82,28 +256,66 @@
 				
 				// Resize anyways! in case there was nothing to load from above
 				$(window).trigger("resize");
-
-				// TODO calculate time here so the delay is *ONLY* a minimum not addition
-				//setTimeout(function(){
 					
-					// Hide and stop loading
-					KU_Mods.hideLoading(id);
-					KU_News.loading = false;
-				//}, KU_Config.LOAD_INDICATOR_DELAY);
+				// Hide and stop loading
+				KU.hideLoading(domId);
+				KU.News.loading = false;
 			},
 
 			error: function(data){
 			
-				KU_Config.showGlobalError();
-				KU_Mods.hideLoading(id);
-				KU_News.loading = false;
+				KU.showGlobalError();
+				KU.hideLoading(domId);
+				KU.News.loading = false;
 			}
 		});	
 	},
 	
-	/**********************************************************
-	 * Get next page
-	 *********************************************************/
+	
+	
+	/******************************************************************************/
+	/**  Called on create of an article page. Mainly this function just
+	 *   attempts to download the article and show it. 
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          not actually being used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	articlePageCreate: function(event){
+								
+		// Always use iScroll here
+		KU.fixIscroll('#' + this.id);
+		
+		// Download article into ID, with mylink as source
+		KU.News.downloadArticle(this.id, $('#' + this.id).attr("mylink"));
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Called on init of an article page. Mainly this function just
+	 *   sets up an iScroll with the proper configuration.
+	 *
+	 *   @param {Event} event - jQM event, not actually being
+	 *          not actually being used by us at the moment. 
+	 *   @event
+	 ******************************************************************************/
+	articlePageInit: function(event){
+							
+		// Fancy iScroll options
+		$('#' + this.id + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.zoom = true;
+		$('#' + this.id + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.hScroll = true;
+		$('#' + this.id + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.hScrollbar = true;
+	},
+	
+	
+	
+	/******************************************************************************/
+	/**  Downloads the next page in order to gain another 10 articles
+	 *   as part of the article list for the main news page. Note that
+	 *   there are no arguments, but the function uses namespace members
+	 *   such as {@link KU.News.page} and {@link KU.News.queue}.
+	 ******************************************************************************/
 	getNextPage: function (){
 		
 		if(!this.loading){
@@ -117,8 +329,8 @@
 				// Initialize the queue
 				// start with default pages
 				// show loading indicator!
-				this.queue = KU_Config.PAGES_TO_LOAD;
-				KU_Mods.showLoading("news-header");
+				this.queue = KU.PAGES_TO_LOAD;
+				KU.showLoading("news-header");
 			}
 			
 			// Found at least one occasion where ?page=0 was different than default
@@ -132,7 +344,7 @@
 				dataType: 'html',
 				success: function(data) {
 					
-					KU_News.page++;
+					KU.News.page++;
 			
 					// Go through each news item
 					$("<div>").html(data).find('.news-caption').each(
@@ -145,7 +357,7 @@
 							// Setup item information
 							var title = $('h3', this).text();
 							var info = $('.info', this).text();
-							var pageid = 'news-' + KU_News.page + '-' + index;
+							var pageid = 'news-' + KU.News.page + '-' + index;
 							var article_link = $('.more', this).attr('href');
 							
 							// Make link
@@ -196,151 +408,77 @@
 								'class': 'scroller'
 							}).appendTo(page);
 							
-							/**********************************************************
-							 * Article Page Create
-							 *********************************************************/
-							$(document).on("pagecreate",'#' + pageid, function(event){
-								
-								// Always use iScroll here
-								KU_Mods.fixIscroll('#' + pageid);
-								
-								// Download article into ID, with mylink as source
-								KU_News.downloadArticle(this.id, $('#' + this.id).attr("mylink"));
-							});
+						
+							// Article Page Create	
+							$(document).on("pagecreate",'#' + pageid, KU.News.articlePageCreate);
 							
-							/**********************************************************
-							 * Article Page Init
-							 *********************************************************/
-							$(document).on("pageinit",'#' + pageid,function(event){
-							
-								// Fancy iScroll options
-								$('#' + pageid + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.zoom = true;
-								$('#' + pageid + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.hScroll = true;
-								$('#' + pageid + " .iscroll-wrapper").data("mobileIscrollview").iscroll.options.hScrollbar = true;
-							});
+							// Article Page Init
+							$(document).on("pageinit",'#' + pageid, KU.News.articlePageInit);
 							
 							// Finally append link into a list item
 							var listitem = $('<li></li>').append(link);
 							
 							// If no lists then make them!
-							if(KU_News.listQueue==null) KU_News.listQueue = new Array();
-							if(KU_News.pageQueue==null) KU_News.pageQueue = new Array();
+							if(KU.News.listQueue==null) KU.News.listQueue = new Array();
+							if(KU.News.pageQueue==null) KU.News.pageQueue = new Array();
 							
 							// Add the item to the queue to be added after complete download
 							// NOTE: This is intentional so the DOM processing does not create
 							// a lag and unfriendly experience, we process all at the end
-							KU_News.listQueue[KU_News.listQueue.length] = listitem;
-							KU_News.pageQueue[KU_News.pageQueue.length] = page;
-						
+							KU.News.listQueue[KU.News.listQueue.length] = listitem;
+							KU.News.pageQueue[KU.News.pageQueue.length] = page;
 						}	
 					);
 					
-
-					//setTimeout(function(){
 						
-						KU_News.loading = false;	// not loading
-						KU_News.queue--;			// one less in the queue!
+					KU.News.loading = false;	// not loading
+					KU.News.queue--;			// one less in the queue!
+					
+					// Last in the queue?
+					if(KU.News.queue <= 0){
 						
-						// Last in the queue?
-						if(KU_News.queue <= 0){
-							
-							KU_Mods.hideLoading("news-header");
+						KU.hideLoading("news-header");
 
-							// Go through all items in the list queue
-							for(var index = 0; index < KU_News.listQueue.length; index++){
-								
-								// Append to list
-								KU_News.listQueue[index].appendTo('#news-list');		
-							}
+						// Go through all items in the list queue
+						for(var index = 0; index < KU.News.listQueue.length; index++){
 							
-							// Go through all pages in the queue
-							for(var index = 0; index < KU_News.pageQueue.length; index++){
-							
-								// Append to the body
-								KU_News.pageQueue[index].appendTo('body');		
-							}
-							
-							// Refresh and create new arrays
-							$('#news-list').listview('refresh');
-							KU_News.listQueue = new Array();
-							KU_News.pageQueue = new Array();
-							
+							// Append to list
+							KU.News.listQueue[index].appendTo('#news-list');		
 						}
 						
-						// More in the queue? Cool, grab another page. 
-						else KU_News.getNextPage();
+						// Go through all pages in the queue
+						for(var index = 0; index < KU.News.pageQueue.length; index++){
 						
-					//}, KU_Config.LOAD_INDICATOR_DELAY);
+							// Append to the body
+							KU.News.pageQueue[index].appendTo('body');		
+						}
+						
+						// Refresh and create new arrays
+						$('#news-list').listview('refresh');
+						KU.News.listQueue = new Array();
+						KU.News.pageQueue = new Array();
+					}
+					
+					// More in the queue? Cool, grab another page. 
+					else KU.News.getNextPage();
+					
 				},
 				
 				error: function(data){
 				
-					KU_Config.showGlobalError();
-					KU_Mods.hideLoading("news-header");
-					KU_News.loading = false;
+					KU.showGlobalError();
+					KU.hideLoading("news-header");
+					KU.News.loading = false;
 				}
 			});	
 		}
 	}
 };
 
-/**********************************************************
- * News page init
- *********************************************************/
-$(document).on("pageinit","#news",function(event){
 
-	// Need to initialize iScroll scrolling?
-	if(KU_Config.ISCROLL){
-		
-		/**********************************************************
-		 * Check iScroll position
-		 *********************************************************/
-		var checkScroll = function (e,d){
-
-			// Calculate current and maximum y coordinate
-			var max = d.iscrollview.maxScrollY()*-1;
-			var current = d.iscrollview.y()*-1;
-			
-			// At or past the threshold?
-			if(!KU_News.loading && current > (max - KU_News.LOAD_THRESHOLD_PX) && $('#news').is(':visible') 
-				&& !(KU_News.loading)){
-				
-				// Get next page then refresh iScroll
-				KU_News.getNextPage();
-				d.iscrollview.refresh();
-			}
-		}
-		
-		// Bind check scroll to moving and ending events
-		$("#news .iscroll-wrapper").bind({
-			"iscroll_onscrollmove": checkScroll,
-			"iscroll_onscrollend": checkScroll,
-		});
-	}
-	
-	// Regular overflow scrolling
-	else{
-		
-		/**********************************************************
-		 * Check overflow scroll position
-		 *********************************************************/
-		$('#news-scroller').on("scroll",function(event){
-			
-			var scrollPosition = $('#news-scroller').scrollTop() + $('#news-scroller').outerHeight();
-
-			// Break threshold?
-			if($('#news-list').height() < (KU_News.LOAD_THRESHOLD_PX + $('#news-scroller').scrollTop() + 
-				$('#news-scroller').outerHeight()) && $('#news').is(':visible') && !(KU_News.loading)){
-				
-				// Get the next page!
-				KU_News.getNextPage();
-			}
-		});
-	}
-});
-
-var load = 0;
 /*
+var load = 0;
+
 function getSchedule(username, password){
 	
 	var frameName = "temporaryFrame";
@@ -376,17 +514,3 @@ function getSchedule(username, password){
     });	
 }
 */
-
-/**********************************************************
- * News page create
- *********************************************************/
-$(document).on("pagecreate","#news",function(event){
-	
-	// Fix iScroll?
-	if(KU_Config.ISCROLL) KU_Mods.fixIscroll("#news"); 
-	
-	// Resize and get first page for overflow
-	else $(window).trigger("throttledresize");
-	KU_News.getNextPage(); 
-	
-});
