@@ -1,2 +1,0 @@
-@adb devices -l
-@pause

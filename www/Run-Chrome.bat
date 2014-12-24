@@ -1,1 +1,0 @@
-@start C:\Users\Garrick\AppData\Local\Google\Chrome\Application\chrome.exe --disable-web-security %~dp0index.html 
