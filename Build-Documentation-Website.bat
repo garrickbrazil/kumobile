@@ -1,1 +1,0 @@
-%USERPROFILE%/AppData/Roaming/npm/jsdoc -r www/src -t %USERPROFILE%/AppData/Roaming/npm/node_modules/ink-docstrap/template -c %USERPROFILE%/AppData/Roaming/npm/node_modules/jsdoc/conf.json -d docs README.md

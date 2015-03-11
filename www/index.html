@@ -4,49 +4,54 @@
 	
 	<head>
 		
-		<title>KU App</title>
+		<title>KU Mobile</title>
 		
 		<!-- Styles -->
-		<link rel="stylesheet" href="themes/ku.jQM.theme.css" />
-		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.css" />
-		<link rel="stylesheet" href="themes/ku.theme.css" />
-		<link rel="stylesheet" href="themes/jquery.mobile.iscrollview.css" />
-		<link rel="stylesheet" href="themes/jquery.mobile.iscrollview-pull.css" />
-		<link rel="stylesheet" href="themes/leaflet.css" />
+		<link rel="stylesheet" href="css/kumobile.jqm.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.css" />
+		<link rel="stylesheet" href="css/kumobile.css" />
+		<link rel="stylesheet" href="css/leaflet.css" />
+        
 		
 		<!-- Device only -->
 		<script src="cordova.js"></script>
 		
-		<!-- Javascript -->
-		<script src="libs/jquery-1.10.2.min.js"></script>
-		<script src="libs/jquery.mobile-1.4.2.min.js"></script>
-		<script src="libs/iscroll.js"></script>
-		<script src="libs/jquery.mobile.iscrollview.js"></script>
-		<script src="libs/overthrow-detect.js"></script>
-		<script src="libs/leaflet.js"></script>
-		<script src="src/KU.js"></script>
-		<script src="src/news.js"></script>
-		<script src="src/events.js"></script>
-		<script src="src/directory.js"></script>
-		<script src="src/library.js"></script>
-		<script src="src/transfer.js"></script>
-		<script src="src/map.js"></script>
-		<script src="src/file_io.js"></script>
-		<script src="src/setup.js"></script>
-				
+		<!-- Libs -->
+		<script src="lib/jquery-1.10.2.min.js"></script>
+		<script src="lib/jquery.mobile-1.4.2.min.js"></script>
+		<script src="lib/leaflet.js"></script>
+		<script src="lib/handlebars-1.0.rc.1.min.js"></script>
+        <script src="http://cdn.rawgit.com/garrickbrazil/KetteringJS/master/bin/KetteringJS.min.js"></script>
+        
+        <!-- Source --> 
+        <script src="js/KUMobile.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/news.js"></script>
+        <script src="js/events.js"></script>
+		<script src="js/directory.js"></script>
+        <script src="js/library.js"></script>
+		<script src="js/transfer.js"></script>
+		<script src="js/map.js"></script>
+		<script src="js/file_io.js"></script>
+        <script src="js/templates.js"></script>
+        <script src="js/setup.js"></script>
+       
+        
 	</head>
 	<body>
 	
 		<!-- Home page --> 
 		<div id="home" data-role="page">
 			
+            
+            
 			<!-- Header -->
-			<div data-role="header" class="header">	
+			<div data-role="header" class="header blue-grad">
 				<div class="header-title">
 					
 					<!-- The Bulldog! --> 
-					<img border="0" src="images/bulldog.png" alt="Bulldog" style="vertical-align:bottom;height:1.4em!important;padding-right:.3em!important;"/>
+					<img id="main-bulldog-icon" border="0" src="img/bulldog.png" alt="Bulldog"/>
 					
 					Kettering University
 				</div>
@@ -54,13 +59,13 @@
 			
 			<!-- Home page list --> 
 			<div id="home-scroller" class="scroller">
-			
-				<ul style="margin-top:-1px" data-role="listview">
+            
+				<ul style="" data-role="listview">
 				
 					<!-- News item --> 
 					<li>
 						<a class="grey-grad"  href="#news">
-						<img class="ui-li-icon main-icon" src="images/news.png" alt="news.png"/>
+						<img class="ui-li-icon main-icon" src="img/news.png" alt="news.png"/>
 						
 						<div class="main-text">
 							<h1>News</h1>
@@ -72,7 +77,7 @@
 					<!-- Events item -->
 					<li>
 						<a class="grey-grad"  href="#events">
-						<img class="ui-li-icon main-icon" src="images/events.png" alt="events.png"/>
+						<img class="ui-li-icon main-icon" src="img/events.png" alt="events.png"/>
 						
 						<div class="main-text">
 							<h1>Events</h1>
@@ -84,7 +89,7 @@
 					<!-- Directory item -->
 					<li>
 						<a class="grey-grad" href="#directory">
-						<img class="ui-li-icon main-icon" src="images/directory.png" alt="directory.png"/>
+						<img class="ui-li-icon main-icon" src="img/directory.png" alt="directory.png"/>
 						<div class="main-text">
 							<h1>Directory</h1>
 							<p>Search for additional information on faculty/staff.</p>
@@ -95,7 +100,7 @@
 					<!-- Library item -->
 					<li>
 						<a class="grey-grad" href="#library">
-						<img class="ui-li-icon main-icon" src="images/library.png" alt="library.png"/>
+						<img class="ui-li-icon main-icon" src="img/library.png" alt="library.png"/>
 						<div class="main-text">
 							<h1>Library</h1>
 							<p>See the available books in the Kettering library.</p>
@@ -106,7 +111,7 @@
 					<!-- Transfer item -->
 					<li>
 						<a class="grey-grad" href="#transfer">
-						<img class="ui-li-icon main-icon" src="images/transfer.png" alt="transfer.png"/>
+						<img class="ui-li-icon main-icon" src="img/transfer.png" alt="transfer.png"/>
 						<div class="main-text">						
 							<h1>Transfer</h1>
 							<p>Find out which courses will transfer to Kettering.</p>
@@ -117,7 +122,7 @@
 					<!-- Map item -->
 					<li>
 						<a class="grey-grad" href="#map">
-						<img class="ui-li-icon main-icon" src="images/map.png" alt="map.png"/>
+						<img class="ui-li-icon main-icon" src="img/map.png" alt="map.png"/>
 						<div class="main-text">
 							<h1>Map</h1>
 							<p>View a map of the campus and nearby POI's</p>
@@ -135,20 +140,20 @@
 			<div id="news-header" class="header blue-grad" data-role="header" >	
 				
 				<!-- Loading Indicator -->	
-				<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+				<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 					
 				<!-- Title -->
 				<div class="header-title">News</div>	
 				
 				<!-- Back button -->
-				<a class="button-grad back-button above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				<a class="blue-button-grad back-button" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				
 			</div>
 		
 			
 			<!-- News list -->
 			<div id="news-scroller" class="scroller">
-				<ul style="margin-top:-1px" data-corners="false" id='news-list' data-role="listview"></ul>
+				<ul data-corners="false" id='news-list' data-role="listview"></ul>
 			</div>
 			
 		</div>
@@ -160,18 +165,18 @@
 			<div id="events-header" class="header blue-grad" data-role="header">	
 				
 				<!-- Loading Indicator -->	
-				<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+				<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 					
 				<!-- Title -->
 				<div class="header-title">Events</div>
 				
 				<!-- Back button -->
-				<a class="back-button button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+				<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 			</div>
 			
 			<!-- Events list -->
 			<div id="events-scroller" class="scroller"> 
-				<ul style="margin-top:-1px"  data-corners="false" id='events-list' data-role="listview"></ul>
+				<ul data-corners="false" id='events-list' data-role="listview"></ul>
 			</div>
 		</div>
 		
@@ -179,19 +184,19 @@
 		<div data-role="page" id="directory">
 			
 			<!-- Fixed Header -->
-			<div id="directory-header" class="header-above-searchbar" data-role="header">	
+			<div id="directory-header" class="header-with-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
 				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
-					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+					<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 						
 					<!-- Title -->
 					<div class="header-title">Directory</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
 				<!-- Search bar (also fixed inside the header) --> 
@@ -202,9 +207,7 @@
 					
 					<!-- Department selector --> 
 					<select data-native-menu="true" data-mini="true" data-corners="false"  id="directory-select">
-					
-							<!-- All departments -->
-						   <option value="All">All Departments</option><option value="206">Academic Success Center</option><option value="115">Admissions</option><option value="9">Alumni</option><option value="209">Auxiliary Services</option><option value="85">Biogas/Incubator</option><option value="215">Biology</option><option value="178">Business Office</option><option value="203">Campus Safety</option><option value="187">Center for Culminating Undergraduate Experiences</option><option value="184">CETL</option><option value="88">Chemical Engineering</option><option value="89">Chemistry / Biochemistry</option><option value="91">Computer Science</option><option value="92">Cooperative Education</option><option value="199">Customer Service and Programs</option><option value="86">Department of Business</option><option value="185">Development</option><option value="94">Electrical &amp; Computer Engineering</option><option value="95">Engineering Physics</option><option value="24">Faculty</option><option value="197">Financial Aid</option><option value="192">Graduate Office</option><option value="181">Human Resources</option><option value="100">Industrial Engineering</option><option value="175">Information Technology</option><option value="190">Institutional Effectiveness</option><option value="198">International Programs</option><option value="214">Kagle Leadership Initiatives</option><option value="230">Kettering Dining Services</option><option value="102">Liberal Studies</option><option value="183">Library</option><option value="200">Marketing, Communications and Enrollment</option><option value="81">Math</option><option value="110">Mechanical Engineering</option><option value="234">Michigan Small Business Development Center (MI-SBDC)</option><option value="111">Office of Multicultural Student Initiatives</option><option value="193">Office of Sponsored Research</option><option value="217">-Graduate Assistants Program</option><option value="189">Office of the President</option><option value="177">Physical Plant</option><option value="82">Physics</option><option value="179">PR</option><option value="113">Pre-College Programs</option><option value="201">Provost's Office</option><option value="188">Recreation Center</option><option value="176">Registrar's Office</option><option value="211">Residence Life</option><option value="25">Staff</option><option value="186">Student Life</option><option value="213">Student Life Programs</option><option value="212">Student Life Administrators</option><option value="205">Greek Life</option><option value="180">University Advancement</option><option value="194">Video Studios</option><option value="195">Wellness Center</option>
+                        <option value="All">All Departments</option>
 					</select>
 				</div>
 			</div>
@@ -214,7 +217,7 @@
 			<div id="directory-scroller" class="scroller below-searchbar"> 
 				
 				<!-- Directory results --> 
-				<ul class="below-searchbar" id='directory-list' data-role="listview"></ul>
+				<ul id='directory-list' data-role="listview"></ul>
 			</div>
 		</div>
 		
@@ -222,19 +225,19 @@
 		<div data-role="page" id="library">
 			
 			<!-- Fixed Header -->
-			<div id="library-header" class="header-above-searchbar" data-role="header">	
+			<div id="library-header" class="header-with-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
 				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
-					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+					<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 						
 					<!-- Title -->
 					<div class="header-title">Library</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
 				<!-- Search bar (also fixed inside the header) --> 
@@ -245,9 +248,6 @@
 					
 					<!-- Type selector --> 
 					<select data-native-menu="true" data-mini="true" data-corners="false"  id="library-select">
-							
-						<!-- Type departments -->
-						<option selected="selected" value="GENERAL^SUBJECT^GENERAL^^words or phrase">Words or phrase</option> <option value="AU^AUTHOR^AUTHORS^Author Processing^author">Author</option> <option value="TI^TITLE^SERIES^Title Processing^title">Title</option><option value="SU^SUBJECT^SUBJECTS^^subject">Subject</option> <option value="SER^SERIES^SERIES^Title Processing^series">Series</option> <option value="PER^PERTITLE^SERIES^Title Processing^periodical title">Periodical title</option>
 					</select>
 				</div>
 			</div>
@@ -257,7 +257,7 @@
 			<div id="library-scroller" class="scroller below-searchbar"> 
 				
 				<!-- Library results --> 
-				<ul class="below-searchbar" id='library-list' data-role="listview"></ul>
+				<ul id='library-list' data-role="listview"></ul>
 			</div>
 		</div>
 		
@@ -265,28 +265,28 @@
 		<div data-role="page" id="transfer">
 			
 			<!-- Fixed Header -->
-			<div id="transfer-header" class="header-above-searchbar" data-role="header">	
+			<div id="transfer-header" class="header-with-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
 				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
-					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+					<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 						
 					<!-- Title -->
 					<div class="header-title">Transfer</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
-				<!-- Search bar for course ID--> 
+				<!-- Search bar by course ID--> 
 				<div class="searchbar" id="transfer-courseBar">
 				
 					<!-- Search box --> 
 					<input data-clear-btn="false" class="searchable" placeholder="Course-ID..." id="transfer-search" data-corners="false" type="search" value="" />
-					
-					<span class="transfer-container-type">
+					       
+					<span>
 						<!-- Type selector --> 
 						<select data-native-menu="true" data-mini="true" data-corners="false"  id="transfer-select">
 								
@@ -296,10 +296,10 @@
 					</span>
 				</div>
 				
-				<!-- Search bar for college --> 
+				<!-- Search bar by college --> 
 				<div style="display:none;" class="searchbar" id="transfer-collegeBar">
 					
-					<span class="transfer-container-type">
+					<span>
 						<!-- Type selector --> 
 						<select data-native-menu="true" data-mini="true" data-corners="false"  id="transfer-select">
 								
@@ -311,7 +311,7 @@
 					<span id="transfer-container-college">
 						
 						<!-- College box --> 
-						<select class="long-select-inner" id="transfer-college" data-native-menu="true" data-mini="true" data-corners="false">
+						<select id="transfer-college" data-native-menu="true" data-mini="true" data-corners="false">
 						</select>
 					</span>
 				</div>
@@ -321,7 +321,7 @@
 			<div id="transfer-scroller"  class="scroller below-searchbar"> 
 				
 				<!-- Transfer results --> 
-				<ul class="below-searchbar" id='transfer-list' data-role="listview"></ul>
+				<ul id='transfer-list' data-role="listview"></ul>
 			</div>
 		</div>
 		
@@ -330,19 +330,19 @@
 		<div data-role="page" id="map">
 			
 			<!-- Fixed Header -->
-			<div id="map-header" class="header-above-searchbar" data-role="header">	
+			<div id="map-header" class="header-with-searchbar" data-role="header">	
 				
 				<!-- Actual header contents --> 
 				<div class="header blue-grad">
 					
 					<!-- Loading Indicator -->	
-					<img src="images/loading.gif" class="loading-indicator ui-btn-right" />
+					<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 						
 					<!-- Title -->
 					<div class="header-title">Map</div>
 					
 					<!-- Back button -->
-					<a class="back-button button-grad above-searchbar" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+					<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
 				</div>
 			
 				<!-- Search bar (also fixed inside the header) --> 
@@ -353,19 +353,26 @@
 				</div>
 			</div>
 			
+            <!-- Map Scroller --> 
 			<div class="map-scroller below-searchbar">
+            
+                <!-- Map -->
 				<div id="map_view" style="position:absolute;"></div>
-				<div style="display:none;border-top: solid 1px #aaaaaa;padding-left:10px!important;padding-right:10px!important;position:absolute;width:100%;z-index:2000;background-color:rgba(255,255,255,0.9);" id="poi-info">
+				
+                
+                <!-- POI Info Box -->
+                <div id="poi-info">
 					
-					<h1 id="poi-info-name" style='padding-right:10px!important;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin:0px!important'>&nbsp;</h1>
+					<h1 id="poi-info-name" >&nbsp;</h1>
 					<div id="poi-info-categories">&nbsp;</div>
 					<div id="poi-info-address">&nbsp;</div>
 					<div id="poi-info-phone">&nbsp;</div>
 					
 					
-					<div style="padding-bottom:5px!important;padding-top:5px!important;">
-					<a id="poi-button-phone" data-role="button" style="margin-top:0!important;margin-bottom:0!important;margin-left:0!important;margin-right:10!important;padding-left:0!important;padding-right:0!important;" data-icon="phone" data-inline='true' >Call</a>
-					<a id="poi-button-directions" data-role="button" style="margin:0!important;padding-left:0!important;padding-right:0!important;" data-icon="navigation" data-inline='true' >Directions</a>
+                    <!-- POI Buttons -->
+					<div id="poi-button-container">
+                        <a id="poi-button-phone" data-role="button" data-icon="phone" data-inline='true' >Call</a>
+                        <a id="poi-button-directions" data-role="button" data-icon="navigation" data-inline='true' >Directions</a>
 					</div>
 				</div>
 			</div>

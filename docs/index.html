@@ -1,452 +1,156 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>KU Index</title>
-
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
-
+    <meta charset="utf-8">
+    <title>KUMobile</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.9.1&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href=".&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href=".&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href=".&#x2F;assets/img/icon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.9.1&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
 </head>
+<body class="yui3-skin-sam">
 
-<body>
-<div class="container-fluid">
-	<div class="navbar navbar-fixed-top navbar-inverse">
-		<div class="navbar-inner">
-			<a class="brand" href="index.html">KU</a>
-			<ul class="nav">
-				
-				<li class="dropdown">
-					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
-						class="caret"></b></a>
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src=".&#x2F;assets/img/icon.png" title="KUMobile">KUMobile</h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
 
-					<ul class="dropdown-menu ">
-						
-						<li>
-							<a href="KU.html">KU</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html">KU.Directory</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html">KU.Events</a>
-						</li>
-						
-						<li>
-							<a href="KU.FileIO.html">KU.FileIO</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html">KU.Library</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html">KU.Map</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html">KU.News</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html">KU.Transfer</a>
-						</li>
-						
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
 
-					</ul>
-				</li>
-				
-				<li class="dropdown">
-					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
-						class="caret"></b></a>
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
 
-					<ul class="dropdown-menu ">
-						
-						<li>
-							<a href="KU.Directory.html#.event:checkIScroll">KU.Directory.event:checkIScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:checkScroll">KU.Directory.event:checkScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:pageCreate">KU.Directory.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:pageInit">KU.Directory.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:searchDirectChangeEvent">KU.Directory.event:searchDirectChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:searchIncrementalChangeEvent">KU.Directory.event:searchIncrementalChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Directory.html#.event:tidChangeEvent">KU.Directory.event:tidChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.html#.event:homePageCreate">KU.event:homePageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.html#.event:pageChange">KU.event:pageChange</a>
-						</li>
-						
-						<li>
-							<a href="KU.html#.event:ready">KU.event:ready</a>
-						</li>
-						
-						<li>
-							<a href="KU.html#.event:throttledResize">KU.event:throttledResize</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:articlePageCreate">KU.Events.event:articlePageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:articlePageInit">KU.Events.event:articlePageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:checkIScroll">KU.Events.event:checkIScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:checkScroll">KU.Events.event:checkScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:pageCreate">KU.Events.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Events.html#.event:pageInit">KU.Events.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:checkIScroll">KU.Library.event:checkIScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:checkScroll">KU.Library.event:checkScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:pageCreate">KU.Library.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:pageInit">KU.Library.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:searchDirectChangeEvent">KU.Library.event:searchDirectChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:searchIncrementalChangeEvent">KU.Library.event:searchIncrementalChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Library.html#.event:typeChangeEvent">KU.Library.event:typeChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:locationFound">KU.Map.event:locationFound</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:mapClickEvent">KU.Map.event:mapClickEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:pageCreate">KU.Map.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:pageInit">KU.Map.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:readPOI_Fail">KU.Map.event:readPOI_Fail</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:readPOI_Success">KU.Map.event:readPOI_Success</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:searchDirectChangeEvent">KU.Map.event:searchDirectChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Map.html#.event:searchIncrementalChangeEvent">KU.Map.event:searchIncrementalChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:articlePageCreate">KU.News.event:articlePageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:articlePageInit">KU.News.event:articlePageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:checkIScroll">KU.News.event:checkIScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:checkScroll">KU.News.event:checkScroll</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:pageCreate">KU.News.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.News.html#.event:pageInit">KU.News.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:changeTypeToCollege">KU.Transfer.event:changeTypeToCollege</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:changeTypeToCourse">KU.Transfer.event:changeTypeToCourse</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:collegeDropdownChangeEvent">KU.Transfer.event:collegeDropdownChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:pageCreate">KU.Transfer.event:pageCreate</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:pageInit">KU.Transfer.event:pageInit</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:searchDirectChangeEvent">KU.Transfer.event:searchDirectChangeEvent</a>
-						</li>
-						
-						<li>
-							<a href="KU.Transfer.html#.event:searchIncrementalChangeEvent">KU.Transfer.event:searchIncrementalChangeEvent</a>
-						</li>
-						
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href=".&#x2F;classes/KUMobile.html">KUMobile</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Config.html">KUMobile.Config</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Directory.html">KUMobile.Directory</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Events.html">KUMobile.Events</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.FileIO.html">KUMobile.FileIO</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Library.html">KUMobile.Library</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Map.html">KUMobile.Map</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Map.POICategory.html">KUMobile.Map.POICategory</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.News.html">KUMobile.News</a></li>
+            
+                <li><a href=".&#x2F;classes/KUMobile.Transfer.html">KUMobile.Transfer</a></li>
+            
+            </ul>
 
-					</ul>
-				</li>
-				
-			</ul>
-		</div>
-	</div>
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href=".&#x2F;modules/KUMobile.html">KUMobile</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
 
-	<div class="row-fluid">
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div style="display:none" id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
 
-		
-		<div class="span8">
-			
-				<div id="main">
-					
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
 
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
 
-	
-	<span class="page-title">Index</span>
-	
-	
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                            <div class="apidocs">
+        <div id="docs-main" class="content">
+
+            <br><br><br>
+            <h2>Overview</h2>
+            KUMobile is a cross-platform mobile application project for Kettering
+            University. The project is focused on information exchange between Kettering 
+            and the students. The application targets the following platforms: 
+            Android, iOS, and Windows.
+            
+            <h2>Contribution</h2>
+            
+            There are multiple ways to build the project. To freely compile in the cloud please 
+            refer to Adobe Phonegap Build. If you prefer to build locally reference the 
+            either Cordova and/or Phonegap CLI setup and usage for your operating system. 
+            The project is available at <a href="https://github.com/garrickbrazil/kumobile/">Github</a>.
+            
+            <br><br>
+            Adobe Phonegap  -->  <a href="http://phonegap.com/developer/">http://phonegap.com/developer/</a> <br>
+            Apache Cordova  -->  <a href="http://cordova.apache.org/">http://cordova.apache.org/</a>
+            
+            
+            
+            <h2>License</h2>
+            
+            The project is licensed with <a href="http://www.gnu.org/licenses/gpl-3.0.txt">GPL-3.0</a>
+            
+             
+            <h2> Contact </h2>
+                
+            Please submit all bugs <a href="https://github.com/garrickbrazil/kumobile/issues/new">here</a>.<br>
+            Garrick Brazil - garrick@garrickmail.net
+            
+        </div>
+    </div>
 
 
 
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><hr>
-<h2>KU Mobile</h2><p>This is the documentation website for Kettering University's mobile application project. It contains all the relevant namespaces, methods, properties, etc, with respective descriptions.</p>
-<hr>
-<h3>About</h3><p>KU Mobile started off as a native Android application developed in 2013. With the uprising of Phonegap, the project was rebirthed using this alongside jQuery Mobile to design a cross-platform application. The application is meant as a utility tool for nearly every purpose imaginable! </p>
-<p>The project was renewed roughly around July 2014 and is currently being developed for and by Kettering University students. </p>
-<hr>
-<h3>Features</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">&nbsp;&nbsp;&nbsp;Current&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-<th style="text-align:left">Planned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;News</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Grades (all types)</td>
-</tr>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Events</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Financial Account</td>
-</tr>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Directory</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Class Schedule</td>
-</tr>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Library</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Degree Evaluation</td>
-</tr>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Transfer</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Scheduler</td>
-</tr>
-<tr>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Map</td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Required Textbooks</td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Lunch</td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Final Exam Schedule</td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Technician</td>
-</tr>
-<tr>
-<td style="text-align:left"></td>
-<td style="text-align:left">*&nbsp;&nbsp;&nbsp;Radio</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h3>Contact</h3><p>&nbsp;&nbsp;&nbsp;Garrick Brazil</p>
-<p>&nbsp;&nbsp;&nbsp;garrick@garrickmail.net</p></article>
-    </section>
-
-
-
-
-
-
-
-				</div>
-
-				<div class="clearfix"></div>
-				<footer>
-					
-					
-		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha13</a>
-		on Wed Dec 24th 2014 using the <a
-			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
-		</span>
-				</footer>
-			</div>
-
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
-			
-			<br clear="both">
-		</div>
-
-	</div>
-	<!--<script src="scripts/sunlight.js"></script>-->
-	<script src="scripts/docstrap.lib.js"></script>
-	<script src="scripts/bootstrap-dropdown.js"></script>
-	<script src="scripts/toc.js"></script>
-
-	<script>
-		$( function () {
-			$( "[id*='$']" ).each( function () {
-				var $this = $( this );
-
-				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-			} );
-
-			$( "#toc" ).toc( {
-				anchorName  : function ( i, heading, prefix ) {
-					return $( heading ).attr( "id" ) || ( prefix + i );
-				},
-				selectors   : "h1,h2,h3,h4",
-				showAndHide : false,
-				scrollTo    : "100px"
-			} );
-
-			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-			$( '.dropdown-toggle' ).dropdown();
-//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
-
-			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
-				var $this = $( this );
-
-				var example = $this.find( "code" );
-				exampleText = example.html();
-				var lang = /{@lang (.*?)}/.exec( exampleText );
-				if ( lang && lang[1] ) {
-					exampleText = exampleText.replace( lang[0], "" );
-					example.html( exampleText );
-					lang = lang[1];
-				} else {
-					lang = "javascript";
-				}
-
-				if ( lang ) {
-
-					$this
-						.addClass( "sunlight-highlight-" + lang )
-						.addClass( "linenums" )
-						.html( example.html() );
-
-				}
-			} );
-
-			Sunlight.highlightAll( {
-				lineNumbers : true,
-				showMenu : true,
-				enableDoclinks : true
-			} );
-		} );
-	 </script>
-
-
-
-	<!--Navigation and Symbol Display-->
-	
-
-
-	<!--Google Analytics-->
-	
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src=".&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src=".&#x2F;assets/js/yui-prettify.js"></script>
+<script src=".&#x2F;assets/../api.js"></script>
+<script src=".&#x2F;assets/js/api-filter.js"></script>
+<script src=".&#x2F;assets/js/api-list.js"></script>
+<script src=".&#x2F;assets/js/api-search.js"></script>
+<script src=".&#x2F;assets/js/apidocs.js"></script>
 </body>
 </html>

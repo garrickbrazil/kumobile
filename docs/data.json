@@ -1,0 +1,2033 @@
+{
+    "project": {
+        "name": "KUMobile",
+        "description": "Kettering University Mobile Application Project.",
+        "version": "0.0.1",
+        "url": "http://kumobile.info"
+    },
+    "files": {
+        "www\\js\\KUMobile.js": {
+            "name": "www\\js\\KUMobile.js",
+            "modules": {
+                "KUMobile": 1
+            },
+            "classes": {
+                "KUMobile": 1
+            },
+            "fors": {
+                "KUMobile": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\config.js": {
+            "name": "www\\js\\config.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Config": 1
+            },
+            "fors": {
+                "KUMobile.Config": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\directory.js": {
+            "name": "www\\js\\directory.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Directory": 1
+            },
+            "fors": {
+                "KUMobile.Directory": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\events.js": {
+            "name": "www\\js\\events.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Events": 1
+            },
+            "fors": {
+                "KUMobile.Events": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\file_io.js": {
+            "name": "www\\js\\file_io.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.FileIO": 1
+            },
+            "fors": {
+                "KUMobile.FileIO": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\library.js": {
+            "name": "www\\js\\library.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Library": 1
+            },
+            "fors": {
+                "KUMobile.Library": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\map.js": {
+            "name": "www\\js\\map.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Map": 1,
+                "KUMobile.Map.POICategory": 1
+            },
+            "fors": {
+                "KUMobile.Map": 1,
+                "KUMobile.Directory": 1,
+                "KUMobile.Map.POICategory": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\news.js": {
+            "name": "www\\js\\news.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.News": 1
+            },
+            "fors": {
+                "KUMobile.News": 1
+            },
+            "namespaces": {}
+        },
+        "www\\js\\templates.js": {
+            "name": "www\\js\\templates.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "www\\js\\transfer.js": {
+            "name": "www\\js\\transfer.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Transfer": 1
+            },
+            "fors": {
+                "KUMobile.Transfer": 1
+            },
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "KUMobile": {
+            "name": "KUMobile",
+            "submodules": {},
+            "classes": {
+                "KUMobile": 1,
+                "KUMobile.Config": 1,
+                "KUMobile.Directory": 1,
+                "KUMobile.Events": 1,
+                "KUMobile.FileIO": 1,
+                "KUMobile.Library": 1,
+                "KUMobile.Map": 1,
+                "KUMobile.Map.POICategory": 1,
+                "KUMobile.News": 1,
+                "KUMobile.Transfer": 1
+            },
+            "fors": {
+                "KUMobile": 1,
+                "KUMobile.Config": 1,
+                "KUMobile.Directory": 1,
+                "KUMobile.Events": 1,
+                "KUMobile.FileIO": 1,
+                "KUMobile.Library": 1,
+                "KUMobile.Map": 1,
+                "KUMobile.Map.POICategory": 1,
+                "KUMobile.News": 1,
+                "KUMobile.Transfer": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "www\\js\\transfer.js",
+            "line": 19,
+            "description": "Contains all generic functions, events, and feature classes."
+        }
+    },
+    "classes": {
+        "KUMobile": {
+            "name": "KUMobile",
+            "shortname": "KUMobile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\KUMobile.js",
+            "line": 19,
+            "description": "Contains all generic functions, events, and feature classes."
+        },
+        "KUMobile.Config": {
+            "name": "KUMobile.Config",
+            "shortname": "KUMobile.Config",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\config.js",
+            "line": 19,
+            "description": "Contains configuration settings for the KUMobile project"
+        },
+        "KUMobile.Directory": {
+            "name": "KUMobile.Directory",
+            "shortname": "KUMobile.Directory",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\directory.js",
+            "line": 19,
+            "description": "Contains all directory related functions for loading and controlling the\ndirectory page. This only takes faculty directory into consideration."
+        },
+        "KUMobile.Events": {
+            "name": "KUMobile.Events",
+            "shortname": "KUMobile.Events",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\events.js",
+            "line": 19,
+            "description": "Contains all events related functions for loading and controlling the events\npage."
+        },
+        "KUMobile.FileIO": {
+            "name": "KUMobile.FileIO",
+            "shortname": "KUMobile.FileIO",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\file_io.js",
+            "line": 18,
+            "description": "Local file control used to make saving and reading files MUCH easier then the\nplugin allows for."
+        },
+        "KUMobile.Library": {
+            "name": "KUMobile.Library",
+            "shortname": "KUMobile.Library",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\library.js",
+            "line": 19,
+            "description": "Contains all library related functions for loading and controlling the\nlibrary page."
+        },
+        "KUMobile.Map": {
+            "name": "KUMobile.Map",
+            "shortname": "KUMobile.Map",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\map.js",
+            "line": 19,
+            "description": "Contains all map related functions for loading and controlling the\nmap page."
+        },
+        "KUMobile.Map.POICategory": {
+            "name": "KUMobile.Map.POICategory",
+            "shortname": "KUMobile.Map.POICategory",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\map.js",
+            "line": 287,
+            "description": "Full POI data for a category."
+        },
+        "KUMobile.News": {
+            "name": "KUMobile.News",
+            "shortname": "KUMobile.News",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\news.js",
+            "line": 19,
+            "description": "Contains all news related functions for loading and controlling the news page."
+        },
+        "KUMobile.Transfer": {
+            "name": "KUMobile.Transfer",
+            "shortname": "KUMobile.Transfer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\transfer.js",
+            "line": 19,
+            "description": "Contains all transfer related functions for loading and controlling the\ntransfer page."
+        }
+    },
+    "classitems": [
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 28,
+            "description": "Event triggered when the device is ready, registered with \"deviceready\".\nThe primary purpose is to determine what type of device we are on (Android,\niOS, Windows). *Note*: this is only triggered if you are ON a device!",
+            "itemtype": "event",
+            "name": "ready",
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 65,
+            "description": "Displays the loading indicator on the page with the given id",
+            "itemtype": "method",
+            "name": "showLoading",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- identifier for which page to show indicator on",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "example": [
+                "\n    KUMobile.showLoading(\"news-page\");"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 82,
+            "description": "Hides the loading indicator on the page with the given id",
+            "itemtype": "method",
+            "name": "hideLoading",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- identifier for which page to show indicator on",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "example": [
+                "\n    KUMobile.hideLoading(\"news-page\");"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 98,
+            "description": "Converts a state name from abbreviation to full state name. If the\nconversion does not work it will simply return the abbreviation to be safe!",
+            "itemtype": "method",
+            "name": "convertStateToFull",
+            "params": [
+                {
+                    "name": "abr",
+                    "description": "- state abbreviation to convert to full state",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var state = KUMobile.convertStateToFull(\"MI\");"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 152,
+            "description": "Resize function to link to jQM event for throttled resize. The purpose is\nthat this resize function is controlled to not occur *too quickly* and\nadvanced resizing can be done here. Alternative to this is just to use \ncss calc(), but not fully supported across all target devices as of\ntime of development (2/26/2015).",
+            "itemtype": "event",
+            "name": "throttledResize",
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 174,
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 200,
+            "description": "Triggered any time a page is changed as registered by jQuery Mobile. \nThe primary purpose is to allow us to resize to be safe that all elements \nare scaled properly.",
+            "itemtype": "event",
+            "name": "pageChange",
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 27,
+            "description": "Delay for loading minimum time (ms) for loading indicator to show for. This \nwas mainly useful to prevent the indicator confusingly flashing.",
+            "itemtype": "attribute",
+            "name": "LOAD_INDICATOR_DELAY",
+            "type": "{int}",
+            "default": "400",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 39,
+            "description": "Is this a device (otherwise assume its a browser/emulator). Some plugins\ncannot be used in a browser/emulator and thereby must be determined during\nruntime.",
+            "itemtype": "attribute",
+            "name": "isDevice",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 52,
+            "description": "Quick access boolean to determine if the device is of Android platform.",
+            "itemtype": "attribute",
+            "name": "isAndroid",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 63,
+            "description": "Quick access boolean to determine if the device is of iOs platform.",
+            "itemtype": "attribute",
+            "name": "isIOS",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 74,
+            "description": "Quick access boolean to determine if the device is of Windows platform.",
+            "itemtype": "attribute",
+            "name": "isWindows",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\config.js",
+            "line": 85,
+            "description": "Default wait time (ms) for incremental searching.",
+            "itemtype": "attribute",
+            "name": "DEFAULT_INCR_WAIT_TIME",
+            "type": "{int}",
+            "default": "800",
+            "class": "KUMobile.Config",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 28,
+            "description": "Current page number as referenced from the directory website.",
+            "itemtype": "attribute",
+            "name": "page",
+            "type": "{int}",
+            "default": "0",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 39,
+            "description": "Number of pages to load from the directory website after a trigger event occurs.",
+            "itemtype": "attribute",
+            "name": "PAGES_TO_LOAD",
+            "type": "{int}",
+            "default": "2",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 50,
+            "description": "Is the directory page loading?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 61,
+            "description": "Designates the minimum number of pixels that the user can scroll\n(calculated from the bottom) before another load event is triggered.",
+            "itemtype": "attribute",
+            "name": "LOAD_THRESHOLD_PX",
+            "type": "{int}",
+            "default": "660",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 73,
+            "description": "The latest topic identifier for Kettering's directory searching. This \nrepresents the department the user has selected to filter by.",
+            "itemtype": "attribute",
+            "name": "tid",
+            "type": "{string}",
+            "default": "\"All\"",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 85,
+            "description": "Represents the last value the user has searched for in the directory",
+            "itemtype": "attribute",
+            "name": "lastValue",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 96,
+            "description": "Tells whether or not the user has reached the end of the scrolling.",
+            "itemtype": "attribute",
+            "name": "reachedEnd",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 107,
+            "description": "Is the user currently typing?",
+            "itemtype": "attribute",
+            "name": "typing",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 118,
+            "description": "How many pages that need to be downloaded still. This is used to asynchronously\ndownload pages.",
+            "itemtype": "attribute",
+            "name": "queue",
+            "type": "{int}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 131,
+            "description": "Contains the current list of article DOM <li> tag items that still need\nto be added to the DOM (much faster to add all at once after load\nis done downloading). This helps prevent the application from seeming to \nhang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "listQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 145,
+            "description": "Contains the last timeout call sent. This allows us to restart the timeout if\nthe user re-searches in any way (dropdown, or searchbar). The major benefit\nof this is that it gives us the feeling of incremental searching, e.g we send\na timeout of some milliseconds whenever the KEY_UP event triggers, as well\nas cancelling out the last timeout we sent.",
+            "itemtype": "attribute",
+            "name": "sentTimeout",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 160,
+            "description": "Deobfuscation method to properly interpret directory information",
+            "itemtype": "method",
+            "name": "deobfuscate",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "- whacky string to deobfuscate",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var secret = KUMobile.Directory.deobfuscate(\"insert-crazy-message-here\");"
+            ],
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 194,
+            "description": "Triggered when the directory page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 213,
+            "description": "Triggered when the directory page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 290,
+            "description": "Triggered when the user does a key up event in order to simulate incremental\nsearching for the attached search bar.",
+            "itemtype": "event",
+            "name": "incrementalSearch",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 330,
+            "description": "Triggered when the user does a direct change. The direct change includes \ntyping then changing focus or pressing the clear button. This is redundant\nto the incremental search event, *except for the clear button!!*",
+            "itemtype": "event",
+            "name": "directSearch",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 357,
+            "description": "Triggered when the user does a change to the TID/department drop down box.\nWhen this happens, we generally need to redo the search.",
+            "itemtype": "event",
+            "name": "tidChange",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 383,
+            "description": "Triggered when regular scroll event happens in directory scroller window. It \nis used to check if the user is *near* the bottom of the page, so more\ncontent can be loaded (simulate *infinite scrolling*).",
+            "itemtype": "event",
+            "name": "scroll",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 409,
+            "description": "Loads and displays the next set of directory items.",
+            "itemtype": "method",
+            "name": "loadNextPage",
+            "example": [
+                "\n    KUMobile.Directory.loadNextPage();"
+            ],
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\directory.js",
+            "line": 521,
+            "description": "Reinitializes all properties of KUMobile.Directory as if to restore\na new/default instance.",
+            "itemtype": "method",
+            "name": "reinitialize",
+            "example": [
+                "\n    KUMobile.Directory.reinitialize();"
+            ],
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 28,
+            "description": "Current page number as referenced from the events website.",
+            "itemtype": "attribute",
+            "name": "page",
+            "type": "{int}",
+            "default": "0",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 39,
+            "description": "Number of pages to load from the events website after a trigger event occurs.",
+            "itemtype": "attribute",
+            "name": "PAGES_TO_LOAD",
+            "type": "{int}",
+            "default": "2",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 50,
+            "description": "Is the events page loading?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 61,
+            "description": "Designates the minimum number of pixels that the user can scroll\n(calculated from the bottom) before another load event is triggered.",
+            "itemtype": "attribute",
+            "name": "LOAD_THRESHOLD_PX",
+            "type": "{int}",
+            "default": "660",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 73,
+            "description": "How many pages that need to be downloaded still. This is used to asynchronously\ndownload pages.",
+            "itemtype": "attribute",
+            "name": "queue",
+            "type": "{int}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 86,
+            "description": "Contains the current list of article DOM <li> tag items that still need\nto be added to the DOM (much faster to add all at once after load\nis done downloading). This helps prevent the application from seeming to \nhang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "listQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 100,
+            "description": "Contains the current list of pages DOM data-role=\"page\" \nitems that still need to be added to the DOM (much faster to \nadd all at once after load is done downloading). This helps \nprevent the app from seeming to hang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "pageQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 114,
+            "description": "The latest divider month & day combo is kept track of as an easy way to\nknow when a datebar needs to be added!",
+            "itemtype": "attribute",
+            "name": "pageQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 126,
+            "description": "Triggered when the events page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 141,
+            "description": "Triggered when the events page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 159,
+            "description": "Triggered when regular scroll event happens in events scroller window. It \nis used to check if the user is *near* the bottom of the page, so more\ncontent can be loaded (simulate *infinite scrolling*).",
+            "itemtype": "event",
+            "name": "scroll",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 182,
+            "description": "Loads and displays the next set of events items.",
+            "itemtype": "method",
+            "name": "loadNextPage",
+            "example": [
+                "\n    KUMobile.Events.loadNextPage();"
+            ],
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\events.js",
+            "line": 325,
+            "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
+            "itemtype": "event",
+            "name": "articlePageCreate",
+            "class": "KUMobile.Events",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 27,
+            "description": "Enables debug messages via alert messages. Do NOT enable this unless there\nare legitimate problems with plugins (not available to debug via browser).",
+            "itemtype": "attribute",
+            "name": "debug",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 38,
+            "description": "Name of the current file.",
+            "itemtype": "attribute",
+            "name": "fileName",
+            "type": "{string}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 48,
+            "description": "Contents of current file (the entire point of reading)",
+            "itemtype": "attribute",
+            "name": "fileContents",
+            "type": "{string}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 58,
+            "description": "Method to callback on any failure",
+            "itemtype": "attribute",
+            "name": "failCallback",
+            "type": "{Function}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 68,
+            "description": "Method to callback on complete success.",
+            "itemtype": "attribute",
+            "name": "successCallback",
+            "type": "{Function}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 78,
+            "description": "Writes contents to file with proper callbacks.",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- file name to save to",
+                    "type": "String"
+                },
+                {
+                    "name": "content",
+                    "description": "- what we want to save (usually JSON string)",
+                    "type": "String"
+                },
+                {
+                    "name": "success",
+                    "description": "- callback for successful writing",
+                    "type": "Function"
+                },
+                {
+                    "name": "failure",
+                    "description": "- callback for failure of writing",
+                    "type": "Function"
+                }
+            ],
+            "itemtype": "method",
+            "name": "writeToFile",
+            "example": [
+                "\n    var success = function(){\n         ...\n    };\n    var fail = function(error){\n         ...\n    };\n\n    // Save to file\n    KUMobile.FileIO.writeToFile(\"TestAppKUMobile.txt\", \"Secret Message!\", success, fail);"
+            ],
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 119,
+            "description": "Reads contents from file with proper callbacks.",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "- file name to read from",
+                    "type": "String"
+                },
+                {
+                    "name": "success",
+                    "description": "- callback for successful writing",
+                    "type": "Function"
+                },
+                {
+                    "name": "failure",
+                    "description": "- callback for failure of writing",
+                    "type": "Function"
+                }
+            ],
+            "itemtype": "method",
+            "name": "readFromFile",
+            "example": [
+                "\n    var success = function(result){\n        ...\n    };\n    var fail = function(errorcode){\n        ...\n    };\n\n    // Read from file\n    KUMobile.FileIO.readFromFile(\"TestAppKUMobile.txt\", success, fail);"
+            ],
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 159,
+            "description": "Triggered after file system is retrieved",
+            "itemtype": "method",
+            "name": "read_GotFS",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 182,
+            "description": "Triggered after file entry is retrieved",
+            "itemtype": "method",
+            "name": "read_GotFileEntry",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 197,
+            "description": "Triggered after file is retrieved",
+            "itemtype": "method",
+            "name": "read_GotFile",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 212,
+            "description": "Triggered after file is ready to be read from",
+            "itemtype": "method",
+            "name": "read_ReadAsText",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 236,
+            "description": "Triggered after file system is ready",
+            "itemtype": "method",
+            "name": "write_GotFS",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 261,
+            "description": "Triggered after file entry is ready",
+            "itemtype": "method",
+            "name": "write_GotFileEntry",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 276,
+            "description": "Triggered after file writer is ready",
+            "itemtype": "method",
+            "name": "write_GotFileWriter",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 301,
+            "description": "Triggered any time a failure occurs",
+            "itemtype": "method",
+            "name": "fail",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\file_io.js",
+            "line": 317,
+            "description": "Triggered any time a failure occurs",
+            "itemtype": "method",
+            "name": "clear",
+            "access": "private",
+            "tagname": "",
+            "example": [
+                "\n    // Clear file data\n    KUMobile.FileIO.clear();"
+            ],
+            "class": "KUMobile.FileIO",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 28,
+            "description": "Current page number as referenced from the library website.",
+            "itemtype": "attribute",
+            "name": "page",
+            "type": "{int}",
+            "default": "0",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 39,
+            "description": "Is the library page loading?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 50,
+            "description": "Designates the minimum number of pixels that the user can scroll\n(calculated from the bottom) before another load event is triggered.",
+            "itemtype": "attribute",
+            "name": "LOAD_THRESHOLD_PX",
+            "type": "{int}",
+            "default": "660",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 62,
+            "description": "Type of searching for Kettering's library. Represents the method of \nsearching that will be used by the system.",
+            "itemtype": "attribute",
+            "name": "type",
+            "type": "{string}",
+            "default": "\"GENERAL^SUBJECT^GENERAL^^words or phrase\"",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 74,
+            "description": "Represents the last value the user has searched for in the library",
+            "itemtype": "attribute",
+            "name": "lastValue",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 85,
+            "description": "Tells whether or not the user has reached the end of the scrolling.",
+            "itemtype": "attribute",
+            "name": "reachedEnd",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 96,
+            "description": "Is the user currently typing?",
+            "itemtype": "attribute",
+            "name": "typing",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 107,
+            "description": "Contains the current list of article DOM <li> tag items that still need\nto be added to the DOM (much faster to add all at once after load\nis done downloading). This helps prevent the application from seeming to \nhang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "listQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 121,
+            "description": "Contains the last timeout call sent. This allows us to restart the timeout if\nthe user re-searches in any way (dropdown, or searchbar). The major benefit\nof this is that it gives us the feeling of incremental searching, e.g we send\na timeout of some milliseconds whenever the KEY_UP event triggers, as well\nas cancelling out the last timeout we sent.",
+            "itemtype": "attribute",
+            "name": "sentTimeout",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 136,
+            "description": "Triggered when the library page is first initialized based on jQuery Mobile\npageinit event. This is called after the page itself is created and \ninitialized, therefore it is proper to do the event bindings here.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 156,
+            "description": "Triggered when the library page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 205,
+            "description": "Triggered when the user does a key up event in order to simulate incremental\nsearching for the attached search bar.",
+            "itemtype": "event",
+            "name": "incrementalSearch",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 245,
+            "description": "Triggered when the user does a direct change. The direct change includes \ntyping then changing focus or pressing the clear button. This is redundant\nto the incremental search event, *except for the clear button!!*",
+            "itemtype": "event",
+            "name": "directSearch",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 272,
+            "description": "Triggered when the user does a change to the category drop down box.\nWhen this happens, we generally need to redo the search.",
+            "itemtype": "event",
+            "name": "categoryChange",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 298,
+            "description": "Triggered when regular scroll event happens in library scroller window. It \nis used to check if the user is *near* the bottom of the page, so more\ncontent can be loaded (simulate *infinite scrolling*).",
+            "itemtype": "event",
+            "name": "scroll",
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 324,
+            "description": "Loads and displays the next set of library items.",
+            "itemtype": "method",
+            "name": "loadNextPage",
+            "example": [
+                "\n    KUMobile.Library.loadNextPage();"
+            ],
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\library.js",
+            "line": 437,
+            "description": "Reinitializes all properties of KUMobile.Library as if to restore\na new/default instance.",
+            "itemtype": "method",
+            "name": "reinitialize",
+            "example": [
+                "\n    KUMobile.Library.reinitialize();"
+            ],
+            "class": "KUMobile.Library",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 28,
+            "description": "The leaflet map object",
+            "itemtype": "attribute",
+            "name": "map",
+            "type": "{Object}",
+            "default": "null",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 39,
+            "description": "The latest user location (if any).",
+            "itemtype": "attribute",
+            "name": "userLocation",
+            "type": "{Object}",
+            "default": "null",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 50,
+            "description": "Tells whether or not map is currently attempting to download\nor parse article lists. Essentially used to tell whether map is\nconsidered to be busy.",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 63,
+            "description": "Starting center of the map as a coordinate array.",
+            "itemtype": "attribute",
+            "name": "START_CENTER",
+            "type": "{Array}",
+            "default": "[43.013070, -83.713853]",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 74,
+            "description": "List of POI categories (order that they will be downloaded in) containing the\ncorresponding foursquare ID's.",
+            "itemtype": "attribute",
+            "name": "CATEGORIES_LIST",
+            "type": "{Array}",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 95,
+            "description": "Stores the data for each POI category.",
+            "itemtype": "attribute",
+            "name": "categoryData",
+            "type": "{Array}",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 105,
+            "description": "All current POI markers that are currently added to the map.",
+            "itemtype": "attribute",
+            "name": "markers",
+            "type": "{Array}",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 115,
+            "description": "Contains the last timeout call sent. This allows us to restart the timeout if\nthe user re-searches in any way (dropdown, or searchbar). The major benefit\nof this is that it gives us the feeling of incremental searching, e.g we send\na timeout of some milliseconds whenever the KEY_UP event triggers, as well\nas cancelling out the last timeout we sent.",
+            "itemtype": "attribute",
+            "name": "sentTimeout",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Directory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 130,
+            "description": "Southwest latitude for map's bounding box. Essentially most southwest\nlatitude for POI's we are concerned with to show the user.",
+            "itemtype": "attribute",
+            "name": "BB_SWLAT",
+            "type": "{float}",
+            "default": "42.97513915795521",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 142,
+            "description": "Southwest longitude for map's bounding box. Essentially most southwest\nlongitude for POI's we are concerned with to show the user.",
+            "itemtype": "attribute",
+            "name": "BB_SWLNG",
+            "type": "{float}",
+            "default": "-83.77864837646484",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 154,
+            "description": "Northeast latitude for map's bounding box. Essentially most northeast\nlatitude for POI's we are concerned with to show the user.",
+            "itemtype": "attribute",
+            "name": "BB_NELAT",
+            "type": "{float}",
+            "default": "43.05107777204538",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 166,
+            "description": "Northeast longitude for map's bounding box. Essentially most northeast\nlongitude for POI's we are concerned with to show the user.",
+            "itemtype": "attribute",
+            "name": "BB_NELNG",
+            "type": "{float}",
+            "default": "-83.64904403686523",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 178,
+            "description": "The index related to categories for which we are currently downloading or\nimporting from a cached session.",
+            "itemtype": "attribute",
+            "name": "downloadIndex",
+            "type": "{int}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 190,
+            "description": "The 'version' of how we save map data to local filesystem. Whenever the\nstructure of this changes, we must change the serialized ID. When we notice\nthe ID change a new download will be triggered!",
+            "itemtype": "attribute",
+            "name": "SERIALIZE_ID",
+            "type": "{int}",
+            "default": "3",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 203,
+            "description": "Represents the last value the user has searched for from the free text field\nsearch bar located on the map page.",
+            "itemtype": "attribute",
+            "name": "lastValue",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 215,
+            "description": "Wait time for incremental searching. This distinguishes how long to wait \nafter the user has searched something, before we assume they are done typing.",
+            "itemtype": "attribute",
+            "name": "INCR_WAIT_TIME",
+            "type": "{int}",
+            "default": "850",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 227,
+            "description": "This is the minimum time that needs to have passed in order to allow for \nanother foursquare update to both the map and local filesystem.",
+            "itemtype": "attribute",
+            "name": "MIN_UPDATE_MS",
+            "type": "{int}",
+            "default": "86400000",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 239,
+            "description": "File template for local storage of foursquare map data for each category.\nE.g for saving food it would be MAP_DATA_Food filename.",
+            "itemtype": "attribute",
+            "name": "MAP_FILE_TEMPLATE",
+            "type": "{string}",
+            "default": "\"MAP_DATA_\"",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 251,
+            "description": "Enables debug messages via alert messages. Do NOT enable this unless there\nare legitimate problems with plugins (not available to debug via browser).",
+            "itemtype": "attribute",
+            "name": "debug",
+            "type": "{boolean}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 263,
+            "description": "Is the footer showing? The footer contains the POI details and starts off\nhidden. It is only shown when the user clicks on the POI or searches.",
+            "itemtype": "attribute",
+            "name": "footerVisible",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 275,
+            "description": "Contains the selected marker. This is useful to store so we can easily\ndisable the markers selection.",
+            "itemtype": "attribute",
+            "name": "selectedMarker",
+            "type": "{Object}",
+            "default": "null",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 295,
+            "description": "Name of the POI category",
+            "itemtype": "attribute",
+            "name": "name",
+            "type": "{string}",
+            "class": "KUMobile.Map.POICategory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 305,
+            "description": "Serialized ID of the app when the data was downloaded.",
+            "itemtype": "attribute",
+            "name": "serializeID",
+            "type": "{int}",
+            "class": "KUMobile.Map.POICategory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 315,
+            "description": "Date integer in milliseconds.",
+            "itemtype": "attribute",
+            "name": "date",
+            "type": "{int}",
+            "class": "KUMobile.Map.POICategory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 325,
+            "description": "List of all POIs for the category. The array type is a foursquare POI item\nbased on their venue search API.",
+            "itemtype": "attribute",
+            "name": "pois",
+            "type": "{Array}",
+            "class": "KUMobile.Map.POICategory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 336,
+            "description": "Icon name to be used as the map marker",
+            "itemtype": "attribute",
+            "name": "icon",
+            "type": "{string}",
+            "class": "KUMobile.Map.POICategory",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 348,
+            "description": "Triggered when the map page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 373,
+            "description": "Triggered when the map page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 395,
+            "description": "Triggered when the user does a key up event in order to simulate incremental\nsearching for the attached search bar.",
+            "itemtype": "event",
+            "name": "incrementalSearch",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 428,
+            "description": "Triggered when the user does a direct change. The direct change includes \ntyping then changing focus or pressing the clear button. This is redundant\nto the incremental search event, *except for the clear button!!*",
+            "itemtype": "event",
+            "name": "directSearch",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 452,
+            "description": "Removes all markers from the map and then clears them from the array.",
+            "itemtype": "method",
+            "name": "clearMarkers",
+            "example": [
+                "\n    KUMobile.Map.clearMarkers();"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 473,
+            "description": "User has clicked the map. We can use this as a way to exit the footer! Then\nalso deselect the marker",
+            "itemtype": "event",
+            "name": "mapClick",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 496,
+            "description": "User's location was found! Add it to the map as a blue circle including\nan accuracy circle.",
+            "itemtype": "event",
+            "name": "locationfound",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 534,
+            "description": "Updates POI data for every category in the category list.",
+            "itemtype": "method",
+            "name": "updatePOIData",
+            "example": [
+                "\n    // Update POIs\n    KUMobile.Map.updatePOIData();"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 694,
+            "description": "Reads POI's from local file system. Note that if this fails, we will \nattempt to download the failed category!",
+            "itemtype": "method",
+            "name": "readPOIData",
+            "example": [
+                "\n    // Update POIs\n    KUMobile.Map.readPOIData();"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 750,
+            "description": "Triggered after a successful read of POI file.",
+            "itemtype": "event",
+            "name": "readPOI_Success",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 830,
+            "description": "Triggered after a failed read of POI file.",
+            "itemtype": "event",
+            "name": "readPOI_Fail",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 846,
+            "description": "Filters the map POI's to only add markers that the user searched for!",
+            "itemtype": "method",
+            "name": "filterMap",
+            "example": [
+                "\n    // Filter!\n    KUMobile.Map.filterMap();"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 944,
+            "description": "Add POI's of a certain category to the map if it is a match with the \nuser's input through the search bar.",
+            "itemtype": "method",
+            "name": "addPOIs",
+            "params": [
+                {
+                    "name": "category",
+                    "description": "- the category data containing \n        the POIs to be searched through and added upon match",
+                    "type": "KUMobile.Map.POICategory"
+                }
+            ],
+            "example": [
+                "\n    // Add matching POIs\n    KUMobile.Map.addPOIs(categoryData);"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 1036,
+            "description": "Triggered when the user clicks on a POI marker.",
+            "itemtype": "event",
+            "name": "markerClick",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 1072,
+            "description": "Deselects the currently selected marker from the map. Basically it only\nswitches the icon back to the 'non-selected' icon.",
+            "itemtype": "event",
+            "name": "markerClick",
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 1096,
+            "description": "Shows the footer with POI detail information at the bottom of the map.",
+            "itemtype": "method",
+            "name": "showPOIDetails",
+            "params": [
+                {
+                    "name": "poi",
+                    "description": "- the point of interest as returned through foursquare\n        venue search API",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    // Show POI details\n    KUMobile.Map.showPOIDetails(poi)"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\map.js",
+            "line": 1226,
+            "description": "Initialize the leaflet map with category data, list and basic settings.",
+            "itemtype": "method",
+            "name": "initializeMap",
+            "example": [
+                "\n    // Initialize leaflet map\n    KUMobile.Map.initializeMap();"
+            ],
+            "class": "KUMobile.Map",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 27,
+            "description": "Current page number as referenced from the news website.",
+            "itemtype": "attribute",
+            "name": "page",
+            "type": "{int}",
+            "default": "0",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 38,
+            "description": "Number of pages to load from the news website after a trigger event occurs.",
+            "itemtype": "attribute",
+            "name": "PAGES_TO_LOAD",
+            "type": "{int}",
+            "default": "2",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 49,
+            "description": "Is the news page loading?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 60,
+            "description": "Designates the minimum number of pixels that the user can scroll\n(calculated from the bottom) before another load event is triggered.",
+            "itemtype": "attribute",
+            "name": "LOAD_THRESHOLD_PX",
+            "type": "{int}",
+            "default": "660",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 72,
+            "description": "How many pages that need to be downloaded still. This is used to asynchronously\ndownload pages.",
+            "itemtype": "attribute",
+            "name": "queue",
+            "type": "{int}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 85,
+            "description": "Contains the current list of article DOM <li> tag items that still need\nto be added to the DOM (much faster to add all at once after load\nis done downloading). This helps prevent the application from seeming to \nhang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "listQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 99,
+            "description": "Contains the current list of pages DOM data-role=\"page\" \nitems that still need to be added to the DOM (much faster to \nadd all at once after load is done downloading). This helps \nprevent the app from seeming to hang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "pageQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 113,
+            "description": "Triggered when the news page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 128,
+            "description": "Triggered when the news page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 145,
+            "description": "Triggered when regular scroll event happens in news scroller window. It \nis used to check if the user is *near* the bottom of the page, so more\ncontent can be loaded (simulate *infinite scrolling*).",
+            "itemtype": "event",
+            "name": "scroll",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 168,
+            "description": "Loads and displays the next set of news items.",
+            "itemtype": "method",
+            "name": "loadNextPage",
+            "example": [
+                "\n    KUMobile.News.loadNextPage();"
+            ],
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 290,
+            "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
+            "itemtype": "event",
+            "name": "articlePageCreate",
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\templates.js",
+            "line": 1,
+            "description": "Basic funtion to handle the loading of handlebar templates",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 28,
+            "description": "Is the transfer page loading?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 39,
+            "description": "Type of searching for Kettering's transfer. Represents the method of \nsearching that will be used by the system.",
+            "itemtype": "attribute",
+            "name": "type",
+            "type": "{string}",
+            "default": "\"course\"",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 51,
+            "description": "Represents the last value the user has searched for in the transfer",
+            "itemtype": "attribute",
+            "name": "lastValue",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 62,
+            "description": "Represents the last college the user has searched for in the transfer",
+            "itemtype": "attribute",
+            "name": "lastCollege",
+            "type": "{string}",
+            "default": "\"\"",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 73,
+            "description": "Is the user currently typing?",
+            "itemtype": "attribute",
+            "name": "typing",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 84,
+            "description": "Contains the current list of article DOM <li> tag items that still need\nto be added to the DOM (much faster to add all at once after load\nis done downloading). This helps prevent the application from seeming to \nhang or become unresponsive.",
+            "itemtype": "attribute",
+            "name": "listQueue",
+            "type": "{Array}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 98,
+            "description": "Contains the last timeout call sent. This allows us to restart the timeout if\nthe user re-searches in any way (dropdown, or searchbar). The major benefit\nof this is that it gives us the feeling of incremental searching, e.g we send\na timeout of some milliseconds whenever the KEY_UP event triggers, as well\nas cancelling out the last timeout we sent.",
+            "itemtype": "attribute",
+            "name": "sentTimeout",
+            "type": "{Object}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 113,
+            "description": "Contains the latest separator keyvalue so we can detect when a new\nseparator is needed.",
+            "itemtype": "attribute",
+            "name": "lastState",
+            "type": "{string}",
+            "access": "private",
+            "tagname": "",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 125,
+            "description": "Triggered when the transfer page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 141,
+            "description": "Triggered when the transfer page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 228,
+            "description": "Triggered when the user does a key up event in order to simulate incremental\nsearching for the attached search bar.",
+            "itemtype": "event",
+            "name": "incrementalSearch",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 268,
+            "description": "Triggered when the user does a direct change. The direct change includes \ntyping then changing focus or pressing the clear button. This is redundant\nto the incremental search event, *except for the clear button!!*",
+            "itemtype": "event",
+            "name": "directSearch",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 295,
+            "description": "Triggered when the user does a change to the college drop down box.\nWhen this happens, we need to redo the search.",
+            "itemtype": "event",
+            "name": "collegeChange",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 321,
+            "description": "Triggered when user chooses the type 'course'. For this we need to rearrange\nsome of the DOM elements.",
+            "itemtype": "event",
+            "name": "changeTypeToCourse",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 361,
+            "description": "Triggered when user chooses the type 'college'. For this we need to rearrange\nsome of the DOM elements.",
+            "itemtype": "event",
+            "name": "changeTypeToCollege",
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 402,
+            "description": "Loads and displays the current set of transfer items searched by course.",
+            "itemtype": "method",
+            "name": "loadByCourse",
+            "example": [
+                "\n    KUMobile.Transfer.loadByCourse();"
+            ],
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 542,
+            "description": "Loads and displays the current set of transfer items searched by college.",
+            "itemtype": "method",
+            "name": "loadByCollege",
+            "example": [
+                "\n    KUMobile.Transfer.loadByCollege();"
+            ],
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\transfer.js",
+            "line": 646,
+            "description": "Reinitializes all properties of KUMobile.Transfer as if to restore\na new/default instance.",
+            "itemtype": "method",
+            "name": "reinitialize",
+            "example": [
+                "\n    KUMobile.Transfer.reinitialize();"
+            ],
+            "class": "KUMobile.Transfer",
+            "module": "KUMobile"
+        }
+    ]
+}

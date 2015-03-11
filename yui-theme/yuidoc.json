@@ -1,0 +1,10 @@
+{
+    "name": "KUMobile",
+    "description": "Kettering University Mobile Application Project.",
+    "version": "0.0.1",
+    "url": "http://kumobile.info",
+    "options": {
+        "outdir": "docs/",
+		"themedir": "yui-theme/"
+    }
+}

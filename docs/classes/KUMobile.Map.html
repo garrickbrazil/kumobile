@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>KUMobile.Map - KUMobile</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.9.1&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/img/icon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.9.1&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/img/icon.png" title="KUMobile">KUMobile</h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/KUMobile.html">KUMobile</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Config.html">KUMobile.Config</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Directory.html">KUMobile.Directory</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Events.html">KUMobile.Events</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.FileIO.html">KUMobile.FileIO</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Library.html">KUMobile.Library</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Map.html">KUMobile.Map</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Map.POICategory.html">KUMobile.Map.POICategory</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.News.html">KUMobile.News</a></li>
+            
+                <li><a href="..&#x2F;classes/KUMobile.Transfer.html">KUMobile.Transfer</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/KUMobile.html">KUMobile</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div style="display:none" id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>KUMobile.Map</h1>
+<div class="box meta">
+    
+
+    
+
+    
+
+    
+        
+            Module: <a href="../modules/KUMobile.html">KUMobile</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Contains all map related functions for loading and controlling the
+map page.</p>
+</div>
+
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        
+
+        
+            <li class="api-class-tab methods index"><a href="#methods">Methods</a></li>
+        
+        
+        <li style="display:none" class="api-class-tab"><a href="#index">Index</a></li>
+        
+        
+            <li class="api-class-tab attrs index"><a href="#attrs">Attributes</a></li>
+        
+        
+            <li class="api-class-tab events index"><a href="#events">Events</a></li>
+        
+    </ul>
+
+    <div>
+    
+        
+            <div id="methods" class="api-class-tabpanel">
+                
+                
+                    <div id="method_addPOIs" class="method item">
+    <h3 class="name"><code>addPOIs</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>category</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add POI's of a certain category to the map if it is a match with the 
+user's input through the search bar.</p>
+    </div>
+
+    
+        <div style="display;padding-top:15px;padding-bottom:15px;" class="params">
+            <h4>Parameters:</h4>
+
+            
+            <table class=-"params-list">
+            
+            <tr>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Name</th>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Type</th>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Description</th>
+            </tr>
+            
+            
+                <tr class="param">
+                    
+                    
+                    
+                        <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <code style="border: 1px solid #EFEEED;background: none repeat scroll 0% 0% #FCFBFA;">category</code>
+                        </td>
+                        <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <span class="type"><a href="../classes/KUMobile.Map.POICategory.html" class="crosslink">KUMobile.Map.POICategory</a></span>
+                        </td>
+                    
+
+                    <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <div class="descriptionListParent"><ul>
+<li>the category data containing 
+    the POIs to be searched through and added upon match</li>
+</ul></div>
+                    </td>
+                    
+                </tr>
+            
+            </table>
+            
+        </div>
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Add matching POIs
+KUMobile.Map.addPOIs(categoryData);
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_clearMarkers" class="method item">
+    <h3 class="name"><code>clearMarkers</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes all markers from the map and then clears them from the array.</p>
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">KUMobile.Map.clearMarkers();
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_filterMap" class="method item">
+    <h3 class="name"><code>filterMap</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Filters the map POI's to only add markers that the user searched for!</p>
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Filter!
+KUMobile.Map.filterMap();
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_initializeMap" class="method item">
+    <h3 class="name"><code>initializeMap</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initialize the leaflet map with category data, list and basic settings.</p>
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Initialize leaflet map
+KUMobile.Map.initializeMap();
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_readPOIData" class="method item">
+    <h3 class="name"><code>readPOIData</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Reads POI's from local file system. Note that if this fails, we will 
+attempt to download the failed category!</p>
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Update POIs
+KUMobile.Map.readPOIData();
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_showPOIDetails" class="method item">
+    <h3 class="name"><code>showPOIDetails</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>poi</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Shows the footer with POI detail information at the bottom of the map.</p>
+    </div>
+
+    
+        <div style="display;padding-top:15px;padding-bottom:15px;" class="params">
+            <h4>Parameters:</h4>
+
+            
+            <table class=-"params-list">
+            
+            <tr>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Name</th>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Type</th>
+                <th style="background: none repeat scroll 0% 0% #eeeeff;border: 1px solid #ddd;">Description</th>
+            </tr>
+            
+            
+                <tr class="param">
+                    
+                    
+                    
+                        <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <code style="border: 1px solid #EFEEED;background: none repeat scroll 0% 0% #FCFBFA;">poi</code>
+                        </td>
+                        <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <span class="type">Object</span>
+                        </td>
+                    
+
+                    <td style="background: none repeat scroll 0% 0% #FFF;border: 1px solid #eee;">
+                        <div class="descriptionListParent"><ul>
+<li>the point of interest as returned through foursquare
+    venue search API</li>
+</ul></div>
+                    </td>
+                    
+                </tr>
+            
+            </table>
+            
+        </div>
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Show POI details
+KUMobile.Map.showPOIDetails(poi)
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_updatePOIData" class="method item">
+    <h3 class="name"><code>updatePOIData</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Updates POI data for every category in the category list.</p>
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code"><code class="prettyprint">// Update POIs
+KUMobile.Map.updatePOIData();
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+                
+            </div>
+        
+    
+        <div id="index" class="api-class-tabpanel">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_addPOIs">addPOIs</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_clearMarkers">clearMarkers</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_filterMap">filterMap</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_initializeMap">initializeMap</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_readPOIData">readPOIData</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_showPOIDetails">showPOIDetails</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_updatePOIData">updatePOIData</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+                <div class="index-section attrs">
+                    <h3>Attributes</h3>
+
+                    <ul class="index-list attrs">
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_BB_NELAT">BB_NELAT</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_BB_NELNG">BB_NELNG</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_BB_SWLAT">BB_SWLAT</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_BB_SWLNG">BB_SWLNG</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_CATEGORIES_LIST">CATEGORIES_LIST</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_categoryData">categoryData</a>
+                            </li>
+                        
+                            <li class="index-item attr private">
+                                <a href="#attr_debug">debug</a>
+                            </li>
+                        
+                            <li class="index-item attr private">
+                                <a href="#attr_downloadIndex">downloadIndex</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_footerVisible">footerVisible</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_INCR_WAIT_TIME">INCR_WAIT_TIME</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_lastValue">lastValue</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_loading">loading</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_map">map</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_MAP_FILE_TEMPLATE">MAP_FILE_TEMPLATE</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_markers">markers</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_MIN_UPDATE_MS">MIN_UPDATE_MS</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_selectedMarker">selectedMarker</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_SERIALIZE_ID">SERIALIZE_ID</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_START_CENTER">START_CENTER</a>
+                            </li>
+                        
+                            <li class="index-item attr">
+                                <a href="#attr_userLocation">userLocation</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_directSearch">directSearch</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_incrementalSearch">incrementalSearch</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_locationfound">locationfound</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_mapClick">mapClick</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_markerClick">markerClick</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_markerClick">markerClick</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_pageCreate">pageCreate</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_pageInit">pageInit</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_readPOI_Fail">readPOI_Fail</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_readPOI_Success">readPOI_Success</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+        </div>
+
+        
+
+        
+
+        
+            <div id="attrs" class="api-class-tabpanel">
+                
+                
+                    <div id="attr_BB_NELAT" class="attr item">
+    <a name="config_BB_NELAT"></a> 
+    <h3 class="name"><code>BB_NELAT</code></h3>
+    <span class="type">float</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Northeast latitude for map's bounding box. Essentially most northeast
+latitude for POI's we are concerned with to show the user.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 43.05107777204538</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_BB_NELNG" class="attr item">
+    <a name="config_BB_NELNG"></a> 
+    <h3 class="name"><code>BB_NELNG</code></h3>
+    <span class="type">float</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Northeast longitude for map's bounding box. Essentially most northeast
+longitude for POI's we are concerned with to show the user.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> -83.64904403686523</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_BB_SWLAT" class="attr item">
+    <a name="config_BB_SWLAT"></a> 
+    <h3 class="name"><code>BB_SWLAT</code></h3>
+    <span class="type">float</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Southwest latitude for map's bounding box. Essentially most southwest
+latitude for POI's we are concerned with to show the user.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 42.97513915795521</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_BB_SWLNG" class="attr item">
+    <a name="config_BB_SWLNG"></a> 
+    <h3 class="name"><code>BB_SWLNG</code></h3>
+    <span class="type">float</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Southwest longitude for map's bounding box. Essentially most southwest
+longitude for POI's we are concerned with to show the user.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> -83.77864837646484</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_CATEGORIES_LIST" class="attr item">
+    <a name="config_CATEGORIES_LIST"></a> 
+    <h3 class="name"><code>CATEGORIES_LIST</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>List of POI categories (order that they will be downloaded in) containing the
+corresponding foursquare ID's.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_categoryData" class="attr item">
+    <a name="config_categoryData"></a> 
+    <h3 class="name"><code>categoryData</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Stores the data for each POI category.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_debug" class="attr item private">
+    <a name="config_debug"></a> 
+    <h3 class="name"><code>debug</code></h3>
+    <span class="type">boolean</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Enables debug messages via alert messages. Do NOT enable this unless there
+are legitimate problems with plugins (not available to debug via browser).</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_downloadIndex" class="attr item private">
+    <a name="config_downloadIndex"></a> 
+    <h3 class="name"><code>downloadIndex</code></h3>
+    <span class="type">int</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The index related to categories for which we are currently downloading or
+importing from a cached session.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_footerVisible" class="attr item">
+    <a name="config_footerVisible"></a> 
+    <h3 class="name"><code>footerVisible</code></h3>
+    <span class="type">boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Is the footer showing? The footer contains the POI details and starts off
+hidden. It is only shown when the user clicks on the POI or searches.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_INCR_WAIT_TIME" class="attr item">
+    <a name="config_INCR_WAIT_TIME"></a> 
+    <h3 class="name"><code>INCR_WAIT_TIME</code></h3>
+    <span class="type">int</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Wait time for incremental searching. This distinguishes how long to wait 
+after the user has searched something, before we assume they are done typing.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 850</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_lastValue" class="attr item">
+    <a name="config_lastValue"></a> 
+    <h3 class="name"><code>lastValue</code></h3>
+    <span class="type">string</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Represents the last value the user has searched for from the free text field
+search bar located on the map page.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_loading" class="attr item">
+    <a name="config_loading"></a> 
+    <h3 class="name"><code>loading</code></h3>
+    <span class="type">boolean</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Tells whether or not map is currently attempting to download
+or parse article lists. Essentially used to tell whether map is
+considered to be busy.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> false</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_map" class="attr item">
+    <a name="config_map"></a> 
+    <h3 class="name"><code>map</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The leaflet map object</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_MAP_FILE_TEMPLATE" class="attr item">
+    <a name="config_MAP_FILE_TEMPLATE"></a> 
+    <h3 class="name"><code>MAP_FILE_TEMPLATE</code></h3>
+    <span class="type">string</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>File template for local storage of foursquare map data for each category.
+E.g for saving food it would be MAP<em>DATA</em>Food filename.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;MAP_DATA_&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_markers" class="attr item">
+    <a name="config_markers"></a> 
+    <h3 class="name"><code>markers</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>All current POI markers that are currently added to the map.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_MIN_UPDATE_MS" class="attr item">
+    <a name="config_MIN_UPDATE_MS"></a> 
+    <h3 class="name"><code>MIN_UPDATE_MS</code></h3>
+    <span class="type">int</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This is the minimum time that needs to have passed in order to allow for 
+another foursquare update to both the map and local filesystem.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 86400000</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_selectedMarker" class="attr item">
+    <a name="config_selectedMarker"></a> 
+    <h3 class="name"><code>selectedMarker</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Contains the selected marker. This is useful to store so we can easily
+disable the markers selection.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_SERIALIZE_ID" class="attr item">
+    <a name="config_SERIALIZE_ID"></a> 
+    <h3 class="name"><code>SERIALIZE_ID</code></h3>
+    <span class="type">int</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The 'version' of how we save map data to local filesystem. Whenever the
+structure of this changes, we must change the serialized ID. When we notice
+the ID change a new download will be triggered!</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> 3</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_START_CENTER" class="attr item">
+    <a name="config_START_CENTER"></a> 
+    <h3 class="name"><code>START_CENTER</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Starting center of the map as a coordinate array.</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> [43.013070, -83.713853]</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="attr_userLocation" class="attr item">
+    <a name="config_userLocation"></a> 
+    <h3 class="name"><code>userLocation</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The latest user location (if any).</p>
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="events" class="api-class-tabpanel">
+                
+                
+                    <div id="event_directSearch" class="events item">
+    <h3 class="name"><code>directSearch</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered when the user does a direct change. The direct change includes 
+typing then changing focus or pressing the clear button. This is redundant
+to the incremental search event, <em>except for the clear button!!</em></p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_incrementalSearch" class="events item">
+    <h3 class="name"><code>incrementalSearch</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered when the user does a key up event in order to simulate incremental
+searching for the attached search bar.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_locationfound" class="events item">
+    <h3 class="name"><code>locationfound</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>User's location was found! Add it to the map as a blue circle including
+an accuracy circle.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_mapClick" class="events item">
+    <h3 class="name"><code>mapClick</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>User has clicked the map. We can use this as a way to exit the footer! Then
+also deselect the marker</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_markerClick" class="events item">
+    <h3 class="name"><code>markerClick</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered when the user clicks on a POI marker.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_markerClick" class="events item">
+    <h3 class="name"><code>markerClick</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Deselects the currently selected marker from the map. Basically it only
+switches the icon back to the 'non-selected' icon.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_pageCreate" class="events item">
+    <h3 class="name"><code>pageCreate</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered when the map page is first created based on jQuery Mobile
+pagecreate event. This is called after the page itself is created but 
+before any jQuery Mobile styling is applied.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_pageInit" class="events item">
+    <h3 class="name"><code>pageInit</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered when the map page is first initialized based on jQuery Mobile
+pageinit event.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_readPOI_Fail" class="events item">
+    <h3 class="name"><code>readPOI_Fail</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered after a failed read of POI file.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_readPOI_Success" class="events item">
+    <h3 class="name"><code>readPOI_Success</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+            
+        
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Triggered after a successful read of POI file.</p>
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+            </div>
+        
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>
