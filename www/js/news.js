@@ -174,7 +174,7 @@ KUMobile.News = {
      *      KUMobile.News.loadNextPage();
      ******************************************************************************/
 	loadNextPage: function (){
-		
+        
 		if(!this.loading){
 			
 			// Now loading

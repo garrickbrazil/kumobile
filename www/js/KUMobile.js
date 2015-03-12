@@ -43,6 +43,10 @@ var KUMobile = {
         $.mobile.defaultPageTransition = "none";
         
 		if(KUMobile.Config.isDevice){
+
+            if(window.StatusBar){
+                StatusBar.overlaysWebView(false);
+            }
 		
 			// Android, iOS, or Windows?
 			KUMobile.Config.isAndroid = (window.device.platform.toLowerCase() == "android");
