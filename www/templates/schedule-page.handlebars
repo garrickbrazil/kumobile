@@ -1,0 +1,55 @@
+<!-- Schedule Page -->
+<div data-role="page" class="student-needs-removed" id="schedule">
+    
+    <!-- Fixed Header -->
+    <div id="schedule-header" class="header-with-searchbar" data-role="header">	
+        
+        <!-- Actual header contents --> 
+        <div class="header blue-grad">
+            
+            <!-- Loading Indicator -->	
+            <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+                
+            <!-- Title -->
+            <div class="header-title">Schedule</div>
+            
+            <!-- Back button -->
+            <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        </div>
+    
+        <!-- Search bar by term--> 
+        <div class="searchbar">
+         
+            <!-- Terms --> 
+            <select id="schedule-options" data-native-menu="true" data-mini="true" data-corners="false"></select>
+            <table class="schedule" style="height:2.0em;color:black;border-top:1px solid #e1e1e1!important;" width="100%"><tr class="grey"><th></th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th></tr></table>
+        </div>
+    </div>
+    
+    <!-- Schedule scroller -->
+    <div id="schedule-scroller"  class="scroller below-searchbar"> 
+        
+        
+        <div data-role="popup" id="disclaimer" style="font-size:14px!important;margin:1!important;">
+        
+            <!-- Head --> 
+            <div data-role="header" data-theme="a">
+                <h1 style="margin-right:.2em!important;margin-left:.2em!important;font-size:1.3em;">MATH 203-02</h1>
+            </div>
+        
+            <!-- Close icon --> 
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            
+            <div style="padding-top:1em;padding-bottom:1em;padding-left:2.5em;padding-right:2.5em;">
+  
+  
+              <div style="padding:.2em">Multivariate Calculus</div>
+              <div style="padding:.2em">9:00 am - 10:05 am</div>
+              <div style="padding:.2em">Academic Building 3501</div>
+              <div style="padding:.2em">Professor Mathman</div>      
+            </div>
+        </div>
+        
+        
+    </div>
+</div>

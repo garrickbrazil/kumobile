@@ -28,7 +28,7 @@ var KUMobile = {
     /******************************************************************************
      *  Event triggered when the device is ready, registered with "deviceready".
      *  The primary purpose is to determine what type of device we are on (Android,
-     *  iOS, Windows). *Note*: this is only triggered if you are ON a device!
+     *  iOS, Windows). Note: this is only triggered if you are ON a device!
 	 *
      *  @event ready
      *  @for KUMobile
@@ -43,10 +43,6 @@ var KUMobile = {
         $.mobile.defaultPageTransition = "none";
         
 		if(KUMobile.Config.isDevice){
-
-            if(window.StatusBar){
-                StatusBar.overlaysWebView(false);
-            }
 		
 			// Android, iOS, or Windows?
 			KUMobile.Config.isAndroid = (window.device.platform.toLowerCase() == "android");
@@ -62,6 +58,9 @@ var KUMobile = {
             KUMobile.Config.isWindows = false;
 		}
         
+        // Hide splash screen (delay to give html a chance to render)
+        setTimeout(navigator.splashscreen.hide, 250);
+
 	},
     
     
@@ -94,7 +93,7 @@ var KUMobile = {
      *      KUMobile.hideLoading("news-page");
      ******************************************************************************/
 	hideLoading: function(id){
-		
+        
 		$('#' + id + " .loading-indicator").css('display','none');
 	},
 	
@@ -151,6 +150,24 @@ var KUMobile = {
         return abr;
 	},
 	
+    
+    /******************************************************************************
+     *  Binds a jquery event safely by first removing any prexisting event! This
+     *  prevents it from being binded twice.
+     *
+     *  @method safeBinder
+	 *  @param {string} event - jquery mobile event name
+     *  @param {string} query - jquery query for element to bind
+     *  @param {function} callback - function to be called on event trigger
+     *  @for KUMobile
+     *  @example
+     *      KUMobile.safeBinder("pageinit", "#mydiv", myfunction);
+     ******************************************************************************/
+    safeBinder: function(event, query, callback){
+        
+        $(document).off(event, query).on(event, query, callback);
+        
+    },
 	
 
     /******************************************************************************
@@ -164,18 +181,64 @@ var KUMobile = {
      *  @for KUMobile
      ******************************************************************************/
 	throttledResize: function (event){
-	
-    
+        
+        // Get page id
+        if (!(typeof ($.mobile) === "undefined") && !(typeof ($.mobile.activePage) === "undefined")) var id = "#" + $.mobile.activePage.attr('id');
+        else var id = "body"
+        
         // Regular scroller
-        $('.scroller').css('height', $(window).height() - $('.header').height() - 2);
-        $('.scroller').css('top', $('.header').height() + 2);
+        $(id + ' .scroller').css('height', $(window).height() - $(id + ' .header').height() - 2);
+        $(id + ' .scroller').css('top', $(id + ' .header').height() + 2);
+        
+        // Login
+        $('#login-box').css('height', $(window).height() - $('.header').height() - 2);
+        $('#login-box').css('top', $('.header').height() + 2);
+        
+        // Compute login box position
+        var loginTop = $('#login-box').height()*.38 - $('.login-container').height()/2;
+        if(loginTop < 0) loginTop = 0;
+        if($('.login-container').height() > 0) $('.login-container').css('top', loginTop);
+        
+        // Header center and not cut off
+        $(id + " .header-title").each(function(i){
+            
+            // Properties
+            var backButton, backButtonRight;
+            backButton = $(this).parent().find(".back-button");
+            
+            // Calculate back size
+            if(backButton.size() > 0) backButtonRight = backButton.eq(0).outerWidth() + backButton.eq(0).offset().left + 10;
+            else backButtonRight = 0;
+            
+            // Try to get real width, or fallback on regular width
+            var width = $(this).prop("realwidth");
+            if(typeof width == "undefined") width = $(this).width();
+            
+            // Calculate header left 
+            // then make sure it does not cut off
+            var headerLeft = $(this).parent().width()*.5 - width*.5;
+            if(headerLeft < backButtonRight) headerLeft = backButtonRight;
+            $(this).css('left', headerLeft);
+            
+            // Calculate width 
+            // and resize when necessary
+            var maxWidth = $(this).parent().width() - headerLeft - 30;
+            if (width >= maxWidth){
+                
+                // Store real width before changing to current max
+                if(typeof $(this).prop("realwidth") == "undefined") $(this).prop("realwidth", $(this).width());
+                $(this).css("width", maxWidth);
+            }
+            else $(this).css("width", "auto");
+
+        });
         
         // Scroller with search bar!
-        $('.scroller.below-searchbar').css('height', $(window).height() - $('.header-with-searchbar').height() - 3);
-        $('.scroller.below-searchbar').css('top', $('.header-with-searchbar').height() + 2);
+        $(id + ' .scroller.below-searchbar').css('height', $(window).height() - $(id + ' .header-with-searchbar').height() - 3);
+        $(id + ' .scroller.below-searchbar').css('top', $(id + ' .header-with-searchbar').height() + 2);
         
         // Directions buttons
-        /** TODO: this needs to be fixed so it is not hard coded! YE BE WARNED! **/
+        /** TODO: this needs to be fixed so it is not hard coded! BE WARNED! **/
 		$('#poi-button-directions').css('width', $(window).width()/2 - 10 - 5);
 		$('#poi-button-phone').css('width', $(window).width()/2 - 5 - 10 - 5);
         
@@ -191,12 +254,18 @@ var KUMobile = {
 	
 		// Fix search bar size
 		// More usable than css calc() which isn't always supported.	
-		$('.searchbar .ui-input-search').css('width', $(window).width() - $('.searchbar .ui-select').width());
+		$(id + ' .searchbar .ui-input-search').css('width', $(window).width() - $(id + ' .searchbar .ui-select').width());
 		$('#map .searchbar .ui-input-search').css('width', $(window).width());
-		$('.searchbar').css('top', $('.header').height());
+		$(id + ' .searchbar').css('top', $(id + ' .header').height());
+        $(id + ' .select-bar').css('top', $(id + ' .header').height());
 		
-		// Transfer college select bar minus transfer selects
-		$('#transfer-container-college .ui-select').css('width', $(window).width() - $('.searchbar .ui-select').width());
+        // Final grades dropdown fullwidth
+        $("#final-grades-header .ui-select").css("width", $(window).width());
+        $("#schedule-header .ui-select").css("width", $(window).width());
+        
+		// Transfer and degree eval selects
+		$('#transfer-container-college .ui-select').css('width', $(window).width() - $('#transfer .searchbar .ui-select').width());
+        $('#degree-evaluation-options-container .ui-select').css('width', $(window).width() - $('#degree-evaluation .searchbar #generate-degree-evaluation').outerWidth());
         
 	},
 	
@@ -210,9 +279,9 @@ var KUMobile = {
      *  @for KUMobile
      ******************************************************************************/
 	pageChange: function( event ) { 
-	
+        
 		// Resize the window whenever we change pages
-		$(window).trigger("resize"); 
+		KUMobile.throttledResize();
 		
 		// If map is okay, cause it to revalidate its position and size
         // there are often map issues related to going back and forth 
@@ -222,6 +291,7 @@ var KUMobile = {
 		setTimeout(function(){
 			if(KUMobile.Map.map != null) KUMobile.Map.map.invalidateSize();
 		},0); 
+        
 	},
     
 };

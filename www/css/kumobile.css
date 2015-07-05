@@ -70,6 +70,105 @@ a {
 
 
 /**********************************************************
+ * Student input texts
+ *********************************************************/
+#student .ui-input-text {
+    border-width: 1px!important;
+    background: #f8f8f8;
+}
+
+
+/**********************************************************
+ * Student checkbox mods
+ *********************************************************/
+#student .ui-checkbox label{    
+    border-width: 0px!important;
+    font-weight:normal!important;
+}
+
+
+/**********************************************************
+ * Student folder item text
+ *********************************************************/
+.folder-item-text{
+
+    float:left!important;
+    width:100%!important;
+    margin-left:2.4em!important;
+
+}
+
+
+/**********************************************************
+ * Login container
+ *********************************************************/
+.login-container{
+  background: #fff!important;
+  box-shadow: 0px 0px 10px #D8D8D8;
+  border: 1px solid #aaa;
+  border-radius:10px;
+  padding:40px;
+  width:65%;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  -webkit-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+
+
+/**********************************************************
+ * Login box
+ *********************************************************/
+#login-box {
+  background:#f8f8f8!important;
+  width: 100%;
+  height: 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0%;
+  left: 0;
+  margin: 0;
+  padding:0;
+  overflow-x: hidden;
+  overflow-y: hidden|scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/**********************************************************
+ * Student list icon
+ *********************************************************/
+.student-list-icon{
+    left:.5em !important;
+	top:1em !important;
+	max-height:2.0em !important;
+	max-width: 2.0em !important;
+}
+
+
+/**********************************************************
+ * Student list text
+ *********************************************************/
+li .student-list-text{
+    padding-top:.25em!important;
+    padding-bottom:.25em!important;
+    padding-left:.8em!important;
+}
+
+
+/**********************************************************
+ * Student list text
+ *********************************************************/
+li .student-list-text-folder-item{
+    padding-top:.25em!important;
+    padding-bottom:.25em!important;
+    padding-left:2.3em!important;
+}
+
+
+/**********************************************************
  * Main text of a list item (home page)
  *********************************************************/
 li .main-text{
@@ -77,6 +176,15 @@ li .main-text{
 	padding-top:0px !important;
 	padding-bottom:0px !important;
     line-height:1.1em!important;
+}
+
+
+/**********************************************************
+ * Spans in student information page
+ *********************************************************/
+#information-scroller li span{
+    font-size:0.85em!important;
+    white-space:normal!important;
 }
 
 
@@ -111,6 +219,9 @@ li .main-text{
  * Header title
  *********************************************************/
 .header-title{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
 	-webkit-transform:translateY(-50%);
 	-ms-transform:translateY(-50%);
 	transform:translateY(-50%);
@@ -124,8 +235,25 @@ li .main-text{
 	padding:0;
 	text-align:center;
 	display:inline;
-	width:100%;
+	width:auto;
 	height:auto
+}
+
+
+/**********************************************************
+ * Student input texts
+ *********************************************************/
+.logout-button{
+	-webkit-transform:translateY(-50%)!important;
+	-ms-transform:translateY(-50%)!important;
+	transform:translateY(-50%)!important;
+	top:50%!important;
+    display:inline;
+	float:right!important;
+    margin:0em!important;
+    font-size:13.5px!important;
+	padding-top:10px!important;
+	padding-bottom:10px!important;
 }
 
 
@@ -159,6 +287,12 @@ li .main-text{
 	margin-bottom:1px;
 }
 
+/**********************************************************
+ * Schedule Header
+ *********************************************************/
+#schedule-header{
+    height:7.4em!important;
+}
 
 /**********************************************************
  * Searchbar select dropdown  (center text)
@@ -186,7 +320,7 @@ li .main-text{
 /**********************************************************
  * Searchbar select dropdown  (remove padding and shadow)
  *********************************************************/
-.searchbar .ui-select .ui-btn{
+.searchbar .ui-select .ui-btn, .select-bar .ui-select .ui-btn{
 	webkit-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	-moz-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
 	box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
@@ -211,7 +345,7 @@ li .main-text{
 /**********************************************************
  * Searchbar select dropdown (center text)
  *********************************************************/
-.searchbar .ui-select span{
+.searchbar .ui-select span, .select-bar .ui-select span{
 	position:relative!important;
 	-webkit-transform:translateY(-50%)!important;
 	-ms-transform:translateY(-50%)!important;
@@ -232,6 +366,30 @@ li .main-text{
 	padding:0px !important;
 	display: inline-block;
 	height:100%!important;
+}
+
+
+/**********************************************************
+ * Select bar select dropdown (size appropriately)
+ *********************************************************/
+.select-bar .ui-select{
+    
+    position:relative!important;
+	float:right!important;
+	width:100%!important;
+	margin: 0px !important;
+	padding:0px !important;
+	display: inline-block;
+	height:100%!important;
+
+}
+
+
+/**********************************************************
+ * Select span for final grades
+ *********************************************************/
+#final-grades .searchbar .ui-select span{
+    text-align:left!important;
 }
 
 
@@ -332,19 +490,104 @@ li .main-text{
 
 
 /**********************************************************
+ * Headers on degree evaluation page info items
+ *********************************************************/
+.left{
+    max-width:40%!important;
+    float:left!important;
+    white-space:normal!important;
+}
+
+
+
+/**********************************************************
+ * Paragraph on degree evaluation page info items
+ *********************************************************/
+.right{
+    text-align:right!important;
+    max-width:60%!important;
+    float:right!important;
+    white-space:normal!important;
+}
+
+
+/**********************************************************
+ * Position the > for a sublist to be just under "Met"
+ *********************************************************/
+#degree-evaluation .sublist::after{
+    margin-top:-.1em!important;
+}
+
+
+/**********************************************************
+ * Have padding for sublist a to be normal!
+ *********************************************************/
+a.sublist{
+    padding-right:1em;
+}
+
+
+/**********************************************************
+ * Generate button on degree evaluation screen
+ *********************************************************/
+#generate-degree-evaluation{
+    border-color:rgb(169, 169, 169)!important;
+    float:right!important;
+    margin:0!important;
+    border-top:0px!important;
+    height: 1.9em!important;
+    padding-top: .90em!important;
+    padding-bottom:0!important;
+    webkit-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+    -moz-box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+    box-shadow: 0 0px 0px rgba(0,0,0,.2) !important;
+    padding-left:1.5em!important;
+    padding-right:1.5em!important;
+}
+
+
+/**********************************************************
+ * Subject header met field
+ *********************************************************/
+.subject-met{
+    line-height:1.1em!important;
+    padding:0px!important;
+    margin:0px!important;
+    float:right!important;
+}
+
+
+/**********************************************************
+ * Normal size and weight span
+ *********************************************************/
+span.normal{
+    font-weight:normal;
+    font-size:.78em;   
+}
+
+
+/**********************************************************
+ * Left align drop down on certain pages
+ *********************************************************/
+#degree-evaluation-options-container span, #schedule-header span{
+    text-align:left !important;
+}
+
+
+/**********************************************************
  * Grey gradient (used for list items generally)
  *********************************************************/
 .grey-grad{
 
 	/* Edited by http://www.colorzilla.com/gradient-editor/ */
-	background: #ffffff!important ;  /* Old browsers */
-	background: -moz-linear-gradient(top,  #ffffff 0%, #ffffff 36%, #fafafa 75%, #f5f5f5 96%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(36%,#ffffff), color-stop(75%,#fafafa), color-stop(96%,#f5f5f5)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#f5f5f5 96%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#f5f5f5 96%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#f5f5f5 96%); /* IE10+ */
-	background: linear-gradient(to bottom,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#f5f5f5 96%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
+	background: #ffffff;  /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ffffff 36%, #fafafa 75%, #F7F7F7 96%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(36%,#ffffff), color-stop(75%,#fafafa), color-stop(96%,#F7F7F7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#F7F7F7 96%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#F7F7F7 96%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#F7F7F7 96%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#ffffff 36%,#fafafa 75%,#F7F7F7 96%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#F7F7F7',GradientType=0 ); /* IE6-9 */
 }
 
 
@@ -362,6 +605,176 @@ li .main-text{
 	background: -ms-linear-gradient(top,  #278ad5 0%,#1f5899 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #278ad5 0%,#1f5899 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#278ad5', endColorstr='#1f5899',GradientType=0 ); /* IE6-9 */
+}
+
+.schedule-color0{
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#deefff+0,98bede+100 */
+    background: #deefff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #deefff 0%, #98bede 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#deefff), color-stop(100%,#98bede)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #deefff 0%,#98bede 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #deefff 0%,#98bede 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #deefff 0%,#98bede 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #deefff 0%,#98bede 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color1{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dffaff+0,98d6de+100 */
+    background: #dffaff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #dffaff 0%, #98d6de 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dffaff), color-stop(100%,#98d6de)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #dffaff 0%,#98d6de 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #dffaff 0%,#98d6de 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #dffaff 0%,#98d6de 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #dffaff 0%,#98d6de 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dffaff', endColorstr='#98d6de',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color2{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dffff9+0,98decf+100 */
+    background: #dffff9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #dffff9 0%, #98decf 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dffff9), color-stop(100%,#98decf)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #dffff9 0%,#98decf 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #dffff9 0%,#98decf 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #dffff9 0%,#98decf 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #dffff9 0%,#98decf 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dffff9', endColorstr='#98decf',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color3{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dfffee+0,98deb8+100 */
+    background: #dfffee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #dfffee 0%, #98deb8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dfffee), color-stop(100%,#98deb8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #dfffee 0%,#98deb8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #dfffee 0%,#98deb8 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #dfffee 0%,#98deb8 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #dfffee 0%,#98deb8 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dfffee', endColorstr='#98deb8',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color4{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#faffdf+0,d6de98+100 */
+    background: #faffdf; /* Old browsers */
+    background: -moz-linear-gradient(top,  #faffdf 0%, #d6de98 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#faffdf), color-stop(100%,#d6de98)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #faffdf 0%,#d6de98 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #faffdf 0%,#d6de98 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #faffdf 0%,#d6de98 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #faffdf 0%,#d6de98 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faffdf', endColorstr='#d6de98',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color5{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffeedf+0,deb898+100 */
+    background: #ffeedf; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffeedf 0%, #deb898 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffeedf), color-stop(100%,#deb898)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffeedf 0%,#deb898 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffeedf 0%,#deb898 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffeedf 0%,#deb898 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffeedf 0%,#deb898 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffeedf', endColorstr='#deb898',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color6{
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e5f3ff+1,93ceff+100 */
+    background: #e5f3ff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #e5f3ff 1%, #93ceff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#e5f3ff), color-stop(100%,#93ceff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #e5f3ff 1%,#93ceff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #e5f3ff 1%,#93ceff 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #e5f3ff 1%,#93ceff 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #e5f3ff 1%,#93ceff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5f3ff', endColorstr='#93ceff',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+
+.schedule-color7{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffdfe5+0,de98a7+100 */
+    background: #ffdfe5; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffdfe5 0%, #de98a7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffdfe5), color-stop(100%,#de98a7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffdfe5 0%,#de98a7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffdfe5 0%,#de98a7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffdfe5 0%,#de98a7 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffdfe5 0%,#de98a7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffdfe5', endColorstr='#de98a7',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color8{
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c3fbec+0,77f7d1+100 */
+    background: #c3fbec; /* Old browsers */
+    background: -moz-linear-gradient(top,  #c3fbec 0%, #77f7d1 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c3fbec), color-stop(100%,#77f7d1)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #c3fbec 0%,#77f7d1 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #c3fbec 0%,#77f7d1 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #c3fbec 0%,#77f7d1 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #c3fbec 0%,#77f7d1 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c3fbec', endColorstr='#77f7d1',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+.schedule-color9{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9f1cb+0,f2db8a+100 */
+    background: #f9f1cb; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f9f1cb 0%, #f2db8a 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f1cb), color-stop(100%,#f2db8a)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f9f1cb 0%,#f2db8a 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f9f1cb 0%,#f2db8a 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f9f1cb 0%,#f2db8a 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f9f1cb 0%,#f2db8a 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f1cb', endColorstr='#f2db8a',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color10{
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fbe1c9+0,f6b886+100 */
+    background: #fbe1c9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #fbe1c9 0%, #f6b886 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbe1c9), color-stop(100%,#f6b886)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #fbe1c9 0%,#f6b886 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #fbe1c9 0%,#f6b886 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #fbe1c9 0%,#f6b886 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #fbe1c9 0%,#f6b886 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbe1c9', endColorstr='#f6b886',GradientType=0 ); /* IE6-9 */
+}
+
+
+.schedule-color11{
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffd4c7+0,da9a8a+100 */
+    background: #ffd4c7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffd4c7 0%, #da9a8a 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffd4c7), color-stop(100%,#da9a8a)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffd4c7 0%,#da9a8a 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffd4c7 0%,#da9a8a 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffd4c7 0%,#da9a8a 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffd4c7 0%,#da9a8a 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd4c7', endColorstr='#da9a8a',GradientType=0 ); /* IE6-9 */
 }
 
 
@@ -387,7 +800,6 @@ li .main-text{
  * Uniform grey (so large backgrounds don't appear white)
  *********************************************************/
 .grey-uniform{
-
 	background: #fcfcfc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #fcfcfc 80%, #ffffff 85%, #fafafa 91%, #f5f5f5 96%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(80%,#fcfcfc), color-stop(85%,#ffffff), color-stop(91%,#fafafa), color-stop(96%,#f5f5f5)); /* Chrome,Safari4+ */
@@ -396,6 +808,83 @@ li .main-text{
 	background: -ms-linear-gradient(top,  #fcfcfc 80%,#ffffff 85%,#fafafa 91%,#f5f5f5 96%); /* IE10+ */
 	background: linear-gradient(to bottom,  #fcfcfc 80%,#ffffff 85%,#fafafa 91%,#f5f5f5 96%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
+}
+
+
+/**********************************************************
+ * Schedule Table
+ *********************************************************/
+table.schedule{
+    table-layout:fixed!important;
+    border-spacing:0px!important;
+    border-collapse: collapse!important;
+}
+
+
+/**********************************************************
+ * Schedule Table Row (give upper border and height)
+ *********************************************************/
+table.schedule tr{
+    border-top: 1px solid #e1e1e1;
+    height:1em!important;
+}
+
+
+/**********************************************************
+ * Schedule Table (removes double border)
+ *********************************************************/
+table.schedule tr.first{
+    border-top: 0px solid #e1e1e1;
+}
+
+
+/**********************************************************
+ * Schedule Table (no need for border between same color)
+ *********************************************************/
+table.schedule tr.grey + tr.grey, table.schedule tr.more-grey + tr.more-grey{
+    border-top: 0px!important;
+}
+
+
+/**********************************************************
+ * Schedule Table (border after time slots)
+ *********************************************************/
+.schedule th + td, .schedule th + th {
+   border-left: 1px solid #e1e1e1!important;
+}
+
+
+/**********************************************************
+ * Schedule Table Time
+ *********************************************************/
+.time{
+    vertical-align:top!important;
+    text-align:center!important;
+    font-weight:bold!important;
+}
+
+/**********************************************************
+ * Schedule Table Course box
+ *********************************************************/
+.schedule .course-box{
+    
+    text-align: center!important;
+    border: 1px solid #0a0a0a!important;
+}
+
+/**********************************************************
+ * Plain grey
+ *********************************************************/
+.grey{
+	background: #fcfcfc; /* Old browsers */
+}
+
+
+/**********************************************************
+ * More grey
+ *********************************************************/
+.more-grey{
+    background: #efefef; /* Old browsers */
 }
 
 
@@ -415,7 +904,6 @@ li .main-text{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#519ad1', endColorstr='#3477be',GradientType=0 ); /* IE6-9 */
 
 }
-
 
 
 /**********************************************************

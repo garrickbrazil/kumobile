@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="css/kumobile.css" />
 		<link rel="stylesheet" href="css/leaflet.css" />
         
-		
 		<!-- Device only -->
 		<script src="cordova.js"></script>
 		
@@ -31,6 +30,7 @@
         <script src="js/events.js"></script>
 		<script src="js/directory.js"></script>
         <script src="js/library.js"></script>
+        <script src="js/student.js"></script>
 		<script src="js/transfer.js"></script>
 		<script src="js/map.js"></script>
 		<script src="js/file_io.js"></script>
@@ -44,12 +44,12 @@
 		<!-- Home page --> 
 		<div id="home" data-role="page">
 			
-			<!-- Header -->
+            <!-- Header -->
 			<div data-role="header" class="header blue-grad">
 				<div class="header-title">
 					
 					<!-- The Bulldog! --> 
-					<img id="main-bulldog-icon" border="0" src="img/bulldog.png" alt="Bulldog"/>
+					<img onload="KUMobile.throttledResize()" id="main-bulldog-icon" border="0" src="img/bulldog.png" alt="Bulldog"/>
 					
 					Kettering University
 				</div>
@@ -58,8 +58,8 @@
 			<!-- Home page list --> 
 			<div id="home-scroller" class="scroller">
             
-				<ul style="" data-role="listview">
-				
+				<ul data-role="listview">
+                
 					<!-- News item --> 
 					<li>
 						<a class="grey-grad"  href="#news">
@@ -95,6 +95,7 @@
 						</a>
 					</li>
 					
+
 					<!-- Library item -->
 					<li>
 						<a class="grey-grad" href="#library">
@@ -105,7 +106,18 @@
 						</div>
 						</a>
 					</li>
-					
+                    				
+                    <!-- Student item -->
+					<li>
+						<a class="grey-grad" href="#student">
+						<img class="ui-li-icon main-icon" src="img/student.png" alt="student.png"/>
+						<div class="main-text">
+							<h1>Student</h1>
+							<p>View course information, grades, financial information, and more.</p>
+						</div>
+						</a>
+					</li>
+                    
 					<!-- Transfer item -->
 					<li>
 						<a class="grey-grad" href="#transfer">
@@ -116,7 +128,7 @@
 						</div>
 						</a>
 					</li>
-					
+                    
 					<!-- Map item -->
 					<li>
 						<a class="grey-grad" href="#map">
@@ -130,7 +142,7 @@
 				</ul>
 		    </div>
 		</div>
-		
+        
 		<!-- News Page -->
 		<div data-role="page" id="news">
 		
@@ -258,7 +270,120 @@
 				<ul id='library-list' data-role="listview"></ul>
 			</div>
 		</div>
+        
+        <!-- Student Page -->
+		<div data-role="page" id="student">
 		
+			<!-- Header -->
+			<div id="student-header" class="header blue-grad" data-role="header">	
+				
+				<!-- Loading Indicator -->	
+				<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+					
+				<!-- Title -->
+				<div class="header-title">Student</div>
+				
+				<!-- Back button -->
+				<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+                <a id="logout-button" style="display:none!important;" class="logout-button blue-button-grad" data-corners="true" data-theme="b" data-role="button">Logout</a>
+			</div>
+            
+            <!-- Student scroller -->
+            <div id="student-scroller" class="scroller">
+            
+                <!-- Student list -->
+				<ul id="student-list" data-role="listview">
+                    <li data-role="list-divider" class="read-only-blue-grad">General</li>
+                    <li>
+                        <!-- Information -->
+						<a class="grey-grad"  href="#information">
+                            <img class="ui-li-icon student-list-icon" src="img/student-info.png"/>
+                            <div class="student-list-text"><h1>Information</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Courses -->
+						<a class="grey-grad" href="#courses">
+                            <img class="ui-li-icon student-list-icon" src="img/student-courses.png"/>
+                            <div class="student-list-text"><h1>Courses</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Degree Evaluation -->
+						<a class="grey-grad"  href="#degree-evaluation">
+                            <img class="ui-li-icon student-list-icon" src="img/student-degree.png"/>
+                            <div class="student-list-text"><h1>Degree Evaluation</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Final Grades --> 
+						<a class="grey-grad"  href="#final-grades">
+                            <img class="ui-li-icon student-list-icon" src="img/student-grades.png"/>
+                            <div class="student-list-text"><h1>Final Grades</h1></div>
+						</a>
+					</li>
+                    <li class="read-only-blue-grad" data-role="list-divider">Account</li>
+                    <li>
+                        <!-- Account Summary -->
+						<a class="grey-grad"  href="#account-summary">
+                            <img class="ui-li-icon student-list-icon" src="img/student-account.png"/>
+                            <div class="student-list-text"><h1>Account Summary</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Current Holds -->
+						<a class="grey-grad"  href="#current-holds">
+                            <img class="ui-li-icon student-list-icon" src="img/student-holds.png"/>
+                            <div class="student-list-text"><h1>Current Holds</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Financial Aid -->
+						<a class="grey-grad"  href="#financial-aid">
+                            <img class="ui-li-icon student-list-icon" src="img/student-aid.png"/>
+                            <div class="student-list-text"><h1>Financial Aid</h1></div>
+						</a>
+					</li>
+                    <li data-role="list-divider" class="read-only-blue-grad">Schedule</li>
+                    <li>
+                        <!-- Schedule View -->
+						<a class="grey-grad"  href="#schedule">
+                            <img class="ui-li-icon student-list-icon" src="img/student-schedule.png"/>
+                            <div class="student-list-text"><h1>View</h1></div>
+						</a>
+					</li>
+                    <li>
+                        <!-- Schedule Planner --> 
+						<a class="grey-grad"  href="#">
+                            <img class="ui-li-icon student-list-icon" src="img/student-planner.png"/>
+                            <div class="student-list-text"><h1>Planner</h1></div>
+						</a>
+					</li>
+				</ul>
+		    </div>
+            
+            <!-- Login Box --> 
+            <div id="login-box" style="display">
+                <div class="login-container">
+                    
+                    <!-- User name -->
+                    <label for="basic">Login ID</label>
+                    <input id="user" type="text" name="name" id="basic" value=""/>
+
+                    <br>
+                    
+                    <!-- Password -->
+                    <label for="basic">Password</label>
+                    <input id="pass" type="password" name="name" id="basic" value=""/>
+    
+                    <label><input id="rememberMe" type="checkbox" name="remember" checked/> Remember me </label>
+                    <!-- <label><input type="checkbox" name="remember"/> Save Password </label> -->
+                    <a id="login-button" class="sign-in blue-button-grad" data-corners="true" data-theme="b" data-role="button">Sign in</a>
+                    
+                </div>
+            </div>
+		</div>
+        
 		<!-- Transfer Page -->
 		<div data-role="page" id="transfer">
 			
@@ -322,8 +447,7 @@
 				<ul id='transfer-list' data-role="listview"></ul>
 			</div>
 		</div>
-		
-		
+        
 		<!-- Map Page -->
 		<div data-role="page" id="map">
 			

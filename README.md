@@ -3,7 +3,7 @@ ___
  
 ## KUMobile
 
-Version-0.0.1
+Version-0.0.2
  
 KUMobile is a cross-platform mobile application project for Kettering
 University. The project is focused on information exchange between Kettering 

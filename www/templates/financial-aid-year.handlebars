@@ -1,0 +1,13 @@
+<li data-role="list-divider" class="read-only-blue-grad">{{years}}</li>
+
+{{#each entries}}
+<li class="student-needs-removed grey-grad">
+    <div style="clear:both;">
+        <h1 style="max-width:100%!important;" class="left">{{name}}</h1>
+    </div>
+   <div style="clear:both;">
+        <p style="max-width:50%!important;" class="left">Offered: {{offered}}</p>
+        <p style="max-width:50%!important;" class="right">Accepted: {{accepted}}</p>
+    </div>
+</li>
+{{/each}}

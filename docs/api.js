@@ -10,6 +10,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "KUMobile.Map",
         "KUMobile.Map.POICategory",
         "KUMobile.News",
+        "KUMobile.Student",
         "KUMobile.Transfer"
     ],
     "modules": [

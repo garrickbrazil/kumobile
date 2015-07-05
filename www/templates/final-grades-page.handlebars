@@ -1,0 +1,52 @@
+<!-- Final Grades Page -->
+<div data-role="page" class="student-needs-removed" id="final-grades">
+    
+    <!-- Fixed Header -->
+    <div id="final-grades-header" class="header-with-searchbar" data-role="header">	
+        
+        <!-- Actual header contents --> 
+        <div class="header blue-grad">
+            
+            <!-- Loading Indicator -->	
+            <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+                
+            <!-- Title -->
+            <div class="header-title">Final Grades</div>
+            
+            <!-- Back button -->
+            <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        </div>
+    
+        <!-- Search bar by term--> 
+        <div class="searchbar">
+         
+            <!-- Terms --> 
+            <select id="final-grades-options" data-native-menu="true" data-mini="true" data-corners="false"></select>
+        </div>
+    </div>
+    
+    <!-- Final grades scroller -->
+    <div id="final-grades-scroller"  class="scroller below-searchbar"> 
+        
+        <!-- Final grade results --> 
+        <ul style="display:none" id='final-grades-list' data-role="listview">
+            <li data-role="list-divider" class="read-only-blue-grad">Courses</li>
+        </ul>
+        <ul style="display:none" id="final-grades-gpa-list" data-role="listview">
+            <li data-role="list-divider" class="read-only-blue-grad">GPA</li>
+            <li class="student-needs-removed grey-grad">
+                <div style="clear:both;">
+                    <h1 class="left">Term:</h1>
+                    <h1 class="right"><small id="termGpa"></small></h1>
+                </div>
+            </li>
+            <li class="student-needs-removed grey-grad">
+                <div style="clear:both;">
+                    <h1 class="left">Cumulative:</h1>
+                    <h1 class="right"><small id="overallGpa"></small></h1>
+                </div>
+            </li>
+        </ul>
+        
+    </div>
+</div>

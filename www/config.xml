@@ -4,7 +4,8 @@
 		version="0.0.1" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
-		xmlns:gap = "http://phonegap.com/ns/1.0">
+		xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:android = "http://schemas.android.com/apk/res/android">
 		
     <name>KU Mobile</name>
     
@@ -18,62 +19,85 @@
 	
 	<feature name="http://api.phonegap.com/1.0/device" />
 
-	<feature name="Device">
-		<param name="android-package" value="org.apache.cordova.device.Device" />
-	</feature>
-
-	<feature name="File">
-		<param name="android-package" value="org.apache.cordova.file.FileUtils" />
-	</feature>
+    <!-- Permission --> 
+	<feature name="Device"><param name="android-package" value="org.apache.cordova.device.Device" /></feature>
+	<feature name="File"><param name="android-package" value="org.apache.cordova.file.FileUtils" /></feature>
+	<feature name="Geolocation"><param name="android-package" value="org.apache.cordova.GeoBroker" /></feature>
+	<feature name="File"><param name="ios-package" value="CDVFile" /></feature>
+	<feature name="Geolocation"><param name="ios-package" value="CDVLocation" /></feature>
+	<feature name="googlenavigate"><param name="android-package" value="dk.interface.cordova.plugin.googlenavigate" /></feature>
+	<feature name="StatusBar"><param name="ios-package" value="CDVStatusBar" onload="true" /></feature>
+        
 	
-	<feature name="Geolocation">
-		<param name="android-package" value="org.apache.cordova.GeoBroker" />
-	</feature>
-	
-	<feature name="File">
-		<param name="ios-package" value="CDVFile" />
-	</feature>
-	
-	<feature name="Geolocation">
-		<param name="ios-package" value="CDVLocation" />
-	</feature>
-
-	<feature name="googlenavigate">
-	  <param name="android-package" value="dk.interface.cordova.plugin.googlenavigate" />
-	</feature>
-	
-	
-	<!-- Only used for Adobe Phonegap Cloud Build. Unless -->
-    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
-    <gap:plugin name="org.apache.cordova.file" version="1.3.1" />
-    <gap:plugin name="org.apache.cordova.device" version="0.2.12"/> 
+	<!-- Only used for Adobe Phonegap Cloud Build -->
+    <gap:plugin name="ch.ti8m.documenthandler" version="0.2.1" />
     <gap:plugin name="dk.interface.cordova.plugin.googlenavigate" version="0.1.2" />
-	<gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
+    <gap:plugin name="org.apache.cordova.file" version="1.3.1" />
+    <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+    <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
+    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+    
 	 
 	 <!-- <preference name="phonegap-version"      value="3.4.0" /> -->      <!-- all: current version of PhoneGap -->
-    <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
-    <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
+    <preference name="orientation"                value="default" />         <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="target-device"              value="universal" />       <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
-    <preference name="webviewbounce"              value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
-    <preference name="prerendered-icon"           value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
-    <preference name="stay-in-webview"            value="false" />          <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
-    <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
-    <preference name="detect-data-types"          value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
-    <preference name="exit-on-suspend"            value="false" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
-    <preference name="show-splash-screen-spinner" value="true" />           <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
-    <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
-    <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
+    <preference name="webviewbounce"              value="false" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+    <preference name="prerendered-icon"           value="true" />            <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
+    <preference name="stay-in-webview"            value="false" />           <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
+    <preference name="detect-data-types"          value="true" />            <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
+    <preference name="exit-on-suspend"            value="false" />           <!-- ios: if set to true, app will terminate when home button is pressed -->
+    <preference name="AutoHideSplashScreen"       value="false" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+    <preference name="auto-hide-splash-screen"    value="false" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+    <preference name="disable-cursor"             value="false" />           <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
     <preference name="android-minSdkVersion"      value="14" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
-    <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
-	<preference name="AndroidPersistentFileLocation" value="Internal" />
-	<preference name="iosPersistentFileLocation" value="Library" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="disallowOverscroll" value="true" />
-    <preference name="webviewbounce" value="false" />
+    <preference name="android-installLocation"    value="auto" />            <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
+	<preference name="AndroidPersistentFileLocation" value="Internal" />     <!-- android: used for file storage -->
+	<preference name="iosPersistentFileLocation" value="Library" />          <!-- ios: file storage -->
+    <preference name="StatusBarOverlaysWebView" value="false" />             <!-- ios: forces webview below statusbar, from com.phonegap.plugin.statusbar --> 
+    <preference name="disallowOverscroll" value="true" />                    <!-- ios: does not allow the webview itself to overscroll --> 
+    <preference name="SplashScreenDelay" value="10000" />                      <!-- all: length in milliseconds to show the splash screen for. -->
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="ShowSplashScreenSpinner" value="true" />
+    
+    <!-- Generic splash screen (all black!)--> 
+    <gap:splash  src="splash/splash.png"/>
+    
+    <!-- iPhone and iPod touch -->
+    <gap:splash  src="splash/Default.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash  src="splash/Default@2x.png" gap:platform="ios" width="640" height="960" />
+
+    <!-- iPhone 5 / iPod Touch (5th Generation) -->
+    <gap:splash  src="splash/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
+
+    <!-- iPhone 6 -->
+    <gap:splash  src="splash/Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />
+    <gap:splash  src="splash/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" />
+    <gap:splash  src="splash/Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
+
+    <!-- iPad -->
+    <gap:splash  src="splash/Default-Portrait.png" gap:platform="ios" width="768" height="1024" />
+    <gap:splash  src="splash/Default-Landscape.png" gap:platform="ios" width="1024" height="768" />
+
+    <!-- Retina iPad -->
+    <gap:splash  src="splash/Default-Portrait@2x.png" gap:platform="ios" width="1536" height="2048" />
+    <gap:splash  src="splash/Default-Landscape@2x.png" gap:platform="ios" width="2048" height="1536" />
+    
+    <!-- Removes title bar from Android boot! Awesome! --> 
+    <gap:config-file platform="android" parent="/manifest">
+        <supports-screens 
+            android:xlargeScreens="true" 
+            android:largeScreens="true" 
+            android:smallScreens="true" />
+        <application android:theme="@android:style/Theme.NoTitleBar" >
+        </application>
+    </gap:config-file>
 	 
     <!-- Define app icon for each platform. -->
     <icon src="img/icon.png" />
-	
+    
     <content src="index.html" />
     <access origin="*" />
 </widget>

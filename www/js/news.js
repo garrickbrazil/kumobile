@@ -118,7 +118,7 @@ KUMobile.News = {
      *  @for KUMobile.News
      ******************************************************************************/	
 	pageInit: function(event){
-
+        
         // Check overflow scroll position
         $('#news-scroller').on("scroll", KUMobile.News.scroll);
 
@@ -191,7 +191,7 @@ KUMobile.News = {
                 
 			}
 			
-            /* Success */
+            /** Success **/
 			var success = function(items){
                 
                 // Increment page
@@ -269,7 +269,7 @@ KUMobile.News = {
                 
             };
             
-            /* Fail */
+            /** Fail **/
             var failure = function(error){
                 
                 // Not loading anymore presumably..
@@ -372,7 +372,6 @@ KUMobile.News = {
                 } 
                
             });
-            //<iframe width="100%" height="215" src="http://www.youtube.com/embed/4YW47qfoKwI?version=3&rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 
             
             // Append
@@ -407,42 +406,3 @@ KUMobile.News = {
 	}
 	
 };
-
-/*
-var load = 0;
-
-function getSchedule(username, password){
-	
-	var frameName = "temporaryFrame";
-	
-	$(document.body).append("<iframe style='display:none' id='" + frameName + "' src='https://jweb.kettering.edu/cku1/twbkwbis.P_WWWLogin'>");
-	
-	$('iframe#' + frameName).load(function() {
-
-		if(load == 0){
-			$('iframe#' + frameName).attr('src', "https://jweb.kettering.edu/cku1/twbkwbis.P_ValLogin?sid=" + username + "&PIN=" + password);
-			load++;
-		}
-		else if(load == 1){
-			alert("HI");
-			load++;
-		
-		}
-		else if(load == 2){
-			alert("Signed in...");
-			$.ajax({
-				url: 'https://jweb.kettering.edu/cku1/bwskfshd.P_CrseSchd',
-				type: 'GET',
-				dataType: 'html',
-				success: function(data) {
-					
-					// Load downloaded document
-					var doc = $("<div>").html(data);
-					
-					alert(doc.find(".ddlabel").text());
-				}
-			});		
-		}
-    });	
-}
-*/

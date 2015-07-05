@@ -1,0 +1,49 @@
+<!-- Course Page -->
+<div data-role="page" class="student-needs-removed" id="{{bbId}}-page">
+
+    <!-- Header -->
+    <div id="courses-header" class="header blue-grad" data-role="header">	
+        
+        <!-- Loading Indicator -->	
+        <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+            
+        <!-- Title -->
+        <div class="header-title">{{courseId}}</div>
+        
+        <!-- Back button -->
+        <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+    </div>
+    
+    <!-- Hidden -->
+    <div class="bbId" style="display:none">{{bbId}}</div>
+    
+    <!-- Scroller -->
+    <div id="{{bbId}}-scroller" class="scroller">
+    
+        <!-- List -->
+        <ul id="{{bbId}}-list" data-role="listview" style="display:none">
+            
+            <li>
+                <!-- Grades -->
+                <a class="grey-grad"  href="#{{bbId}}-grades">
+                    <img class="ui-li-icon student-list-icon" src="img/course-grade.png"/>
+                    <div class="student-list-text"><h1>Grades</h1></div>
+                </a>
+            </li>
+            <li>
+                <!-- Required Books -->
+                <a class="grey-grad"  href="#{{bbId}}-books">
+                    <img class="ui-li-icon student-list-icon" src="img/student-books.png"/>
+                    <div class="student-list-text"><h1>Books</h1></div>
+                </a>
+            </li>
+            <li>
+                <!-- Roster -->
+                <a class="grey-grad"  href="#{{bbId}}-roster">
+                    <img class="ui-li-icon student-list-icon" src="img/population.png"/>
+                    <div class="student-list-text"><h1>Roster</h1></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

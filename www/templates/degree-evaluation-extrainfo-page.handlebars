@@ -1,0 +1,63 @@
+<!-- Degree Evaluation Info Page -->
+<div  class="student-needs-removed" data-role="page" id="degree-evaluation-info">
+
+    <!-- Header -->
+    <div id="degree-evaluation-info-header" class="header blue-grad" data-role="header" >	
+        
+        <!-- Loading Indicator -->	
+        <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+            
+        <!-- Title -->
+        <div class="header-title">Degree Evaluation</div>	
+        
+        <!-- Back button -->
+        <a class="blue-button-grad back-button" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        
+    </div>
+
+    
+    <!-- Degree Evaluation Info list -->
+    <div id="degree-evaluation-info-scroller" class="scroller">
+        <ul id='degree-evaluation-info-list' data-role="listview" style="line-height:1.1em">                
+            <li data-role="list-divider" class="read-only-blue-grad">Degree</li>
+            <li class="grey-grad degree">
+                <h1 style="white-space:normal">Program:</h1>
+                <p style="white-space:normal">{{degree}}</p>
+            </li>
+            <li class="grey-grad college">
+                <h1 style="white-space:normal">College:</h1>
+                <p style="white-space:normal">{{college}}</p>
+            </li>
+            <li class="grey-grad majors">
+                <h1 style="white-space:normal">Major:</h1>
+                <p style="white-space:normal">{{majors}}</p>
+            </li>
+            <li class="grey-grad minors">
+                <h1 style="white-space:normal">Minor:</h1>
+                <p style="white-space:normal">{{minors}}</p>
+            </li>
+            <li class="grey-grad concentrations">
+                <h1 style="white-space:normal">Concentration:</h1>
+                <p style="white-space:normal">{{concentrations}}</p>
+            </li>
+            <li data-role="list-divider" class="read-only-blue-grad">General</li>
+            <li class="grey-grad catalog">
+                <h1 style="white-space:normal">Catalog Term:</h1>
+                <p style="white-space:normal">{{catalog}}</p>
+            </li>
+            <li class="grey-grad expectedGraduation">
+                <h1 style="white-space:normal">Expected Graduation:</h1>
+                <p style="white-space:normal">{{expectedGraduation}}</p>
+            </li>
+            <li class="grey-grad overallGPA">
+                <h1 style="white-space:normal">Overall GPA:</h1>
+                <p style="white-space:normal">{{overallGPA}}</p>
+            </li>
+            <li class="grey-grad programGPA">
+                <h1 style="white-space:normal">Program GPA:</h1>
+                <p style="white-space:normal">{{programGPA}}</p>
+            </li>
+        </ul>
+    </div>
+    
+</div>

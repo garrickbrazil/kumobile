@@ -1,0 +1,50 @@
+<!-- Degree Evaluation Page --> 
+<div class="student-needs-removed" data-role="page" id="degree-evaluation">
+
+    <div id="degree-evaluation-header" class="header-with-searchbar" data-role="header">	
+    
+        <!-- Header -->
+        <div class="header blue-grad">	
+            
+            <!-- Loading Indicator -->	
+            <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+                
+            <!-- Title -->
+            <div class="header-title">Degree Evaluation</div>
+            
+            <!-- Back button -->
+            <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        </div>
+        
+        <!-- Search bar -->
+        <div class="searchbar">
+            
+            <!-- Generate button -->
+            <span><a id="generate-degree-evaluation" data-role="button" data-corners="false">Generate</a></span>
+            
+            <span id="degree-evaluation-options-container">
+                
+                <!-- Degree evaluation options --> 
+                <select id="degree-evaluation-options" data-native-menu="true" data-mini="true" data-corners="false"></select>
+            </span>
+        </div>
+    </div>
+    
+    
+    <!-- Degree Evaluation scroller -->
+    <div id="degree-evaluation-scroller" class="scroller below-searchbar">
+        <ul id="degree-evaluation-list" data-role="listview" style="line-height:1.1em;display:none;">
+            
+            <!-- Student Info -->
+            <li data-role="list-divider" class="read-only-blue-grad">Student</li>
+            <li>
+                <a href="#degree-evaluation-info" class="grey-grad">
+                    <h1 style="white-space:normal;" id="fullName"></h1>
+                    <span class="normal">ID Number:</span><span id="idNumber" class="normal" style="float:right;"></span>
+                    <div style="margin-bottom:4px"></div>
+                    <span class="normal">Major</span><span id="program" class="normal" style="float:right;"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

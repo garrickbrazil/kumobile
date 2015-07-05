@@ -2,7 +2,7 @@
     "project": {
         "name": "KUMobile",
         "description": "Kettering University Mobile Application Project.",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "url": "http://kumobile.info"
     },
     "files": {
@@ -99,6 +99,17 @@
             },
             "namespaces": {}
         },
+        "www\\js\\student.js": {
+            "name": "www\\js\\student.js",
+            "modules": {},
+            "classes": {
+                "KUMobile.Student": 1
+            },
+            "fors": {
+                "KUMobile.Student": 1
+            },
+            "namespaces": {}
+        },
         "www\\js\\templates.js": {
             "name": "www\\js\\templates.js",
             "modules": {},
@@ -132,6 +143,7 @@
                 "KUMobile.Map": 1,
                 "KUMobile.Map.POICategory": 1,
                 "KUMobile.News": 1,
+                "KUMobile.Student": 1,
                 "KUMobile.Transfer": 1
             },
             "fors": {
@@ -144,6 +156,7 @@
                 "KUMobile.Map": 1,
                 "KUMobile.Map.POICategory": 1,
                 "KUMobile.News": 1,
+                "KUMobile.Student": 1,
                 "KUMobile.Transfer": 1
             },
             "namespaces": {},
@@ -280,6 +293,20 @@
             "line": 19,
             "description": "Contains all news related functions for loading and controlling the news page."
         },
+        "KUMobile.Student": {
+            "name": "KUMobile.Student",
+            "shortname": "KUMobile.Student",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "KUMobile",
+            "namespace": "",
+            "file": "www\\js\\student.js",
+            "line": 19,
+            "description": "Contains all student related functions for loading and controlling the\nstudent driven."
+        },
         "KUMobile.Transfer": {
             "name": "KUMobile.Transfer",
             "shortname": "KUMobile.Transfer",
@@ -299,7 +326,7 @@
         {
             "file": "www\\js\\KUMobile.js",
             "line": 28,
-            "description": "Event triggered when the device is ready, registered with \"deviceready\".\nThe primary purpose is to determine what type of device we are on (Android,\niOS, Windows). *Note*: this is only triggered if you are ON a device!",
+            "description": "Event triggered when the device is ready, registered with \"deviceready\".\nThe primary purpose is to determine what type of device we are on (Android,\niOS, Windows). Note: this is only triggered if you are ON a device!",
             "itemtype": "event",
             "name": "ready",
             "class": "KUMobile",
@@ -307,7 +334,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 65,
+            "line": 68,
             "description": "Displays the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "showLoading",
@@ -330,7 +357,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 82,
+            "line": 85,
             "description": "Hides the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "hideLoading",
@@ -353,7 +380,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 98,
+            "line": 101,
             "description": "Converts a state name from abbreviation to full state name. If the\nconversion does not work it will simply return the abbreviation to be safe!",
             "itemtype": "method",
             "name": "convertStateToFull",
@@ -376,7 +403,36 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 152,
+            "line": 154,
+            "description": "Binds a jquery event safely by first removing any prexisting event! This\nprevents it from being binded twice.",
+            "itemtype": "method",
+            "name": "safeBinder",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "- jquery mobile event name",
+                    "type": "String"
+                },
+                {
+                    "name": "query",
+                    "description": "- jquery query for element to bind",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "- function to be called on event trigger",
+                    "type": "Function"
+                }
+            ],
+            "example": [
+                "\n    KUMobile.safeBinder(\"pageinit\", \"#mydiv\", myfunction);"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 173,
             "description": "Resize function to link to jQM event for throttled resize. The purpose is\nthat this resize function is controlled to not occur *too quickly* and\nadvanced resizing can be done here. Alternative to this is just to use \ncss calc(), but not fully supported across all target devices as of\ntime of development (2/26/2015).",
             "itemtype": "event",
             "name": "throttledResize",
@@ -385,13 +441,13 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 174,
+            "line": 241,
             "class": "KUMobile",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 200,
+            "line": 273,
             "description": "Triggered any time a page is changed as registered by jQuery Mobile. \nThe primary purpose is to allow us to resize to be safe that all elements \nare scaled properly.",
             "itemtype": "event",
             "name": "pageChange",
@@ -1416,7 +1472,7 @@
             "itemtype": "attribute",
             "name": "MIN_UPDATE_MS",
             "type": "{int}",
-            "default": "86400000",
+            "default": "172800000",
             "class": "KUMobile.Map",
             "module": "KUMobile"
         },
@@ -1825,11 +1881,509 @@
         },
         {
             "file": "www\\js\\news.js",
+            "line": 194,
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
+            "line": 272,
+            "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\news.js",
             "line": 290,
             "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
             "itemtype": "event",
             "name": "articlePageCreate",
             "class": "KUMobile.News",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 28,
+            "description": "Are the student services loading something?",
+            "itemtype": "attribute",
+            "name": "loading",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 39,
+            "description": "Latest courses downloaded from JWEB.",
+            "itemtype": "attribute",
+            "name": "jwebCourses",
+            "type": "{Array}",
+            "default": "null",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 50,
+            "description": "Latest courses downloaded from blackboard.",
+            "itemtype": "attribute",
+            "name": "bbCourses",
+            "type": "{Array}",
+            "default": "null",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 61,
+            "description": "Evaluation load locked?",
+            "itemtype": "attribute",
+            "name": "evalLocked",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 72,
+            "description": "Triggered when the student page is first initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInit",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 96,
+            "description": "Triggered when the student page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
+            "itemtype": "event",
+            "name": "pageCreate",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 112,
+            "description": "Triggered when courses page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitCourses",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 173,
+            "description": "Triggered when current holds page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitCurrentHolds",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 201,
+            "description": "Triggered when schedule page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitSchedule",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 270,
+            "description": "Triggered when financial aid page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitFinancialAid",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 298,
+            "description": "Triggered when account summary page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitAccountSummary",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 326,
+            "description": "Triggered when final grades page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitFinalGrades",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 395,
+            "description": "Triggered when degree evaluation page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitDegreeEvaluation",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 465,
+            "description": "Triggered when information page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitInformation",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 492,
+            "description": "Triggered when any single course page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitSingleCourse",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 557,
+            "description": "Triggered when any course grades page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitGrades",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 648,
+            "description": "Triggered when any course roster page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitRoster",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 706,
+            "description": "Triggered when any course books page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitBooks",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 879,
+            "description": "Triggered when any course folder page is initialized based on jQuery Mobile\npageinit event.",
+            "itemtype": "event",
+            "name": "pageInitFolder",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 912,
+            "description": "Populates courses into the student page based on gathered information \nfrom KetteringJS after downloading courses.",
+            "itemtype": "event",
+            "name": "populateCourses",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 999,
+            "description": "Populates course page based on initial content tree.",
+            "itemtype": "event",
+            "name": "populateCoursePage",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1050,
+            "description": "Populates information page based on initial content tree.",
+            "itemtype": "event",
+            "name": "populateInformation",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1091,
+            "description": "Populates current holds page with given information",
+            "itemtype": "event",
+            "name": "populateCurrentHolds",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1123,
+            "description": "Populates financial aid page based on returned information.",
+            "itemtype": "event",
+            "name": "populateFinancialAid",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1165,
+            "description": "Populates account summary page based on returned information.",
+            "itemtype": "event",
+            "name": "populateAccountSummary",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1198,
+            "description": "Populates schedule page based on returned information.",
+            "itemtype": "event",
+            "name": "populateSchedule",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1217,
+            "description": "Makes and displays a schedule popup for a course. Deletes itself after close!",
+            "params": [
+                {
+                    "name": "crn",
+                    "description": "- course crn",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "- course identifier",
+                    "type": "String"
+                },
+                {
+                    "name": "section",
+                    "description": "- course section",
+                    "type": "String"
+                },
+                {
+                    "name": "title",
+                    "description": "- course title",
+                    "type": "String"
+                },
+                {
+                    "name": "time",
+                    "description": "- course time",
+                    "type": "String"
+                },
+                {
+                    "name": "location",
+                    "description": "- course location",
+                    "type": "String"
+                },
+                {
+                    "name": "professor",
+                    "description": "- course professor",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "showSchedulePopup",
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1259,
+            "description": "Generates and returns a div with a table and corresponding popups based on courses",
+            "params": [
+                {
+                    "name": "courses",
+                    "description": "- the course data returned by KetteringJS retrieveSchedule",
+                    "type": "Array"
+                }
+            ],
+            "itemtype": "method",
+            "name": "generateScheduleTable",
+            "return": {
+                "description": "",
+                "type": "JQuery Div"
+            },
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1430,
+            "description": "Populates final grades page based on returned information.",
+            "itemtype": "event",
+            "name": "populateFinalGrades",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1474,
+            "description": "Populates degree evaluation page based on returned information.",
+            "itemtype": "event",
+            "name": "populateDegreeEvaluation",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1660,
+            "description": "Toggles the term type between plain text (Winter 2015) and integer (201501)",
+            "params": [
+                {
+                    "name": "input",
+                    "description": "- text to be toggled, both formats accepted",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "toggleTermType",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var termInt = KUMobile.Student.toggleTermType(\"Winter 2015\");\n    var termWord = KUMobile.Student.toggleTermType(\"201501\");"
+            ],
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1711,
+            "description": "Tries to guess which term it is based on today's current date (e.g 201501)",
+            "itemtype": "method",
+            "name": "guessTerm",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var term = KUMobile.Student.guessTerm();"
+            ],
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1734,
+            "description": "Attempts to open a file. Triggered after an attached file link is clicked.",
+            "itemtype": "event",
+            "name": "openFile",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1846,
+            "description": "Populates course folder page based on a given content tree.",
+            "itemtype": "event",
+            "name": "populateFolderPage",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2002,
+            "description": "Triggered when a new evaluation generate button is clicked",
+            "itemtype": "event",
+            "name": "degreeEvaluationGenerate",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2083,
+            "description": "Triggered when a term for schedule page is selected from drop down",
+            "itemtype": "event",
+            "name": "scheduleTermChange",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2120,
+            "description": "Triggered when a term for final grades is selected from drop down",
+            "itemtype": "event",
+            "name": "finalGradesTermChange",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2160,
+            "description": "Triggered when a new evaluation is selected to be loaded from the drop down",
+            "itemtype": "event",
+            "name": "degreeEvaluationChange",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2205,
+            "description": "Failure for generic errors on the student page",
+            "itemtype": "event",
+            "name": "failure",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2222,
+            "description": "Triggered when the sign in button is pressed and we attempt to login to all\nstudent services!",
+            "itemtype": "event",
+            "name": "login",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2250,
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2267,
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2305,
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2312,
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2326,
+            "description": "Triggered when the logout button is pressed and we attempt to logout of all\nstudent services!",
+            "itemtype": "event",
+            "name": "logout",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2346,
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 2367,
+            "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {

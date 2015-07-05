@@ -15,37 +15,34 @@
     along with KUMobile.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 // Setup the project!
 // Note: this should be the last JS file loaded!!
 document.addEventListener("deviceready", KUMobile.ready, false);
 $.mobile.defaultPageTransition = "none";
-$(window).on( "pagechange", KUMobile.pageChange);
-$(window).on( "resize", KUMobile.throttledResize);
-
-
+$(window).on("pagechange", KUMobile.pageChange);
+$(window).on("resize", KUMobile.throttledResize);
 
 // News
 $(document).on("pageinit","#news", KUMobile.News.pageInit);
 $(document).on("pagecreate","#news", KUMobile.News.pageCreate);
 
-
 // Events
 $(document).on("pageinit","#events", KUMobile.Events.pageInit);
 $(document).on("pagecreate","#events", KUMobile.Events.pageCreate);
-
 
 // Directory
 $(document).on("pageinit","#directory", KUMobile.Directory.pageInit);
 $(document).on("pagecreate","#directory", KUMobile.Directory.pageCreate);
 
-
 // Library
 $(document).on("pageinit","#library", KUMobile.Library.pageInit);
 $(document).on("pagecreate","#library", KUMobile.Library.pageCreate);
 
+// Student
+$(document).on("pagecreate","#student", KUMobile.Student.pageCreate);
+$(document).on("pageinit","#student", KUMobile.Student.pageInit);
 
-// Transfer page init
+// Transfer
 $(document).on("pageinit","#transfer", KUMobile.Transfer.pageInit);
 $(document).on("pagecreate","#transfer", KUMobile.Transfer.pageCreate);
 
