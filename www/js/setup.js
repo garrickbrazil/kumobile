@@ -22,6 +22,12 @@ $.mobile.defaultPageTransition = "none";
 $(window).on("pagechange", KUMobile.pageChange);
 $(window).on("resize", KUMobile.throttledResize);
 
+$(document).on("pageinit","#home", KUMobile.homeLoaded);
+
+// Announcements
+$(document).on("pageinit","#announcements", KUMobile.Announcements.pageInit);
+$(document).on("pagecreate","#announcements", KUMobile.Announcements.pageCreate);
+
 // News
 $(document).on("pageinit","#news", KUMobile.News.pageInit);
 $(document).on("pagecreate","#news", KUMobile.News.pageCreate);

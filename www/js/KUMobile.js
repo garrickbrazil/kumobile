@@ -24,6 +24,32 @@
  ******************************************************************************/
 var KUMobile = {
     
+    
+    /******************************************************************************
+     *  Contains the version information loaded from the app manifest! Note: this
+     *  is only available after the device ready function is called, until then 
+     *  it is null
+     *
+     *  @attribute version
+     *  @type {String}
+     *  @for KUMobile
+     *  @default null
+     ******************************************************************************/
+	version: null,
+    
+    
+    /******************************************************************************
+     *  Event triggered after the home page initialization!
+	 *
+     *  @event ready
+     *  @for KUMobile
+     ******************************************************************************/
+    homeLoaded: function(){
+        
+        KUMobile.Announcements.loadNextPage();
+        KUMobile.News.loadNextPage();
+    },
+    
 	
     /******************************************************************************
      *  Event triggered when the device is ready, registered with "deviceready".
@@ -35,6 +61,11 @@ var KUMobile = {
      ******************************************************************************/
     ready: function(){
 	
+        // Get version and update the about page
+        cordova.getAppVersion(function (version) {
+            KUMobile.version = "v" + version;
+            $("#about #version").text("v" + version);
+        });
         
         // Determine if it is a device
         KUMobile.Config.isDevice = (typeof cordova != "undefined");
@@ -60,7 +91,7 @@ var KUMobile = {
         
         // Hide splash screen (delay to give html a chance to render)
         setTimeout(navigator.splashscreen.hide, 250);
-
+        
 	},
     
     
@@ -168,6 +199,28 @@ var KUMobile = {
         $(document).off(event, query).on(event, query, callback);
         
     },
+    
+    
+    /******************************************************************************
+     *  Scrolls an overflow container to a certain element
+     *
+     *  @method scrollTo
+	 *  @param {string} containerQuery - container query string
+     *  @param {string} elementQuery - element query string
+     *  @for KUMobile
+     *  @example
+     *      KUMobile.scrollTo("#container", "#mydiv");
+     ******************************************************************************/
+    scrollTo: function(containerQuery, elementQuery){
+        
+        var container = $(containerQuery);
+        var scrollTo = $(containerQuery + " " + elementQuery);
+
+        container.scrollTop(
+            scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
+        
+    },
 	
 
     /******************************************************************************
@@ -259,16 +312,45 @@ var KUMobile = {
 		$(id + ' .searchbar').css('top', $(id + ' .header').height());
         $(id + ' .select-bar').css('top', $(id + ' .header').height());
 		
-        // Final grades dropdown fullwidth
+        // Dropdown full width
         $("#final-grades-header .ui-select").css("width", $(window).width());
         $("#schedule-header .ui-select").css("width", $(window).width());
+        $("#schedule-planner-terms-container .ui-select").css("width", $(window).width());
+        
+        $("#schedule-options-generate-button").css("width", $("#schedule-options-generate-button").parent().width()*.8);
+        
+        // Schedule planner course dialog, full width
+        $(".wide-popup").css("width", $(window).width()*.80);
+        
+        // General dialog scrollers
+        $(".dialog-scroller").css("max-height", $(window).height()*.60);
         
 		// Transfer and degree eval selects
 		$('#transfer-container-college .ui-select').css('width', $(window).width() - $('#transfer .searchbar .ui-select').width());
         $('#degree-evaluation-options-container .ui-select').css('width', $(window).width() - $('#degree-evaluation .searchbar #generate-degree-evaluation').outerWidth());
         
 	},
-	
+    
+    
+    /******************************************************************************
+     *  Adds a 'new' indicator for every selected element
+     *
+     *  @method addNewIndicator
+	 *  @param {string} selector - query string to add indicators to
+     *  @for KUMobile
+     *  @example
+     *      KUMobile.addNewIndicator("#list li.special");
+     ******************************************************************************/
+    addNewIndicator(selector){
+
+        // Template
+        var tpl = Handlebars.getTemplate("new-indicator");
+    
+        // Add for each selected
+        $(selector).each(function(i){ $(this).append(tpl); });
+      
+    },
+    
 	
 	/******************************************************************************
      *  Triggered any time a page is changed as registered by jQuery Mobile. 
@@ -280,9 +362,42 @@ var KUMobile = {
      ******************************************************************************/
 	pageChange: function( event ) { 
         
+        // Coming from news -> home?
+        if (KUMobile.lastPage == "news" && $.mobile.activePage.attr('id') == "home"){
+            
+            // Clear main news indicator
+            $("#news-listitem .new-icon-indicator").remove();
+            $("#news-listitem").removeClass("ui-li-has-count");
+            
+            // Clear all news item indicators
+            $("#news-list li .new-icon-indicator").remove();
+            $("#news-list li").removeClass("ui-li-has-count");
+            
+            // Refresh list
+            $("#news-list").listview("refresh");
+            $("#home ul").listview("refresh");
+        }
+        
+        // Coming from announcements -> home?
+        if (KUMobile.lastPage == "announcements" && $.mobile.activePage.attr('id') == "home"){
+            
+            // Clear main announcements indicator
+            $("#announcements-listitem .new-icon-indicator").remove();
+            $("#announcements-listitem").removeClass("ui-li-has-count");
+            
+            // Clear all announcements item indicators
+            $("#announcements-list li .new-icon-indicator").remove();
+            $("#announcements-list li").removeClass("ui-li-has-count");
+            
+            // Refresh list
+            $("#announcements-list").listview("refresh");
+            $("#home ul").listview("refresh");
+            
+        }
+        
 		// Resize the window whenever we change pages
 		KUMobile.throttledResize();
-		
+        
 		// If map is okay, cause it to revalidate its position and size
         // there are often map issues related to going back and forth 
         // between the map and changing perspectives. It is most efficient
@@ -291,6 +406,9 @@ var KUMobile = {
 		setTimeout(function(){
 			if(KUMobile.Map.map != null) KUMobile.Map.map.invalidateSize();
 		},0); 
+        
+        // Last page 
+        KUMobile.lastPage = $.mobile.activePage.attr('id');
         
 	},
     

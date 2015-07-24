@@ -59,6 +59,39 @@ KUMobile.Student = {
     
     
     /******************************************************************************
+     *  Latest jweb catalog (containing all offered courses and their times)
+     *
+     *  @attribute jwebCatalog
+     *  @type {Array}
+     *  @for KUMobile.Student
+     *  @default null
+     ******************************************************************************/
+	jwebCatalog: null,
+    
+    
+    /******************************************************************************
+     *  Latest working schedules for schedule planner
+     *
+     *  @attribute workingSchedules
+     *  @type {Array}
+     *  @for KUMobile.Student
+     *  @default null
+     ******************************************************************************/
+	workingSchedules: null,
+    
+    
+    /******************************************************************************
+     *  Index for the latest working schedule drawn
+     *
+     *  @attribute schedulePlannerIndex
+     *  @type {int}
+     *  @for KUMobile.Student
+     *  @default null
+     ******************************************************************************/
+	schedulePlannerIndex: null,
+    
+    
+    /******************************************************************************
      *  Evaluation load locked?
      *
      *  @attribute evalLocked
@@ -78,15 +111,31 @@ KUMobile.Student = {
      ******************************************************************************/	
 	pageInit: function(event){
         
-        // Potential username remembered 
+        // Stored login information
         var user = window.localStorage.getItem("ku_username");
         var rememberMe = window.localStorage.getItem("ku_rememberme");
+        var savePass = window.localStorage.getItem("ku_savepass");
+        var encrypted = window.localStorage.getItem("ku_pass");
     
         // Init
         if(user != null) $('#user').attr("value", user);
         if(rememberMe === "false") $("#rememberMe").attr("checked", false).checkboxradio("refresh");
-        if(rememberMe === "true") $("#rememberMe").attr("checked", true).checkboxradio("refresh");
+        else if(rememberMe === "true") $("#rememberMe").attr("checked", true).checkboxradio("refresh");
+        if(savePass === "false") $("#savePass").attr("checked", false).checkboxradio("refresh");
+        else if(savePass === "true") $("#savePass").attr("checked", true).checkboxradio("refresh");
 
+        // Password available too?
+        if(encrypted != null){
+            
+            // Decrypt
+            var shhhhh = "foo_bar_placeholder";
+            var pass = CryptoJS.DES.decrypt(encrypted, shhhhh).toString(CryptoJS.enc.Utf8);;
+            
+            // Fill in pass then login as usual!
+            $('#pass').val(pass);
+            KUMobile.Student.login();
+        }
+        
         $('#login-button').on("vclick", KUMobile.Student.login);
         $('#logout-button').on("vclick", KUMobile.Student.logout);
         
@@ -194,6 +243,79 @@ KUMobile.Student = {
         
         // Download!
         KU.Student.JWEB.retrieveCurrentHolds(KUMobile.Student.populateCurrentHolds, failure);
+        
+	},
+    
+    
+    /******************************************************************************
+     *  Triggered when schedule planner page is initialized based on jQuery Mobile
+     *  pageinit event.
+	 *
+     *  @event pageInitSchedulePlanner
+     *  @for KUMobile.Student
+     ******************************************************************************/	
+	pageInitSchedulePlanner: function(event){
+    
+        // Start downloading
+        KUMobile.showLoading("schedule-planner");
+        
+        // Successful possibilities
+        var populateScheduleTerms = function(possibilities){
+        
+            for (var i = 0; i < possibilities.length; i++){
+                        
+                // Properties
+                var termNum = possibilities[i];
+                var termName = KUMobile.Student.toggleTermType(termNum);
+                
+                // Populate
+                var option = $("<option></option>").val(termNum).text(termName).appendTo("#schedule-planner-terms");
+                
+                // Select first element
+                if (i === 0) option.attr("selected", "true");
+            }
+            
+            // Refresh menu
+            $("#schedule-planner-terms").selectmenu('refresh', true);
+
+            // At least one possibility
+            if(possibilities.length > 0){
+                
+                
+                KU.Student.JWEB.retrieveScheduleCatalog(
+                    $("#schedule-planner-terms option:selected").val(), 
+                    KUMobile.Student.populateSchedulePlanner, 
+                    failure
+                );
+                
+            }
+            
+            else failure("Could not retrieve terms.");
+        }
+        
+        // Failure
+        var failure = function(errMsg){
+
+            // Presumably not loading
+            KUMobile.hideLoading("schedule-planner");
+            $("#schedule-planner-terms").removeAttr("disabled");
+            $("#schedule-options-generate-button").removeAttr("disabled");
+            // Alert user
+            alert(errMsg);
+        };
+        
+        // Setup listeners
+        KUMobile.safeBinder("change", "#schedule-planner-terms", KUMobile.Student.schedulePlannerTermChange);
+        KUMobile.safeBinder("vclick", "#schedule-options-generate-button", KUMobile.Student.generatePermutations);
+        
+        // Loading options show empty information
+        $("#schedule-planner-terms").prop('selectedIndex', -1);
+        $("#schedule-planner-terms").attr("disabled","disabled");
+        $("#schedule-options-generate-button").attr("disabled","disabled");
+        $( "#schedule-planner-course-options-popup" ).popup( "disable" );
+        
+        // Download!
+        KU.Student.JWEB.retrieveScheduleTerms(populateScheduleTerms, failure);
         
 	},
     
@@ -1198,6 +1320,96 @@ KUMobile.Student = {
     /******************************************************************************
      *  Populates schedule page based on returned information. 
      * 
+     *  @event populateSchedulePlanner
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    populateSchedulePlanner: function(courses){
+        
+        // Store courses
+        KUMobile.Student.jwebCatalog = courses;
+        
+        // Defaults
+        var lastAdded = "";
+        
+        // Templates
+        var schedulePlannerCourseTpl = Handlebars.getTemplate("schedule-planner-course-option-add");
+        
+        // Clear old popup list
+        $("#schedule-planner-course-options-popup-list li").remove();
+        $("#schedule-planner-course-searcher").val("");
+        
+        // Go through every course and add to selection list
+        for (var i = 0; i < courses.length; i++){
+            
+            // Current course
+            var course = courses[i];
+            
+            // Extract letters from section and add to course-id
+            course.courseId += course.section.replace(/\d/g, "");
+
+            // Valid?
+            if (course.courseId != "" && course.title != ""){
+            
+                // Already added?
+                if (lastAdded != (course.courseId + ": " + course.title)){
+                    
+                    // Add course option to the popup list
+                    $(schedulePlannerCourseTpl({
+                        "courseId": course.courseId,
+                        "courseTitle": course.title
+                    })).appendTo("#schedule-planner-course-options-popup-list");
+                    
+                    lastAdded = course.courseId + ": " + course.title;
+                }
+            }
+        }
+
+        // Bind keyup for searcher in popup
+        KUMobile.safeBinder("keyup", "#schedule-planner-course-searcher", function(){
+            
+            // Input value
+            var input = $(this).val().trim().toLowerCase();
+            
+            // Found the first element
+            var foundFirst = false;
+            
+            // Hide or show elements based on value
+            $("#schedule-planner-course-options-popup-list li").each(function(i){
+            
+                // Options text
+                var innerText = $(this).text().trim().toLowerCase();
+                
+                // Match?
+                if(innerText.indexOf(input) > -1){
+
+                    $(this).show();
+                    
+                    // Change border for first element
+                    if(!foundFirst) $("a",this).attr("style", "border-top:0px!important;");
+                    else $("a",this).attr("style", "");
+                    
+                    // First already found
+                    foundFirst = true;
+                }
+                else $(this).hide();
+                
+            });
+            
+        });
+       
+        // Done loading
+        $("#schedule-planner-terms").removeAttr("disabled");
+        $("#schedule-options-generate-button").removeAttr("disabled");
+        $( "#schedule-planner-course-options-popup" ).popup( "enable" );
+        $("#schedule-planner-course-options-popup-list").listview('refresh');
+        KUMobile.hideLoading("schedule-planner");
+        
+    },
+    
+    
+    /******************************************************************************
+     *  Populates schedule page based on returned information. 
+     * 
      *  @event populateSchedule
      *  @for KUMobile.Student
      ******************************************************************************/
@@ -1257,6 +1469,402 @@ KUMobile.Student = {
 
     
     /******************************************************************************
+     *  Generates the permutations of schedules based on a give course list. Returns
+     *  an array of schedules html.
+     * 
+     *  @method generatePermutations
+     *  @return {Array}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    generatePermutations: function(){
+       
+        // Defaults
+        var workingSchedules = [];
+        var courseSets = [];
+        
+        // Nothing to generate with?
+        if(KUMobile.Student.jwebCatalog == null) return;
+        
+        // Gather course sets
+        $("#schedule-planner-chosen-course-list li").each(function(i){
+            
+            // Defaults
+            var sections = [], lastCrn = "", offset = 0;
+            var id = $(this).text().trim().toLowerCase();
+            
+            // Check all courses and add matches to sections
+            for (var catalogIndex = 0; catalogIndex < KUMobile.Student.jwebCatalog.length; catalogIndex++){
+                
+                // Set up course, id, and meeting array
+                var meetings = [];
+                var course = KUMobile.Student.jwebCatalog[catalogIndex];
+                var cmpId = (course.courseId + ": " + course.title).trim().toLowerCase();
+                meetings[0] = course;
+                
+                // Add course if match
+                if (cmpId === id){
+                    
+                    // Matches the last course crn (has more than one meeting)?
+                    if (lastCrn === course.crn && lastCrn != "") sections[sections.length - 1][sections[sections.length - 1].length] = course;
+                    
+                    // Only one meeting so far
+                    else sections[sections.length] = meetings;
+                    
+                    // Store latest crn
+                    lastCrn = course.crn;
+                }
+            }
+            
+            // Add new course set of sections
+            courseSets[i] = sections;
+            
+        });
+        
+        // Recursive generate function
+        var gen = function(okay, set, courseIndex, sectionIndex, working){
+            
+            if( courseIndex >= set.length || sectionIndex >= set[courseIndex].length ) return;
+            
+            // Get current course and section
+            var course = set[courseIndex][sectionIndex];
+            
+            // Test new course
+            if (KUMobile.Student.testCourses(okay, course)){
+                
+                // Last course?
+                if (courseIndex == set.length - 1){
+                    var dup = okay.slice();
+                    dup[dup.length] = course;
+                    working[working.length] = dup;
+                }
+                
+                // Not the last course, keep working
+                else{
+                    
+                    // Duplicate, insert, and recurse to next course
+                    var dup = okay.slice();
+                    dup[dup.length] = course;
+                    gen(dup, set, courseIndex + 1, 0, working);
+                }
+                
+            }
+            
+            if (sectionIndex != set[courseIndex].length) gen(okay, set, courseIndex, sectionIndex + 1, working);
+            
+        }
+        
+        // Set off the generation
+        gen([], courseSets, 0, 0, workingSchedules);
+        
+        // Go through each schedule and unpack to be a list of meetings
+        for (var scheduleIndex = 0; scheduleIndex < workingSchedules.length; scheduleIndex++){
+         
+            var meetings = [];
+            
+            // Go through each course
+            for (var courseIndex = 0; courseIndex < workingSchedules[scheduleIndex].length; courseIndex++){
+                
+                // Go through each meeting (usually only 1)
+                for (var meetingIndex = 0; meetingIndex < workingSchedules[scheduleIndex][courseIndex].length; meetingIndex++){
+                    
+                    meetings[meetings.length] = workingSchedules[scheduleIndex][courseIndex][meetingIndex];
+                }
+            }
+        
+            // Store meeting list
+            workingSchedules[scheduleIndex] = meetings;
+        }
+        
+        // Sort based on the specified option
+        workingSchedules.sort(function(a,b) {
+            
+            // Target time?
+            if ($("#schedule-planner-sorting option:selected").val() == "early") var targetTime = 8*60;
+            if ($("#schedule-planner-sorting option:selected").val() == "afternoon") var targetTime = 13.5*60;
+            if ($("#schedule-planner-sorting option:selected").val() == "evening") var targetTime = 16*60;
+            
+            var total_A = 0, total_B = 0;
+            
+            // Add up total for a
+            for (var i = 0; i < a.length; i++){
+                
+                var time = KUMobile.Student.parseTime(a[i].time);
+                var abs = targetTime - time.start;
+                if (abs < 0) abs *= -1;
+                
+                total_A += abs + (time.end - time.start);
+            }
+            
+            
+            // Add up total for b
+            for (var i = 0; i < b.length; i++){
+                
+                var time = KUMobile.Student.parseTime(b[i].time);
+                var abs = targetTime - time.start;
+                if (abs < 0) abs *= -1;
+                
+                total_B += abs + (time.end - time.start);
+            }
+            
+            if (total_A > total_B) return 1;
+            else if (total_A < total_B) return -1;
+            else return 0;
+            
+        });
+        
+        // Store details globally 
+        KUMobile.Student.workingSchedules = workingSchedules;
+        KUMobile.Student.schedulePlannerIndex = -1;
+        
+        // At least one schedule to show?
+        if (workingSchedules.length > 0){
+        
+            // Delete old schedule planner results page
+            $("#schedule-planner-results").remove();
+            
+            // Add new schedule planner results page
+            $(Handlebars.getTemplate("schedule-planner-results-page")()).appendTo("body");
+            $.mobile.changePage("#schedule-planner-results");
+            
+            // Start swipe
+            KUMobile.safeBinder("touchstart", "#schedule-planner-results", function(e){
+                
+                // Save start position
+                KUMobile.Student.swipeStart = {
+                    "x":e.originalEvent.touches[0].pageX,
+                    "y":e.originalEvent.touches[0].pageY
+                };
+            });
+            
+            // End swipe
+            KUMobile.safeBinder("touchend", "#schedule-planner-results", function(e){
+            
+                // Get position information
+                var start = KUMobile.Student.swipeStart;
+                var x = e.originalEvent.changedTouches[0].pageX; 
+                var y = e.originalEvent.changedTouches[0].pageY;
+                
+                // Threshold for left/right swipe met?
+                if (start && Math.abs(x - start.x) > 25 && Math.abs(y - start.y) < 75){
+                    
+                    // Direction?
+                    if (x - start.x < 0) KUMobile.Student.nextWorkingSchedule();
+                    else KUMobile.Student.previousWorkingSchedule();
+                    
+                }
+            });
+            
+            // Show the first schedule
+            KUMobile.Student.nextWorkingSchedule();
+        }
+        
+        // Sorry, but no schedules :(
+        else alert("No working schedules.");
+        
+        
+    },
+    
+    
+    /******************************************************************************
+     *  Populates the schedule planner results page with the next working schedule
+     *
+     *  @method nextWorkingSchedule
+     *  @return {void}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    nextWorkingSchedule: function(e){
+        
+        // In range?
+        if (KUMobile.Student.schedulePlannerIndex + 1 >= KUMobile.Student.workingSchedules.length) return;
+        else KUMobile.Student.schedulePlannerIndex++;
+        
+        // Delete inners
+        $("#schedule-planner-results-scroller *").remove();
+        
+        // Make schedule and add to page
+        $(KUMobile.Student.generateScheduleTable(
+            KUMobile.Student.workingSchedules[KUMobile.Student.schedulePlannerIndex]
+        )).appendTo("#schedule-planner-results-scroller").enhanceWithin();
+        
+        // Update index
+        $("#schedule-planner-results-index").text(
+            KUMobile.Student.schedulePlannerIndex + 1 + "/" + KUMobile.Student.workingSchedules.length
+        );
+
+    },
+    
+    
+    /******************************************************************************
+     *  Populates the schedule planner results page with the previous working schedule
+     *
+     *  @method previousWorkingSchedule
+     *  @return {void}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    previousWorkingSchedule: function(){
+        
+        // In range?
+        if (KUMobile.Student.schedulePlannerIndex - 1 < 0) return;
+        else KUMobile.Student.schedulePlannerIndex--;
+        
+        // Delete inner
+        $("#schedule-planner-results-scroller *").remove();
+        
+        // Make schedule and add to page
+        $(KUMobile.Student.generateScheduleTable(
+            KUMobile.Student.workingSchedules[KUMobile.Student.schedulePlannerIndex]
+        )).appendTo("#schedule-planner-results-scroller").enhanceWithin();
+        
+        // Update index
+        $("#schedule-planner-results-index").text(
+            KUMobile.Student.schedulePlannerIndex + 1 + "/" + KUMobile.Student.workingSchedules.length
+        );
+        
+    },
+    
+    
+    /******************************************************************************
+     *  Parses time from a pattern like 8:00 AM-9:05 AM. Returns an object with 
+     *  "start" and "end" properties representing the minutes past midnight rounded
+     *  to the nearest 15 minute interval. 
+     *
+     *  @param {string} timeStr - the time range to parse from
+     *  @method parseTime
+     *  @return {Object}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    parseTime: function(timeStr){
+        
+        // Defaults
+        var time = {"start":-1, "end":-1};
+        var timePattern = /(\d+):(\d\d) ([a-zA-Z][a-zA-Z])\s?-\s?(\d+):(\d\d) ([a-zA-Z][a-zA-Z])/;
+    
+        if (timePattern.test(timeStr)){
+                            
+            var groups = timePattern.exec(timeStr);
+            
+            // Store values
+            var startHour = Math.floor(groups[1]);
+            var startMinute = Math.floor(groups[2]);
+            var endHour = Math.floor(groups[4]);
+            var endMinute = Math.floor(groups[5]);
+            
+            // Convert to military
+            if (startHour != 12 && (groups[3] === "pm" || groups[3] === "PM")) startHour += 12;
+            if (endHour != 12 && (groups[6] === "pm" || groups[6] === "PM")) endHour += 12;
+            
+            // Round minute to 15
+            if (startMinute % 15 > 7) startMinute = Math.floor(startMinute/15)*15 + 15;
+            else startMinute = Math.floor(startMinute/15)*15;
+            if (endMinute % 15 > 7) endMinute = Math.floor(endMinute/15)*15 + 15;
+            else endMinute = Math.floor(endMinute/15)*15;
+            
+            // Calculate start and end of course
+            time.start = startHour*60 + startMinute;
+            time.end = endHour*60 + endMinute;
+            
+        }
+
+        return time;
+    },
+    
+    
+    /******************************************************************************
+     *  Tests courses to see if a course list works with the provided course
+     *
+     *  @param {Array} courses - the course list which is known to work, type 
+     *      KetteringJS.Student.JWEB.CatalogEntry[]
+     *  @param {Object} course - the course to be tested with, type 
+     *      KetteringJS.Student.JWEB.CatalogEntry
+     *  @method testCourses
+     *  @return {Boolean}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    testCourses: function(courseList, courseMeetings){
+        
+        // In valid input
+        if (courseMeetings == null || courseMeetings.length == 0) return false;
+        
+        // Check all meetings for violations
+        for (var i = 0; i < courseMeetings.length; i++){
+            
+            var course = courseMeetings[i];
+            
+            // Days not allowed?
+            if (!($("#monday-allowed").prop("checked")) && course.days.indexOf("M") > -1) return false;
+            if (!($("#tuesday-allowed").prop("checked")) && course.days.indexOf("T") > -1) return false;
+            if (!($("#wednesday-allowed").prop("checked")) && course.days.indexOf("W") > -1) return false;
+            if (!($("#thursday-allowed").prop("checked")) && course.days.indexOf("R") > -1) return false;
+            if (!($("#friday-allowed").prop("checked")) && course.days.indexOf("F") > -1) return false;
+            
+            // Closed?
+            if (!($("#closed-allowed").prop("checked")) && course.status.indexOf("C") > -1) return false;
+        }
+        
+        // Defaults
+        var valid = true;
+        
+        // Go through all meetings of course (usually length 1)
+        for(var meetingIndex = 0; meetingIndex < courseMeetings.length; meetingIndex++){
+            
+            // Get current information
+            var course = courseMeetings[meetingIndex];
+            var courseTime = KUMobile.Student.parseTime(course.time);
+            if (courseTime.start == -1) return false;
+            
+            // Go through all provided courses
+            for (var i = 0; i < courseList.length; i++){
+                
+                var cmpCourseMeetings = courseList[i];
+                
+                // Go through each courses meeting list (usually length 1)
+                for (var cmpMeetingIndex = 0; cmpMeetingIndex < cmpCourseMeetings.length; cmpMeetingIndex++){
+                    
+                    // Initialize defaults
+                    var cmpCourse = cmpCourseMeetings[cmpMeetingIndex];
+                    var needsCheck = false;
+                    
+                    // Check days
+                    if (course.days.indexOf("M") > -1 && cmpCourse.days.indexOf("M") > -1) needsCheck = true;
+                    else if (course.days.indexOf("T") > -1 && cmpCourse.days.indexOf("T") > -1) needsCheck = true;
+                    else if (course.days.indexOf("W") > -1 && cmpCourse.days.indexOf("W") > -1) needsCheck = true;
+                    else if (course.days.indexOf("R") > -1 && cmpCourse.days.indexOf("R") > -1) needsCheck = true;
+                    else if (course.days.indexOf("F") > -1 && cmpCourse.days.indexOf("F") > -1) needsCheck = true;
+                    
+                    if (needsCheck){
+                        
+                        // Get compare time
+                        var cmpTime = KUMobile.Student.parseTime(cmpCourse.time);
+                        if(cmpTime.start == -1) return false;
+                        
+                        // Check if courseTime overlaps cmpTime
+                        valid = valid && !(courseTime.start >= cmpTime.start && courseTime.start < cmpTime.end);
+                        valid = valid && !(courseTime.end > cmpTime.start && courseTime.end <= cmpTime.end);
+                        
+                        // Check if cmpTime overlaps courseTime
+                        valid = valid && !(cmpTime.start >= courseTime.start && cmpTime.start < courseTime.end);
+                        valid = valid && !(cmpTime.end > courseTime.start && cmpTime.end <= courseTime.end);
+                        
+                    }
+                    
+                    // Done checking?
+                    if (!valid) break;
+                }
+                
+                // Done checking?
+                if (!valid) break;
+            }
+            
+            // Done checking?
+            if (!valid) break;
+        }
+        
+        return valid;
+        
+    },
+    
+    
+    /******************************************************************************
      *  Generates and returns a div with a table and corresponding popups based on courses
      * 
      *  @param {Array} courses - the course data returned by KetteringJS retrieveSchedule
@@ -1268,7 +1876,7 @@ KUMobile.Student = {
         
         // Defaults
         var M = [], T = [], W = [], R = [], F = [];
-        var timePattern = /(\d+):(\d\d) ([a-zA-Z][a-zA-Z]) - (\d+):(\d\d) ([a-zA-Z][a-zA-Z])/;
+        var timePattern = /(\d+):(\d\d) ([a-zA-Z][a-zA-Z])\s?-\s?(\d+):(\d\d) ([a-zA-Z][a-zA-Z])/;
         var hour = 8, militaryHour = 8, minute = 0;
         var popupTpl = Handlebars.getTemplate("schedule-course-popup");
         var maxTime = 56; 
@@ -1326,6 +1934,11 @@ KUMobile.Student = {
                         // Current 
                         var course = courses[courseIndex];
                         
+                        // Account of naming of room/location and title/courseTitle
+                        // TODO this should be updated in KetteringJS instead.
+                        if(course.room) course.location = course.room;
+                        if(course.title) course.courseTitle = course.title;
+                        
                         // Defaults
                         var startHour = -1, startMinute = -1, endHour = -1, endMinute = -1;
                         
@@ -1369,6 +1982,7 @@ KUMobile.Student = {
                     
                     // Round latest time to next 4th
                     if (courses.length > 0) maxTime = (Math.floor(latestCourseTime/4) + 1)*4;
+                    if (maxTime < 36) maxTime = 36;
                     
                     // Add the found course!
                     if(found){
@@ -1386,10 +2000,13 @@ KUMobile.Student = {
                             + "','" + foundCourse.location 
                             + "','" + foundCourse.professor + "'";
                         
+                        if(foundCourse.status && foundCourse.status.indexOf("C") > -1) var closed = " closed-course";
+                        else var closed = "";
+                        
                         // Make element
                         $("<td></td>", {
                             "rowspan": rowspan,
-                            "class": "course-box schedule-color" + (colorIndex),
+                            "class": "course-box schedule-color" + (colorIndex) + closed,
                             "onclick": "KUMobile.Student.showSchedulePopup(" + argList + ");"
                         }).html(foundCourse.courseId).appendTo(row);
                         
@@ -1654,6 +2271,40 @@ KUMobile.Student = {
         // Done loading
         KUMobile.hideLoading("degree-evaluation");
         
+    },
+    
+    
+    /******************************************************************************
+     *  Adds a planner course to the set of courses
+     *
+     *  @param {string} courseId - id of course
+     *  @param {string} courseTitle - title of course
+     *  @method addPlannerCourse
+     *  @return {void}
+     *  @for KUMobile.Student
+     *  @example
+     *      KUMobile.Student.addPlannerCourse("CS-101", "Computing & Algorithms I");
+     ******************************************************************************/
+    addPlannerCourse: function(courseId, courseTitle){
+      
+        var found = false;
+      
+        // Check to see if already exists?
+        $("#schedule-planner-chosen-course-list li a").each(function(i){
+            if((courseId + ": " + courseTitle) == $(this).text().trim()) found = true;
+        });
+        
+        if (!found){
+         
+            // Make list item
+            var courseHtml = Handlebars.getTemplate("schedule-planner-chosen-course-item")({
+                "courseId": courseId,
+                "courseTitle": courseTitle
+            });
+            
+            // Add list item to list and refresh
+            $("#schedule-planner-chosen-course-list").append(courseHtml).listview('refresh');
+        }
     },
     
     
@@ -1983,8 +2634,7 @@ KUMobile.Student = {
         if(tree.items.length == 0 && tree.folders.length == 0){
             
             // Tell user nothing to show!
-            $("<div></div>").attr("style", "color:#aaa;text-align:center;padding-top:1em;font-weight:bold;font-style:italic;")
-            .text("Nothing to show").appendTo("#" + bbId + "-" + contentId + "-scroller")
+            $("<div></div>").attr("class", "nothing-to-show").text("Nothing to show").appendTo("#" + bbId + "-" + contentId + "-scroller")
 
         }
         
@@ -2079,6 +2729,47 @@ KUMobile.Student = {
         
     },
     
+    /******************************************************************************
+     *  Triggered when a term for schedule planner page is selected from drop down
+	 *
+     *  @event schedulePlannerTermChange
+     *  @for KUMobile.Student
+     ******************************************************************************/
+	schedulePlannerTermChange: function(e,u){    
+        
+        // Loading
+        KUMobile.showLoading("schedule-planner");
+        
+        // Disable and remove course list
+        $("#schedule-planner-terms").attr("disabled","disabled");
+        $("#schedule-options-generate-button").attr("disabled","disabled");
+        $("#schedule-planner-chosen-course-list li").remove();
+        $( "#schedule-planner-course-options-popup" ).popup( "disable" );
+        KUMobile.Student.jwebCatalog = null;
+
+        // Failure
+        var failure = function(errMsg){
+
+            // Presumably not loading
+            KUMobile.hideLoading("schedule-planner");
+            
+            // Re-enable
+            $("#schedule-planner-terms").removeAttr("disabled");
+            $("#schedule-options-generate-button").removeAttr("disabled");
+            
+            // Alert user
+            alert(errMsg);
+        };
+        
+        // Download new catalog
+        KU.Student.JWEB.retrieveScheduleCatalog(
+            $("#schedule-planner-terms option:selected").val(), 
+            KUMobile.Student.populateSchedulePlanner, 
+            failure
+        );
+        
+    },        
+        
     
     /******************************************************************************
      *  Triggered when a term for schedule page is selected from drop down
@@ -2210,6 +2901,9 @@ KUMobile.Student = {
      ******************************************************************************/
     failure: function(errMsg){
 
+        // Clear password
+        $("#pass").val("");
+    
         // Presumably not loading
         KUMobile.Student.loading = false;
         KUMobile.hideLoading("student-header");
@@ -2235,13 +2929,23 @@ KUMobile.Student = {
         var user = $("#user").val().toLowerCase();
         var pass = $("#pass").val();
         var rememberMe = $("#rememberMe").prop("checked");
+        var savePass = $("#savePass").prop("checked");
         
         // Either save or remove username from storage
         if(rememberMe) window.localStorage.setItem("ku_username", user);
         else window.localStorage.removeItem("ku_username");
         
+        // Encrypt
+        var shhhhh = "foo_bar_placeholder";
+        var encrypted = CryptoJS.DES.encrypt(pass, shhhhh);
+        
+        // Either save or remove password from storage
+        if(savePass) window.localStorage.setItem("ku_pass", encrypted);
+        else window.localStorage.removeItem("ku_pass");
+        
         // Store remember me state
         window.localStorage.setItem("ku_rememberme", rememberMe);
+        window.localStorage.setItem("ku_savepass", savePass);
         
         // Loading
         KUMobile.Student.loading = true;
@@ -2289,6 +2993,7 @@ KUMobile.Student = {
             $(Handlebars.getTemplate("current-holds-page")()).appendTo("body");
             $(Handlebars.getTemplate("financial-aid-page")()).appendTo("body");
             $(Handlebars.getTemplate("schedule-page")()).appendTo("body");
+            $(Handlebars.getTemplate("schedule-planner-page")()).appendTo("body");
             
             // Page events
             KUMobile.safeBinder("pageinit","#courses", KUMobile.Student.pageInitCourses);
@@ -2299,6 +3004,10 @@ KUMobile.Student = {
             KUMobile.safeBinder("pageinit","#current-holds", KUMobile.Student.pageInitCurrentHolds);
             KUMobile.safeBinder("pageinit","#financial-aid", KUMobile.Student.pageInitFinancialAid);
             KUMobile.safeBinder("pageinit","#schedule", KUMobile.Student.pageInitSchedule);
+            KUMobile.safeBinder("pageinit","#schedule-planner", KUMobile.Student.pageInitSchedulePlanner);
+            
+            // Clear password
+            $("#pass").val("");
             
         };
         
@@ -2335,6 +3044,20 @@ KUMobile.Student = {
         // Already loading? Then return
         if(KUMobile.Student.loading) return;
         
+        // Get password information
+        var encrypted = window.localStorage.getItem("ku_pass");
+    
+        // Password available too?
+        if(encrypted != null){
+            
+            // Decrypt
+            var shhhhh = "foo_bar_placeholder";
+            var pass = CryptoJS.DES.decrypt(encrypted, shhhhh).toString(CryptoJS.enc.Utf8);;
+            
+            // Fill in pass
+            $('#pass').val(pass);
+        }
+        
         // Clear courses
         KUMobile.Student.bbCourses = null;
         KUMobile.Student.jwebCourses = null;
@@ -2357,7 +3080,6 @@ KUMobile.Student = {
             // 2. Hide logout button
             // 3. Hide student list
             // 4. Show form
-            $("#student #pass").val("");
             $("#student #logout-button").hide();
             $("#student #student-scroller").hide();
             $("#student #login-box").show();

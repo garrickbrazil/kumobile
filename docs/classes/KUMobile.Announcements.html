@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>KUMobile.News - KUMobile</title>
+    <title>KUMobile.Announcements - KUMobile</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.9.1&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -104,7 +104,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>KUMobile.News</h1>
+                        <h1>KUMobile.Announcements</h1>
 <div class="box meta">
     
 
@@ -124,7 +124,8 @@
 
 
 <div class="box intro">
-    <p>Contains all news related functions for loading and controlling the news page.</p>
+    <p>Contains all announcements related functions for loading and controlling the
+announcements page.</p>
 </div>
 
 
@@ -188,10 +189,6 @@
                                 <a href="#attr_page">page</a>
                             </li>
                         
-                            <li class="index-item attr private">
-                                <a href="#attr_pageQueue">pageQueue</a>
-                            </li>
-                        
                             <li class="index-item attr">
                                 <a href="#attr_PAGES_TO_LOAD">PAGES_TO_LOAD</a>
                             </li>
@@ -209,12 +206,6 @@
                     <h3>Events</h3>
 
                     <ul class="index-list events">
-                        
-                            <li class="index-item event">
-                                <a href="#event_articlePageCreate">articlePageCreate</a>
-
-                                
-                            </li>
                         
                             <li class="index-item event">
                                 <a href="#event_pageCreate">pageCreate</a>
@@ -282,7 +273,7 @@
     </div>
 
     <div class="description">
-        <p>Loads and displays the next set of news items.</p>
+        <p>Loads and displays the next set of items.</p>
     </div>
 
     
@@ -294,7 +285,7 @@
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code"><code class="prettyprint">KUMobile.News.loadNextPage();
+                <pre class="code"><code class="prettyprint">KUMobile.Announcements.loadNextPage();
 </code></pre>
             </div>
         </div>
@@ -449,7 +440,7 @@ hang or become unresponsive.</p>
     </div>
 
     <div class="description">
-        <p>Is the news page loading?</p>
+        <p>Is the announcements page loading?</p>
     </div>
 
     
@@ -498,63 +489,11 @@ hang or become unresponsive.</p>
     </div>
 
     <div class="description">
-        <p>Current page number as referenced from the news website.</p>
+        <p>Current page number as referenced from the announcements website.</p>
     </div>
 
     
         <p><strong>Default:</strong> 0</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="attr_pageQueue" class="attr item private">
-    <a name="config_pageQueue"></a> 
-    <h3 class="name"><code>pageQueue</code></h3>
-    <span class="type">Array</span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-            
-        
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Contains the current list of pages DOM data-role="page" 
-items that still need to be added to the DOM (much faster to 
-add all at once after load is done downloading). This helps 
-prevent the app from seeming to hang or become unresponsive.</p>
-    </div>
-
     
 
     
@@ -599,7 +538,7 @@ prevent the app from seeming to hang or become unresponsive.</p>
     </div>
 
     <div class="description">
-        <p>Number of pages to load from the news website after a trigger event occurs.</p>
+        <p>Number of pages to load from the website after a trigger event occurs.</p>
     </div>
 
     
@@ -671,46 +610,6 @@ download pages.</p>
             <div id="events" class="api-class-tabpanel">
 
                 
-                    <div id="event_articlePageCreate" class="events item">
-    <h3 class="name"><code>articlePageCreate</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-            
-        
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Called on create of an article page. Mainly this function just
-attempts to download the article and show it.</p>
-    </div>
-
-    
-
-
-    
-</div>
-
-                
                     <div id="event_pageCreate" class="events item">
     <h3 class="name"><code>pageCreate</code></h3>
     <span class="type"></span>
@@ -740,7 +639,7 @@ attempts to download the article and show it.</p>
     </div>
 
     <div class="description">
-        <p>Triggered when the news page is first created based on jQuery Mobile
+        <p>Triggered when the announcements page is first created based on jQuery Mobile
 pagecreate event. This is called after the page itself is created but 
 before any jQuery Mobile styling is applied.</p>
     </div>
@@ -781,8 +680,8 @@ before any jQuery Mobile styling is applied.</p>
     </div>
 
     <div class="description">
-        <p>Triggered when the news page is first initialized based on jQuery Mobile
-pageinit event.</p>
+        <p>Triggered when the announcements page is first initialized based on jQuery 
+Mobile pageinit event.</p>
     </div>
 
     
@@ -821,8 +720,8 @@ pageinit event.</p>
     </div>
 
     <div class="description">
-        <p>Triggered when regular scroll event happens in news scroller window. It 
-is used to check if the user is <em>near</em> the bottom of the page, so more
+        <p>Triggered when regular scroll event happens in announcements scroller window. 
+It is used to check if the user is <em>near</em> the bottom of the page, so more
 content can be loaded (simulate <em>infinite scrolling</em>).</p>
     </div>
 

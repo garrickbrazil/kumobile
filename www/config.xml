@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
         
 <widget id="info.kumobile" 
-		version="0.0.1" 
+		version="0.0.3" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
@@ -38,6 +38,7 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
     <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
+    <gap:plugin name="uk.co.whiteoctober.cordova.appversion" version="0.1.4" />
     
 	 
 	 <!-- <preference name="phonegap-version"      value="3.4.0" /> -->      <!-- all: current version of PhoneGap -->

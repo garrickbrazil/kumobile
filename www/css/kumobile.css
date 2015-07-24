@@ -49,6 +49,15 @@ a {
     margin-top:-1px!important;
 }
 
+/**********************************************************
+ * Scroller specifically for a dialog
+ *********************************************************/
+.dialog-scroller{
+  overflow-x: hidden!important;
+  overflow-y: hidden|scroll!important;
+  -webkit-overflow-scrolling: touch!important;
+}
+
 
 /**********************************************************
  * Scroller (overflow)
@@ -294,6 +303,7 @@ li .main-text{
     height:7.4em!important;
 }
 
+
 /**********************************************************
  * Searchbar select dropdown  (center text)
  *********************************************************/
@@ -499,7 +509,6 @@ li .main-text{
 }
 
 
-
 /**********************************************************
  * Paragraph on degree evaluation page info items
  *********************************************************/
@@ -606,6 +615,7 @@ span.normal{
 	background: linear-gradient(to bottom,  #278ad5 0%,#1f5899 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#278ad5', endColorstr='#1f5899',GradientType=0 ); /* IE6-9 */
 }
+
 
 .schedule-color0{
     
@@ -810,6 +820,232 @@ span.normal{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
 }
 
+/**********************************************************
+ * Remove bottom margin from all ui-checkboxes in login
+ *********************************************************/
+.login-container > .ui-checkbox{
+    margin-bottom:0px!important;
+}
+
+/**********************************************************
+ * Remove top margin from all checkboxes except first then 
+ * give back the bottom margin to these!
+ *********************************************************/
+.login-container .ui-checkbox ~ .ui-checkbox{
+    margin-top:0px!important;
+    margin-bottom:.5em!important;
+}
+
+/**********************************************************
+ * Nothing to show box!
+ *********************************************************/
+.nothing-to-show{
+    color:#aaa!important;
+    text-align:center!important;
+    padding-top:1em!important;
+    font-weight:bold!important;
+    font-style:italic!important;
+}
+
+/**********************************************************
+ * Schedule Planner Header
+ *********************************************************/
+#schedule-planner-header{
+    height:17.7em!important;
+}
+
+/**********************************************************
+ * Schedule Planner Terms Container
+ *********************************************************/
+#schedule-planner-terms-container{
+    height:100%!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options select border
+ *********************************************************/
+#schedule-planner-options .ui-select .ui-btn{
+    border: 1px solid #e1e1e1!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options Checkbox 
+ *********************************************************/
+#schedule-planner-options .ui-checkbox{
+    padding:0px!important;
+    margin:0px!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options Row height
+ *********************************************************/
+#schedule-planner-options tr{
+    height:4em!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options select height
+ *********************************************************/
+#schedule-planner-options .ui-select{
+    height:2em!important;
+    padding-right:1em!important;
+    width:100px!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options
+ *********************************************************/
+#schedule-planner-options{
+    table-layout:fixed!important;
+    border-spacing:0px!important;
+    border-collapse: collapse!important;
+    border-top: 1px solid #e1e1e1!important;
+    text-align:center!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options checkbox input hide
+ *********************************************************/
+#schedule-planner-options input{
+    display:none!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options remove label borders
+ *********************************************************/
+#schedule-planner-options label{
+    border:0px!important;
+}
+
+/**********************************************************
+ * Schedule Planner Add Button
+ *********************************************************/
+#schedule-planner-add-button{
+    padding-top:.25em!important;
+    padding-bottom:.25em!important;
+    padding-left:.65em!important;
+    padding-right:.65em!important;
+    float:right!important;
+    font-size:.9em!important;
+}
+
+/**********************************************************
+ * Schedule Planner Course Options List Items
+ *********************************************************/
+#schedule-planner-course-options-popup li a{
+    white-space:normal!important;
+}
+
+#schedule-planner-course-options-popup{
+    font-size:14px!important;
+    margin:0!important;
+}
+#schedule-planner-course-options-popup h1{
+    margin-right:.2em!important;
+    margin-left:.2em!important;
+    font-size:1.3em!important;
+}
+
+#schedule-planner-course-options-popup .ui-input-clear{
+    display:none!important;
+}
+
+#schedule-planner-course-options-popup .ui-first-child a{
+    border-top:0px!important;
+}
+
+#schedule-planner-course-options-popup .ui-input-search{
+    border-bottom: 1px solid #8c8c8c!important;
+}
+
+#schedule-options-generate-button{
+    padding-left:0px!important;
+    padding-right:0px!important;
+    box-shadow:0 0 0!important;
+    webkit-box-shadow:0 0 0!important;
+}
+
+#schedule-planner-results-index{
+    text-align:center!important;
+    color:black!important;
+    line-height:2.2em!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+}
+
+.closed-course{
+    color: red!important;
+}
+
+
+#schedule-planner-results-header{
+    height:7.5em!important;
+}
+
+#schedule-options-button{
+    border-left:0px!important;
+}
+
+.credits-left{
+    color:#5a5a5a!important;
+    text-align:right!important;
+    float:left!important;
+    width:35%!important;
+    white-space:normal!important;
+}
+
+.credits-right{
+    padding-left:1em!important;
+    font-weight:bold!important;
+    width:60%!important;
+    white-space:normal!important;
+}
+
+.attributions-left{
+    text-align:right!important;
+    float:left!important;
+    width:45%!important;
+    white-space:normal!important;
+}
+
+.attributions-right{
+    padding-left:1em!important;
+    width:50%!important;
+    white-space:normal!important;
+}
+
+.license *, .license{
+    color:black!important;
+    font-size:.9em!important;
+    white-space:normal!important;
+}
+
+.bigger-font{
+    font-size:120%!important;
+}
+
+
+#announcements li *{
+    white-space: normal!important;
+}
+
+#announcements * > .ui-li-has-count{
+    padding-right: 3.5em!important;
+}
+#news * > .ui-li-has-count div.main-text {
+    padding-right: .5em!important;
+}
+
+/**********************************************************
+ * Schedule Planner Options Span Label next to Select
+ *********************************************************/
+span.schedule-options-select-label{
+    color:black!important;
+    font-size:1em!important;
+    padding-right:1em!important;
+    line-height:2.35em!important;
+}
 
 /**********************************************************
  * Schedule Table
@@ -867,7 +1103,6 @@ table.schedule tr.grey + tr.grey, table.schedule tr.more-grey + tr.more-grey{
  * Schedule Table Course box
  *********************************************************/
 .schedule .course-box{
-    
     text-align: center!important;
     border: 1px solid #0a0a0a!important;
 }

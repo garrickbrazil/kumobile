@@ -62,52 +62,36 @@
 
 <div id="classdocs" class="tabview">
     <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
         
-
         {{#if methods}}
-            <li class="api-class-tab methods index"><a href="#methods">Methods</a></li>
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         {{/if}}
-        
-        <li style="display:none" class="api-class-tab"><a href="#index">Index</a></li>
         {{#if properties}}
-            <li class="api-class-tab properties index"><a href="#properties">Properties</a></li>
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         {{/if}}
         {{#if attrs}}
-            <li class="api-class-tab attrs index"><a href="#attrs">Attributes</a></li>
+            <li class="api-class-tab attrs"><a href="#attrs">Attributes</a></li>
         {{/if}}
         {{#if events}}
-            <li class="api-class-tab events index"><a href="#events">Events</a></li>
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
         {{/if}}
     </ul>
 
     <div>
-    
-        {{#if methods}}
-            <div id="methods" class="api-class-tabpanel">
-                
-                {{#methods}}
-                    {{>method}}
-                {{/methods}}
-            </div>
-        {{/if}}
-    
-        <div id="index" class="api-class-tabpanel">
-            <h2 class="off-left">Item Index</h2>
+        <div id="index" class="api-class-tabpanel index">
 
             {{#if methods}}
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods{{#if extends}} extends{{/if}}">
+                    <ul class="index-list methods">
                         {{#methods}}
                             <li class="index-item method{{#if access}} {{access}}{{/if}}{{#if deprecated}} deprecated{{/if}}{{#if overwritten_from}} inherited{{/if}}{{#if extended_from}} inherited{{/if}}">
                                 <a href="#method_{{name}}">{{name}}</a>
 
                                 {{#if static}}
                                     <span class="flag static">static</span>
-                                {{/if}}
-                                {{#if deprecated}}
-                                    <span class="flag deprecated">deprecated</span>
                                 {{/if}}
                             </li>
                         {{/methods}}
@@ -119,16 +103,13 @@
                 <div class="index-section properties">
                     <h3>Properties</h3>
 
-                    <ul class="index-list properties{{#if extends}} extends{{/if}}">
+                    <ul class="index-list properties">
                         {{#properties}}
                             <li class="index-item property{{#if access}} {{access}}{{/if}}{{#if deprecated}} deprecated{{/if}}{{#if overwritten_from}} inherited{{/if}}{{#if extended_from}} inherited{{/if}}">
                                 <a href="#property_{{name}}">{{name}}</a>
 
                                 {{#if static}}
                                     <span class="flag static">static</span>
-                                {{/if}}
-                                {{#if deprecated}}
-                                    <span class="flag deprecated">deprecated</span>
                                 {{/if}}
                             </li>
                         {{/properties}}
@@ -140,7 +121,7 @@
                 <div class="index-section attrs">
                     <h3>Attributes</h3>
 
-                    <ul class="index-list attrs{{#if extends}} extends{{/if}}">
+                    <ul class="index-list attrs">
                         {{#attrs}}
                             <li class="index-item attr{{#if access}} {{access}}{{/if}}{{#if deprecated}} deprecated{{/if}}{{#if overwritten_from}} inherited{{/if}}{{#if extended_from}} inherited{{/if}}">
                                 <a href="#attr_{{name}}">{{name}}</a>
@@ -154,16 +135,13 @@
                 <div class="index-section events">
                     <h3>Events</h3>
 
-                    <ul class="index-list events{{#if extends}} extends{{/if}}">
+                    <ul class="index-list events">
                         {{#events}}
                             <li class="index-item event{{#if access}} {{access}}{{/if}}{{#if deprecated}} deprecated{{/if}}{{#if overwritten_from}} inherited{{/if}}{{#if extended_from}} inherited{{/if}}">
                                 <a href="#event_{{name}}">{{name}}</a>
 
                                 {{#if static}}
                                     <span class="flag static">static</span>
-                                {{/if}}
-                                {{#if deprecated}}
-                                    <span class="flag deprecated">deprecated</span>
                                 {{/if}}
                             </li>
                         {{/events}}
@@ -172,11 +150,18 @@
             {{/if}}
         </div>
 
-        
+        {{#if methods}}
+            <div id="methods" class="api-class-tabpanel">
+
+                {{#methods}}
+                    {{>method}}
+                {{/methods}}
+            </div>
+        {{/if}}
 
         {{#if properties}}
             <div id="properties" class="api-class-tabpanel">
-                
+
                 {{#properties}}
                     {{>props}}
                 {{/properties}}
@@ -185,7 +170,7 @@
 
         {{#if attrs}}
             <div id="attrs" class="api-class-tabpanel">
-                
+
                 {{#attrs}}
                     {{>attrs}}
                 {{/attrs}}
@@ -194,12 +179,11 @@
 
         {{#if events}}
             <div id="events" class="api-class-tabpanel">
-                
+
                 {{#events}}
                     {{>events}}
                 {{/events}}
             </div>
         {{/if}}
-        
     </div>
 </div>

@@ -1,0 +1,36 @@
+<!-- Schedule Planner Results Page -->
+<div data-role="page" id="schedule-planner-results">
+    
+    <!-- Fixed Header -->
+    <div id="schedule-planner-results-header" class="header-with-searchbar" data-role="header">	
+        
+        <!-- Actual header contents --> 
+        <div class="header blue-grad">
+            
+            <!-- Loading Indicator -->	
+            <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+                
+            <!-- Title -->
+            <div class="header-title">Schedule Planner</div>
+            
+            <!-- Back button -->
+            <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        </div>
+    
+        <!-- Search bar (also fixed inside the header) --> 
+        <div class="searchbar grey-grad" style="width:100%">
+            
+            <a onclick="KUMobile.Student.previousWorkingSchedule();" class="prev" style="float:left;margin:.2em!important;" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+            <a onclick="KUMobile.Student.nextWorkingSchedule();" class="next" style="float:right;margin:.2em!important;" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
+            <span id="schedule-planner-results-index"></span>
+                                
+            <table class="schedule" style="height:2.0em;color:black;border-top:1px solid #e1e1e1!important;" width="100%"><tr class="grey"><th></th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th></tr></table>
+        </div>
+    </div>
+    
+    
+    <!-- Schedule Planner results scroller -->
+    <div id="schedule-planner-results-scroller" class="scroller below-searchbar"> 
+        
+    </div>
+</div>

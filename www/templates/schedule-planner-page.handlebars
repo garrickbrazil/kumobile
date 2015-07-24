@@ -1,0 +1,106 @@
+<!-- Schedule Planner Page -->
+<div data-role="page" class="student-needs-removed" id="schedule-planner">
+    
+    <!-- Fixed Header -->
+    <div id="schedule-planner-header" class="header-with-searchbar" data-role="header">	
+        
+        <!-- Actual header contents --> 
+        <div class="header blue-grad">
+            
+            <!-- Loading Indicator -->	
+            <img src="img/loading.gif" class="loading-indicator ui-btn-right" />
+                
+            <!-- Title -->
+            <div class="header-title">Schedule Planner</div>
+            
+            <!-- Back button -->
+            <a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
+        </div>
+    
+        <!-- Search bar --> 
+        <div class="searchbar">
+         
+            <!-- Schedule Planner Options -->
+            <table width="100%" class="grey-uniform" id="schedule-planner-options">
+            
+                <tr> 
+                    <!-- Term --> 
+                    <td style="text-align:right;" colspan="3">
+                        <span class="schedule-options-select-label">Term</span>
+                        <select id="schedule-planner-terms" data-corners="false"></select>
+                    </td>
+                    
+                    <!-- Generate -->
+                    <td colspan="2">
+                        <a id="schedule-options-generate-button" data-role="button" data-corners="false">Generate</a>
+                    </td>
+                </tr>
+            
+                <tr style="border-top: 1px solid #e1e1e1">
+                    
+                    <!-- Sort By -->
+                    <td colspan="3" style="text-align:right;">
+                        <span class="schedule-options-select-label">Sort by</span>
+                        <select id="schedule-planner-sorting" data-corners="false">
+                            <option value="early">Early</option>
+                            <option value="afternoon">Afternoon</option>
+                            <option value="evening">Evening</option>
+                        </select>
+                    </td>
+                    
+                    <!-- Closed courses allowed -->
+                    <td colspan="2"><label><input id="closed-allowed" type="checkbox" name="checkbox-0"/>Closed</label></td>
+                </tr>
+                
+                <!-- Days active -->
+                <tr style="border-top: 1px solid #e1e1e1">
+                    <td><label><input id="monday-allowed" checked type="checkbox" name="checkbox-0" />M</label></td>
+                    <td><label><input id="tuesday-allowed" checked type="checkbox" name="checkbox-0" />T</label></td>
+                    <td><label><input id="wednesday-allowed" checked type="checkbox" name="checkbox-0" />W</label></td>
+                    <td><label><input id="thursday-allowed" checked type="checkbox" name="checkbox-0" />R</label></td>
+                    <td><label><input id="friday-allowed" checked type="checkbox" name="checkbox-0" />F</label></td>
+                </tr>
+            </table>
+            
+            
+            <!-- Course Divider Bar and Add Button -->
+            <ul data-role="listview">
+                <li data-role="list-divider" class="read-only-blue-grad">
+                    <span style="line-height:1.5em!important">Courses</span>
+                    <a data-rel="popup" href="#schedule-planner-course-options-popup" class="blue-button-grad" data-corners="true" data-theme="b" id="schedule-planner-add-button" data-role="button">Add</a>
+                </li>    
+            </ul>
+            
+        </div>
+    </div>
+    
+    <!-- Schedule Planner Course Selector -->
+    <div data-role="popup" data-position-to="window" id="schedule-planner-course-options-popup" class="wide-popup">
+
+        <!-- Head --> 
+        <div data-role="header" class="blue-button-grad" data-theme="a">
+            <h1 style="padding-top:.4em;padding-bottom:.4em;">Select courses</h1>
+        </div>
+
+        <!-- Close icon --> 
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+
+        <input id="schedule-planner-course-searcher" data-clear-btn="false" class="searchable" placeholder="" data-corners="false" type="search" value="" />
+        
+        <!-- Scroller -->
+        <div class="dialog-scroller">
+            
+            <!-- List of courses -->
+            <ul id="schedule-planner-course-options-popup-list" data-role="listview">
+                
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Schedule Planner scroller -->
+    <div id="schedule-planner-scroller" class="grey-uniform scroller below-searchbar"> 
+        <ul data-role="listview" id="schedule-planner-chosen-course-list">
+        
+        </ul>
+    </div>
+</div>

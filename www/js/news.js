@@ -119,6 +119,8 @@ KUMobile.News = {
      ******************************************************************************/	
 	pageInit: function(event){
         
+        KUMobile.News.initialized = true;
+        
         // Check overflow scroll position
         $('#news-scroller').on("scroll", KUMobile.News.scroll);
 
@@ -252,8 +254,54 @@ KUMobile.News = {
                         $(KUMobile.News.pageQueue[index]).appendTo("body");
                     }
                  
+                    // Check for new articles only during initialization
+                    if(KUMobile.News.initialized != true){
+                         
+                        // Get read news
+                        var news_list = window.localStorage.getItem("ku_news_read");
+                       
+                        // Make empty or parse array
+                        if(news_list != null){
+                        
+                            // Parse news array
+                            news_list = JSON.parse(news_list);
+                        
+                            // Go through each list item
+                            $("#news-list li a div.main-text").each(function(i){
+                                
+                                // Get id
+                                var id = $("h1", this).text().trim();
+                                var found = false;
+                                
+                                // Search for match
+                                for (var readIndex = 0; readIndex < news_list.length; readIndex++){
+                                    if (id == news_list[readIndex]) found = true;
+                                }
+                                
+                                // Not found?
+                                if (!found){
+                                    
+                                    KUMobile.addNewIndicator("#news-listitem a div.main-text");
+                                    KUMobile.addNewIndicator(this);
+                                }
+                                
+                            });
+                            
+                        }
+                        
+                        // Make a new list
+                        var saveList = [];
+                        $("#news-list li a div.main-text").each(function(i){ 
+                            saveList[saveList.length] = $("h1", this).text().trim();
+                        });
+                        
+                        // Store latest news
+                        window.localStorage.setItem("ku_news_read", saveList);
+                        
+                    }
+                    
                     // Refresh and clear both lists
-                    $('#news-list').listview('refresh');
+                    if(KUMobile.News.initialized) $('#news-list').listview('refresh');
                     KUMobile.News.listQueue = [];
                     KUMobile.News.pageQueue = [];
                     
