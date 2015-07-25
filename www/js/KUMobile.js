@@ -64,7 +64,7 @@ var KUMobile = {
         // Get version and update the about page
         cordova.getAppVersion(function (version) {
             KUMobile.version = "v" + version;
-            $("#about #version").text("v" + version);
+            $("#about #version").text(KUMobile.version);
         });
         
         // Determine if it is a device

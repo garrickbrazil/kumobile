@@ -2,7 +2,7 @@
     "project": {
         "name": "KUMobile",
         "description": "Kettering University Mobile Application Project.",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "url": "http://kumobile.info"
     },
     "files": {
@@ -660,7 +660,7 @@
         },
         {
             "file": "www\\js\\announcements.js",
-            "line": 298,
+            "line": 305,
             "class": "KUMobile.Announcements",
             "module": "KUMobile"
         },
@@ -2097,13 +2097,13 @@
         },
         {
             "file": "www\\js\\news.js",
-            "line": 320,
+            "line": 324,
             "class": "KUMobile.News",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\news.js",
-            "line": 338,
+            "line": 342,
             "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
             "itemtype": "event",
             "name": "articlePageCreate",

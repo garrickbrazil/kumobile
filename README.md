@@ -1,9 +1,7 @@
 
-___
  
 ## KUMobile
 
-___
 KUMobile is a cross-platform mobile application project for Kettering
 University. The project is focused on information exchange between Kettering 
 and the students. The application targets the following platforms: 
@@ -19,7 +17,6 @@ The project is licensed with [GPL-3.0](http://www.gnu.org/licenses/gpl-3.0.txt).
  
 Garrick Brazil - garrick@garrickmail.net
  
-___
  
 ## Getting Started
 ### Running the App
@@ -46,10 +43,10 @@ Using the CLI for compilation will require all the tools for each platform (yes,
 All plugins also must be downloaded locally in order to properly build. Please see [install guide](http://phonegap.com/install/) for the setup
 procedure and these [docs](https://github.com/phonegap/phonegap-cli) for usage!
  
-___
+
 ## Documentation
 
-___
+
 Please use [yui-docs](http://yui.github.io/yuidoc/) comment block styling and rules! The 
 site documentation is currently hosted at [http://kumobile.info](http://kumobile.info).
 

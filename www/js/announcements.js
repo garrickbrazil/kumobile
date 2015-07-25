@@ -235,15 +235,21 @@ KUMobile.Announcements = {
                  
                     // Check for new articles only during initialization
                     if(KUMobile.Announcements.initialized != true){
-                         
+                        
                         // Get read
                         var announcements_list = window.localStorage.getItem("ku_announcements_read");
                        
                         // Make empty or parse array
                         if(announcements_list != null){
                         
-                            // Parse announcements array
-                            announcements_list = JSON.parse(announcements_list);
+                            try{
+                                
+                                // Parse announcements array
+                                announcements_list = JSON.parse(announcements_list);
+                            }
+                            catch(object){
+                                announcements_list = [];
+                            }
                         
                             // Go through each list item
                             $("#announcements-list li div").each(function(i){
@@ -261,6 +267,7 @@ KUMobile.Announcements = {
                                 if (!found){
                                     
                                     KUMobile.addNewIndicator("#announcements-listitem a div.main-text");
+                                    $("#home ul").listview("refresh");
                                     KUMobile.addNewIndicator(this);
                                 }
                                 
@@ -270,12 +277,12 @@ KUMobile.Announcements = {
                         
                         // Make a new list
                         var saveList = [];
-                        $("#announcementslist li div").each(function(i){ 
+                        $("#announcements-list li div").each(function(i){ 
                             saveList[saveList.length] = $("h1", this).text().trim();
                         });
                         
                         // Store latest announcements
-                        window.localStorage.setItem("ku_announcements_read", saveList);
+                        window.localStorage.setItem("ku_announcements_read", JSON.stringify(saveList));
                         
                     }
                  

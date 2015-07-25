@@ -1030,6 +1030,10 @@ span.normal{
     white-space: normal!important;
 }
 
+#home *> .ui-li-has-count a div.main-text{
+    padding-right: .5em!important;
+}
+
 #announcements * > .ui-li-has-count{
     padding-right: 3.5em!important;
 }

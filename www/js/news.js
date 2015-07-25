@@ -263,8 +263,12 @@ KUMobile.News = {
                         // Make empty or parse array
                         if(news_list != null){
                         
-                            // Parse news array
-                            news_list = JSON.parse(news_list);
+                            try{
+                                
+                                // Parse news array
+                                news_list = JSON.parse(news_list);
+                            }
+                            catch(object){ news_list = []; }
                         
                             // Go through each list item
                             $("#news-list li a div.main-text").each(function(i){
@@ -296,7 +300,7 @@ KUMobile.News = {
                         });
                         
                         // Store latest news
-                        window.localStorage.setItem("ku_news_read", saveList);
+                        window.localStorage.setItem("ku_news_read", JSON.stringify(saveList));
                         
                     }
                     
