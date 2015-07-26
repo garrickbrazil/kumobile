@@ -341,13 +341,55 @@ var KUMobile = {
      *  @example
      *      KUMobile.addNewIndicator("#list li.special");
      ******************************************************************************/
-    addNewIndicator(selector){
+    addNewIndicator: function(selector){
 
         // Template
         var tpl = Handlebars.getTemplate("new-indicator");
     
         // Add for each selected
         $(selector).each(function(i){ $(this).append(tpl); });
+      
+    },
+    
+    
+    /******************************************************************************
+     *  Takes in html string or DOM elements and removes all dangerous entities
+     *  such as scripts and on* functions. 
+     *
+     *  @method sanitize
+	 *  @param {string} dom - html or DOM element which needs to be sanitized
+     *  @for KUMobile
+     *  @return {jQuery DOM}
+     *  @example
+     *      KUMobile.sanitize(htmlStr);
+     ******************************************************************************/
+    sanitize: function(dom){
+        
+        
+        var dom = $(dom);
+        
+        // Clear all scripts
+        $("script", dom).remove();
+        
+        $("*", dom).each(function(i){
+            
+            // Get attributes
+            var attrs = this.attributes;
+            
+            // Go through all attributes
+            for (var i = 0; i < attrs.length; i++){
+                
+                var name = attrs[i].nodeName;
+                
+                // Style
+                if (name.indexOf("style") > -1) $(this).removeAttr(name);
+                
+                // On*
+                if (name.indexOf("on") > -1) $(this).removeAttr(name);
+            }    
+        });
+        
+        return dom;
       
     },
     

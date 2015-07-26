@@ -936,28 +936,47 @@ span.normal{
     white-space:normal!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Options Popup
+ *********************************************************/
 #schedule-planner-course-options-popup{
     font-size:14px!important;
     margin:0!important;
 }
+
+/**********************************************************
+ * Schedule Planner Course Options Popup header
+ *********************************************************/
 #schedule-planner-course-options-popup h1{
     margin-right:.2em!important;
     margin-left:.2em!important;
     font-size:1.3em!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Options Popup Search Clear Hide
+ *********************************************************/
 #schedule-planner-course-options-popup .ui-input-clear{
     display:none!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Options Popup (remove anchor border)
+ *********************************************************/
 #schedule-planner-course-options-popup .ui-first-child a{
     border-top:0px!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Options Popup Search Bar
+ *********************************************************/
 #schedule-planner-course-options-popup .ui-input-search{
     border-bottom: 1px solid #8c8c8c!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Options Generate Button
+ *********************************************************/
 #schedule-options-generate-button{
     padding-left:0px!important;
     padding-right:0px!important;
@@ -965,6 +984,9 @@ span.normal{
     webkit-box-shadow:0 0 0!important;
 }
 
+/**********************************************************
+ * Schedule Planner Course Results Index
+ *********************************************************/
 #schedule-planner-results-index{
     text-align:center!important;
     color:black!important;
@@ -974,19 +996,30 @@ span.normal{
     height:100%!important;
 }
 
+/**********************************************************
+ * Schedule Planner Results Closed Course (red color)
+ *********************************************************/
 .closed-course{
     color: red!important;
 }
 
-
+/**********************************************************
+ * Schedule Planner Course Results Header Size
+ *********************************************************/
 #schedule-planner-results-header{
     height:7.5em!important;
 }
 
+/**********************************************************
+ * Schedule Planner Options Box
+ *********************************************************/
 #schedule-options-button{
     border-left:0px!important;
 }
 
+/**********************************************************
+ * Credits Page Left 
+ *********************************************************/
 .credits-left{
     color:#5a5a5a!important;
     text-align:right!important;
@@ -995,6 +1028,9 @@ span.normal{
     white-space:normal!important;
 }
 
+/**********************************************************
+ * Credits Page Right
+ *********************************************************/
 .credits-right{
     padding-left:1em!important;
     font-weight:bold!important;
@@ -1002,6 +1038,9 @@ span.normal{
     white-space:normal!important;
 }
 
+/**********************************************************
+ * Attributions Left
+ *********************************************************/
 .attributions-left{
     text-align:right!important;
     float:left!important;
@@ -1009,34 +1048,55 @@ span.normal{
     white-space:normal!important;
 }
 
+/**********************************************************
+ * Attributions Right
+ *********************************************************/
 .attributions-right{
     padding-left:1em!important;
     width:50%!important;
     white-space:normal!important;
 }
 
+/**********************************************************
+ * License Sanitizing
+ *********************************************************/
 .license *, .license{
     color:black!important;
     font-size:.9em!important;
     white-space:normal!important;
 }
 
+/**********************************************************
+ * Bigger font
+ *********************************************************/
 .bigger-font{
     font-size:120%!important;
 }
 
-
+/**********************************************************
+ * Announcements list items normal white space
+ *********************************************************/
 #announcements li *{
     white-space: normal!important;
 }
 
+/**********************************************************
+ * Pad elements with a count / new indicator on Home
+ *********************************************************/
 #home *> .ui-li-has-count a div.main-text{
     padding-right: .5em!important;
 }
 
+/**********************************************************
+ * Pad elements with a count / new indicator on Announcements
+ *********************************************************/
 #announcements * > .ui-li-has-count{
     padding-right: 3.5em!important;
 }
+
+/**********************************************************
+ * Pad elements with a count / new indicator on News
+ *********************************************************/
 #news * > .ui-li-has-count div.main-text {
     padding-right: .5em!important;
 }

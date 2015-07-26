@@ -347,7 +347,7 @@ KUMobile.Events = {
             
             $(html).appendTo("#" + identifier + "-scroller");
             
-            mainParagraph = $(article.mainHtml);
+            mainParagraph = KUMobile.sanitize(article.mainHtml);
             
             // Fix max width and height
             mainParagraph.find('*').css("max-width", "100%").css("height","auto");

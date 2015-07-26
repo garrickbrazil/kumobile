@@ -1222,7 +1222,7 @@ KUMobile.Student = {
         var pattern = /\/.*/;
         
         // Go through all images and links
-        holdsHtml = $("<div></div>").html(holdsHtml);
+        holdsHtml = KUMobile.sanitize($("<div></div>").html(holdsHtml));
         holdsHtml.find("img").each(function(i){
             
             // Fix source so it is absolute
@@ -2547,7 +2547,7 @@ KUMobile.Student = {
             
             // Get folder
             var item = tree.items[i];
-            var content = $(item.details)
+            var content = KUMobile.sanitize($(item.details));
             var fullId = item.fullBBId;
             
             content.find('*').css("max-width", "90%").css("height","auto").css("white-space","normal").css("font-size",".94em");

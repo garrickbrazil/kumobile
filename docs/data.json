@@ -2,7 +2,7 @@
     "project": {
         "name": "KUMobile",
         "description": "Kettering University Mobile Application Project.",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "url": "http://kumobile.info"
     },
     "files": {
@@ -538,6 +538,29 @@
         {
             "file": "www\\js\\KUMobile.js",
             "line": 355,
+            "description": "Takes in html string or DOM elements and removes all dangerous entities\nsuch as scripts and on* functions.",
+            "itemtype": "method",
+            "name": "sanitize",
+            "params": [
+                {
+                    "name": "dom",
+                    "description": "- html or DOM element which needs to be sanitized",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "JQuery DOM"
+            },
+            "example": [
+                "\n    KUMobile.sanitize(htmlStr);"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 397,
             "description": "Triggered any time a page is changed as registered by jQuery Mobile. \nThe primary purpose is to allow us to resize to be safe that all elements \nare scaled properly.",
             "itemtype": "event",
             "name": "pageChange",

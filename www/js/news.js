@@ -365,7 +365,7 @@ KUMobile.News = {
             
             $(html).appendTo("#" + identifier + "-scroller");
             
-            mainParagraph = $(article.mainHtml);
+            mainParagraph = KUMobile.sanitize(article.mainHtml);
             
             // Fix max width and height
             mainParagraph.find('*').css("max-width", "100%").css("height","auto");
@@ -398,7 +398,7 @@ KUMobile.News = {
             mainParagraph.find("embed").each(function(i){
 
                 if($(this).attr("src") != undefined && 
-                   $(this).attr("src").indexOf("youtube")){
+                   $(this).attr("src").indexOf("youtube") > -1){
                         
                     // Complex regex
                     var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;

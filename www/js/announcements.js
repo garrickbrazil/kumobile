@@ -195,7 +195,7 @@ KUMobile.Announcements = {
                     var pageId = 'announcements-' + KUMobile.Announcements.page + '-' + index;
                     
                     // Fix up main html
-                    var main = $("<div></div>").html(item.mainHtml);
+                    var main = KUMobile.sanitize($("<div></div>").html(item.mainHtml));
                     main.find("hr").remove();
                     main.find("img").remove();
                     
