@@ -200,9 +200,8 @@ KUMobile.Transfer = {
             KUMobile.hideLoading("transfer-header");
             KUMobile.Transfer.loading = false;
             
-            alert("Sorry the transfer colleges could not be loaded :(. Check your" +
-            " internet connection. If the issue persists then please"+
-            " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+            KUMobile.safeAlert("Error", "Sorry the transfer colleges could not be loaded. Check your" +
+                    " internet connection. If the issue persists then please report the bug.", "ok");
         };
         
         
@@ -527,9 +526,8 @@ KUMobile.Transfer = {
                 KUMobile.hideLoading("transfer-header");
                 KUMobile.Transfer.loading = false;
                 
-                alert("Sorry the transfer courses could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the transfer courses could not be loaded. Check your" +
+                    " internet connection. If the issue persists then please report the bug.", "ok");
             };
             
             // Search!
@@ -631,9 +629,8 @@ KUMobile.Transfer = {
                 KUMobile.hideLoading("transfer-header");
                 KUMobile.Transfer.loading = false;
                 
-                alert("Sorry the transfer courses could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the transfer courses could not be loaded. Check your" +
+                    " internet connection. If the issue persists then please report the bug.", "ok");
             };
             
             // Search!

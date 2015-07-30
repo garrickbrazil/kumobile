@@ -37,6 +37,17 @@ KUMobile.Student = {
     
     
     /******************************************************************************
+     *  Is the student logged in according to the application
+     *
+     *  @attribute loggedIn
+     *  @type {boolean}
+     *  @for KUMobile.Student
+     *  @default false
+     ******************************************************************************/
+	loggedIn: false,
+    
+    
+    /******************************************************************************
      *  Latest courses downloaded from JWEB.
      *
      *  @attribute jwebCourses
@@ -97,9 +108,9 @@ KUMobile.Student = {
      *  @attribute evalLocked
      *  @type {boolean}
      *  @for KUMobile.Student
-     *  @default false
+     *  @default true
      ******************************************************************************/
-	evalLocked: false,
+	evalLocked: true,
 
     
     /******************************************************************************
@@ -119,10 +130,10 @@ KUMobile.Student = {
     
         // Init
         if(user != null) $('#user').attr("value", user);
-        if(rememberMe === "false") $("#rememberMe").attr("checked", false).checkboxradio("refresh");
-        else if(rememberMe === "true") $("#rememberMe").attr("checked", true).checkboxradio("refresh");
-        if(savePass === "false") $("#savePass").attr("checked", false).checkboxradio("refresh");
-        else if(savePass === "true") $("#savePass").attr("checked", true).checkboxradio("refresh");
+        if(rememberMe === "false") $("#rememberMe").attr("checked", false).checkboxradio().checkboxradio("refresh");
+        else if(rememberMe === "true") $("#rememberMe").attr("checked", true).checkboxradio().checkboxradio("refresh");
+        if(savePass === "false") $("#savePass").attr("checked", false).checkboxradio().checkboxradio("refresh");
+        else if(savePass === "true") $("#savePass").attr("checked", true).checkboxradio().checkboxradio("refresh");
 
         // Password available too?
         if(encrypted != null){
@@ -207,8 +218,9 @@ KUMobile.Student = {
             // Presumably not loading
             KUMobile.hideLoading("courses");
             
-            // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the courses potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
+            
         };
     
         // Start downloading
@@ -238,7 +250,8 @@ KUMobile.Student = {
             KUMobile.hideLoading("current-holds");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the current holds potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Download!
@@ -300,8 +313,10 @@ KUMobile.Student = {
             KUMobile.hideLoading("schedule-planner");
             $("#schedule-planner-terms").removeAttr("disabled");
             $("#schedule-options-generate-button").removeAttr("disabled");
+            
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the schedule planner potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Setup listeners
@@ -373,7 +388,8 @@ KUMobile.Student = {
             $("#schedule-options").removeAttr("disabled");
         
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the schedule potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Setup listeners
@@ -408,7 +424,8 @@ KUMobile.Student = {
             KUMobile.hideLoading("financial-aid");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the financial aid information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Download!
@@ -436,7 +453,8 @@ KUMobile.Student = {
             KUMobile.hideLoading("account-summary");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the account summary information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Download!
@@ -497,7 +515,8 @@ KUMobile.Student = {
             $("#final-grades-options").removeAttr("disabled");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the final grades information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         
@@ -564,7 +583,8 @@ KUMobile.Student = {
             KUMobile.Student.evalLocked = false;
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the degree evaluation information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         
@@ -603,7 +623,8 @@ KUMobile.Student = {
             KUMobile.hideLoading("information");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the student information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         KU.Student.JWEB.retrieveStudentInfo(KUMobile.Student.guessTerm(), KUMobile.Student.populateInformation, failure);
@@ -632,7 +653,8 @@ KUMobile.Student = {
             KUMobile.hideLoading(identifier);
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the course information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Templates
@@ -696,7 +718,8 @@ KUMobile.Student = {
             KUMobile.hideLoading(id);
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the grades information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Success
@@ -787,7 +810,8 @@ KUMobile.Student = {
             KUMobile.hideLoading(id);
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the roster information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Success
@@ -853,7 +877,8 @@ KUMobile.Student = {
             KUMobile.hideLoading(id);
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the required books information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Find bb course
@@ -1018,7 +1043,8 @@ KUMobile.Student = {
             KUMobile.hideLoading(id);
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the folder information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Start downloading content tree
@@ -1427,6 +1453,24 @@ KUMobile.Student = {
     
     
     /******************************************************************************
+     *  Reverts back to defaults for Student
+     * 
+     *  @method defaults
+     *  @return {void}
+     *  @for KUMobile.Student
+     ******************************************************************************/
+    defaults: function(){
+        
+        KUMobile.Student.evalLocked = true;
+        KUMobile.Student.schedulePlannerIndex;
+        KUMobile.Student.jwebCatalog = null;
+        KUMobile.Student.bbCourses = null;
+        KUMobile.Student.jwebCourses = null;
+        KUMobile.Student.workingSchedules = null;
+    },
+    
+    
+    /******************************************************************************
      *  Makes and displays a schedule popup for a course. Deletes itself after close!
      * 
      *  @param {string} crn - course crn
@@ -1626,6 +1670,9 @@ KUMobile.Student = {
             $(Handlebars.getTemplate("schedule-planner-results-page")()).appendTo("body");
             $.mobile.changePage("#schedule-planner-results");
             
+            // Show the first schedule
+            KUMobile.Student.nextWorkingSchedule();
+            
             // Start swipe
             KUMobile.safeBinder("touchstart", "#schedule-planner-results", function(e){
                 
@@ -1654,13 +1701,13 @@ KUMobile.Student = {
                 }
             });
             
-            // Show the first schedule
-            KUMobile.Student.nextWorkingSchedule();
         }
         
         // Sorry, but no schedules :(
-        else alert("No working schedules.");
-        
+        else{ 
+            KUMobile.safeAlert("Schedule Planner", "No schedules appear to work with the given courses.", "ok");
+            KUMobile.Student.logout();
+        }
         
     },
     
@@ -2397,7 +2444,7 @@ KUMobile.Student = {
         var failed = function(err){
             
             // Alert the user and hide loading
-            alert("File could not be opened: " + err);
+            KUMobile.safeAlert("Error", "File could not be opened: " + err, "ok");
             KUMobile.hideLoading(id)
         };
         
@@ -2421,7 +2468,7 @@ KUMobile.Student = {
                 // Failure
                 function(error) {
                     
-                    alert('The file could not be properly opened.');
+                    KUMobile.safeAlert("Error", "The file could not be properly opened.", "ok");
                     KUMobile.hideLoading(id);
                 }, 
                 fullUrl
@@ -2466,7 +2513,7 @@ KUMobile.Student = {
                                 function(error) {
                                     
                                     // Alert error and hide loading
-                                    alert('The file could not be properly opened.');
+                                    KUMobile.safeAlert("Error", "The file could not be properly opened.", "ok");
                                     KUMobile.hideLoading(id);
                                 }, 
                                 fullUrl
@@ -2707,7 +2754,8 @@ KUMobile.Student = {
             KUMobile.Student.evalLocked = false;
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the degree evaluation information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Temporarily disable
@@ -2758,7 +2806,8 @@ KUMobile.Student = {
             $("#schedule-options-generate-button").removeAttr("disabled");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the schedule catalog potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Download new catalog
@@ -2796,7 +2845,8 @@ KUMobile.Student = {
             $("#schedule-options").removeAttr("disabled");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the schedule information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         KU.Student.JWEB.retrieveSchedule(
@@ -2835,7 +2885,8 @@ KUMobile.Student = {
             $("#final-grades-options").removeAttr("disabled");
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the final grade information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Try to repopulate!
@@ -2870,7 +2921,8 @@ KUMobile.Student = {
             KUMobile.Student.evalLocked = false;
             
             // Alert user
-            alert(errMsg);
+            KUMobile.safeAlert("Error", "There was an error loading the degree evaluation information potentially caused by a timeout or loss in connectivity. Please try again soon.", "ok");
+            KUMobile.Student.logout();
         };
         
         // Temporarily disable
@@ -2908,8 +2960,10 @@ KUMobile.Student = {
         KUMobile.Student.loading = false;
         KUMobile.hideLoading("student-header");
         
+        if (errMsg == "") errMsg = "Sorry, there was an error"
+        
         // Alert user
-        alert(errMsg);
+        KUMobile.safeAlert("Error", errMsg + ". Please try again.", "ok");
     },
     
     
@@ -2922,8 +2976,13 @@ KUMobile.Student = {
      ******************************************************************************/
     login: function(){
         
-        // Already loading? Then return
+        // Already logged in or loading? Then return
+        if(KUMobile.Student.loggedIn) return;
         if(KUMobile.Student.loading) return;
+        
+        // Loading
+        KUMobile.Student.loading = true;
+        KUMobile.showLoading("student-header");
     
         // Get credentials
         var user = $("#user").val().toLowerCase();
@@ -2946,10 +3005,6 @@ KUMobile.Student = {
         // Store remember me state
         window.localStorage.setItem("ku_rememberme", rememberMe);
         window.localStorage.setItem("ku_savepass", savePass);
-        
-        // Loading
-        KUMobile.Student.loading = true;
-        KUMobile.showLoading("student-header");
     
         /** Successful Login Status Check (BB) **/
         var successAfterLoginStatus = function(loggedIn, currentUser){
@@ -2960,7 +3015,7 @@ KUMobile.Student = {
             
             // Logged in as a different user?
             // then log out then log in as correct user!
-            else if(loggedIn && currentUser != user) KU.Student.BB.logout(successLogout, KUMobile.Student.failure);
+            else if(loggedIn && currentUser != user) KU.Student.BB.logout(successLogout, successLogout);
             
             // Correct user is already logged in?
             // then nothing to do!
@@ -2973,6 +3028,7 @@ KUMobile.Student = {
             
             // Hide loading
             KUMobile.Student.loading = false;
+            KUMobile.Student.loggedIn = true;
             KUMobile.hideLoading("student-header");
             
             // 1. Clear login password
@@ -3040,7 +3096,10 @@ KUMobile.Student = {
      *  @for KUMobile.Student
      ******************************************************************************/
     logout: function(){
-    
+        
+        // Suspected you are logged out!
+        KUMobile.Student.loggedIn = false;
+        
         // Already loading? Then return
         if(KUMobile.Student.loading) return;
         
@@ -3083,6 +3142,11 @@ KUMobile.Student = {
             $("#student #logout-button").hide();
             $("#student #student-scroller").hide();
             $("#student #login-box").show();
+            
+            // Page is non-existent than change
+            if ($("#" + $.mobile.activePage.attr('id')).length == 0) $.mobile.back();
+            KUMobile.Student.defaults();
+            $(window).trigger("resize");
 
         };
         
@@ -3090,11 +3154,11 @@ KUMobile.Student = {
         var successJWEB = function(){
         
             // Logout (BB)
-            KU.Student.BB.logout(successLogout, KUMobile.Student.failure);
+            KU.Student.BB.logout(successLogout, successLogout);
         }
         
         // Logout (JWEB)
-        KU.Student.JWEB.logout(successJWEB, KUMobile.Student.failure);
+        KU.Student.JWEB.logout(successJWEB, successLogout);
             
     },
     

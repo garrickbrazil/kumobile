@@ -286,6 +286,19 @@ KUMobile.Events = {
                         // Append to events list
                         $(KUMobile.Events.pageQueue[index]).appendTo("body");
                     }
+                    
+                    // Setup link opener
+                    KUMobile.safeBinder("click", ".dynamic-news-events-page .scroller a", function(e){
+                        
+                        // Android open? Otherwise use _system target
+                        if (KUMobile.Config.isAndroid) navigator.app.loadUrl($(this).attr('href'), {openExternal : true});
+                        else window.open($(this).attr('href'), '_system');
+                        
+                        // Prevent default
+                        e.preventDefault();
+                        return false;
+                        
+                    });
                  
                     // Refresh and clear both lists
                     $('#events-list').listview('refresh');
@@ -311,9 +324,9 @@ KUMobile.Events = {
                 KUMobile.hideLoading("events-header");
                 KUMobile.Events.loading = false;
                 
-                alert("Sorry the events could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the events could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
+
             };
             
             // Get next page
@@ -382,9 +395,9 @@ KUMobile.Events = {
             KUMobile.hideLoading(identifier);
             KUMobile.Events.loading = false;
             
-            alert("Sorry the events could not be loaded :(. Check your" +
-            " internet connection. If the issue persist then please"+
-            " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+            KUMobile.safeAlert("Error", "Sorry the events could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
+                
         }
         
         // Get the article!

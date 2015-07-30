@@ -26,6 +26,17 @@ var KUMobile = {
     
     
     /******************************************************************************
+     *  Last page of the application
+     *
+     *  @attribute lastPage
+     *  @type {boolean}
+     *  @for KUMobile
+     *  @default 'home'
+     ******************************************************************************/
+    lastPage: 'home',
+    
+    
+    /******************************************************************************
      *  Contains the version information loaded from the app manifest! Note: this
      *  is only available after the device ready function is called, until then 
      *  it is null
@@ -46,8 +57,25 @@ var KUMobile = {
      ******************************************************************************/
     homeLoaded: function(){
         
-        KUMobile.Announcements.loadNextPage();
-        KUMobile.News.loadNextPage();
+        if(typeof KU === 'undefined'){
+            KUMobile.safeAlert(
+                "Error", 
+                "There were problems connecting to the internet. Please check your connectivity and restart the application.", 
+                "ok", "home"
+            );
+        }
+        else{
+            
+            // Pre-load initial announcements and news
+            KUMobile.Announcements.loadNextPage();
+            KUMobile.News.loadNextPage();
+            
+            // Create and initialize the student page 
+            // (in case there is a chance for auto login)
+            $("#student").trigger("pagecreate");
+            $("#student").trigger("pageinit");
+            
+        }
     },
     
 	
@@ -198,6 +226,35 @@ var KUMobile = {
         
         $(document).off(event, query).on(event, query, callback);
         
+    },
+    
+    
+    /******************************************************************************
+     *  Shows a dialog with given information when on a device, otherwise uses built
+     *  in dialog using vanilla javascript alerts!
+     *
+     *  @method safeAlert
+	 *  @param {string} title - title the alert should have
+     *  @param {string} message - the message to display in body
+     *  @param {string} button - name of the button to use
+     *  @param {boolean} [expectedPage] - page which is expected to show dialog on
+     *  @for KUMobile
+     *  @example
+     *      KUMobile.safeAlert("Fun title", "Fun message", "ok");
+     ******************************************************************************/
+    safeAlert: function(title, message, button, expectedPage){
+      
+      // Adjust expected to be empty if not provided
+      if (typeof expectedPage === 'undefined') expectedPage = "";
+      
+      // Only show from the correct page
+      if (expectedPage != "" && $.mobile.activePage.attr('id') != expectedPage
+        || $.mobile.activePage.attr('id') == "home" && expectedPage != "home") return;
+      
+      // Use navigator alert for device, and regular alert otherwise
+      if(KUMobile.Config.isDevice) navigator.notification.alert(message, function(){}, title, button);
+      else alert(title + "\n\n" + message);
+      
     },
     
     
@@ -404,54 +461,78 @@ var KUMobile = {
      ******************************************************************************/
 	pageChange: function( event ) { 
         
-        // Coming from news -> home?
-        if (KUMobile.lastPage == "news" && $.mobile.activePage.attr('id') == "home"){
+        // Page traveling to does not exist? Then go back!!
+        if($("#" + $.mobile.activePage.attr('id')).length == 0) $.mobile.back();
+
+        // Page we've changed to 
+        else{
+        
+            // Coming from news -> home?
+            if (KUMobile.lastPage == "news" && $.mobile.activePage.attr('id') == "home"){
+                
+                // Clear main news indicator
+                $("#news-listitem .new-icon-indicator").remove();
+                $("#news-listitem").removeClass("ui-li-has-count");
+                
+                // Clear all news item indicators
+                $("#news-list li .new-icon-indicator").remove();
+                $("#news-list li").removeClass("ui-li-has-count");
+                
+                // Refresh list
+                $("#news-list").listview("refresh");
+                $("#home ul").listview("refresh");
+                
+                // Make a new list
+                var saveList = [];
+                $("#news-list li a div.main-text").each(function(i){ 
+                    saveList[saveList.length] = $("h1", this).text().trim();
+                });
+                
+                // Store latest news
+                window.localStorage.setItem("ku_news_read", JSON.stringify(saveList));
+            }
             
-            // Clear main news indicator
-            $("#news-listitem .new-icon-indicator").remove();
-            $("#news-listitem").removeClass("ui-li-has-count");
+            // Coming from announcements -> home?
+            if (KUMobile.lastPage == "announcements" && $.mobile.activePage.attr('id') == "home"){
+                
+                // Clear main announcements indicator
+                $("#announcements-listitem .new-icon-indicator").remove();
+                $("#announcements-listitem").removeClass("ui-li-has-count");
+                
+                // Clear all announcements item indicators
+                $("#announcements-list li .new-icon-indicator").remove();
+                $("#announcements-list li").removeClass("ui-li-has-count");
+                
+                // Refresh list
+                $("#announcements-list").listview("refresh");
+                $("#home ul").listview("refresh");
+                
+                // Make a new list
+                var saveList = [];
+                $("#announcements-list li div").each(function(i){ 
+                    saveList[saveList.length] = $("h1", this).text().trim();
+                });
+                
+                // Store latest announcements
+                window.localStorage.setItem("ku_announcements_read", JSON.stringify(saveList));
+                
+            }
             
-            // Clear all news item indicators
-            $("#news-list li .new-icon-indicator").remove();
-            $("#news-list li").removeClass("ui-li-has-count");
+            // Resize the window whenever we change pages
+            KUMobile.throttledResize();
             
-            // Refresh list
-            $("#news-list").listview("refresh");
-            $("#home ul").listview("refresh");
+            // If map is okay, cause it to revalidate its position and size
+            // there are often map issues related to going back and forth 
+            // between the map and changing perspectives. It is most efficient
+            // to revalidate the map size in a page change event instead of 
+            // the resize!
+            setTimeout(function(){
+                if(KUMobile.Map.map != null) KUMobile.Map.map.invalidateSize();
+            },0); 
+            
+            // Last page 
+            KUMobile.lastPage = $.mobile.activePage.attr('id');
         }
-        
-        // Coming from announcements -> home?
-        if (KUMobile.lastPage == "announcements" && $.mobile.activePage.attr('id') == "home"){
-            
-            // Clear main announcements indicator
-            $("#announcements-listitem .new-icon-indicator").remove();
-            $("#announcements-listitem").removeClass("ui-li-has-count");
-            
-            // Clear all announcements item indicators
-            $("#announcements-list li .new-icon-indicator").remove();
-            $("#announcements-list li").removeClass("ui-li-has-count");
-            
-            // Refresh list
-            $("#announcements-list").listview("refresh");
-            $("#home ul").listview("refresh");
-            
-        }
-        
-		// Resize the window whenever we change pages
-		KUMobile.throttledResize();
-        
-		// If map is okay, cause it to revalidate its position and size
-        // there are often map issues related to going back and forth 
-        // between the map and changing perspectives. It is most efficient
-        // to revalidate the map size in a page change event instead of 
-        // the resize!
-		setTimeout(function(){
-			if(KUMobile.Map.map != null) KUMobile.Map.map.invalidateSize();
-		},0); 
-        
-        // Last page 
-        KUMobile.lastPage = $.mobile.activePage.attr('id');
-        
 	},
     
 };

@@ -419,9 +419,9 @@ KUMobile.Library = {
                 KUMobile.hideLoading("library-header");
                 KUMobile.Library.loading = false;
                 
-                alert("Sorry the library could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the library could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
+                
             };
             
             // New search !?

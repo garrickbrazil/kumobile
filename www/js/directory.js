@@ -270,9 +270,9 @@ KUMobile.Directory = {
             KUMobile.hideLoading("directory-header");
             KUMobile.Directory.loading = false;
             
-            alert("Sorry the directory departments could not be loaded :(. Check your" +
-            " internet connection. If the issue persists then please"+
-            " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+            KUMobile.safeAlert("Error", "Sorry the directory departments could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
+                
         };
         
         // Disable the selection
@@ -503,9 +503,9 @@ KUMobile.Directory = {
                 KUMobile.hideLoading("directory-header");
                 KUMobile.Directory.loading = false;
                 
-                alert("Sorry the directory could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the directory could not be loaded. Check your" +
+                    " internet connection. If the issue persists then please report the bug.", "ok");
+                
             };
             
             // New search !?

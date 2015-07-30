@@ -136,7 +136,7 @@ KUMobile.News = {
      *  @for KUMobile.News
      ******************************************************************************/
 	pageCreate: function(event){
-		
+        
 		// Resize and get first page
 		$(window).trigger("throttledresize");
 		KUMobile.News.loadNextPage(); 
@@ -253,6 +253,20 @@ KUMobile.News = {
                         // Append to news list
                         $(KUMobile.News.pageQueue[index]).appendTo("body");
                     }
+                    
+                    // Setup link opener
+                    KUMobile.safeBinder("click", ".dynamic-news-events-page .scroller a", function(e){
+                        
+                        // Android open? Otherwise use _system target
+                        if (KUMobile.Config.isAndroid) navigator.app.loadUrl($(this).attr('href'), {openExternal : true});
+                        else window.open($(this).attr('href'), '_system');
+                        
+                        // Prevent default
+                        e.preventDefault();
+                        return false;
+                        
+                    });
+
                  
                     // Check for new articles only during initialization
                     if(KUMobile.News.initialized != true){
@@ -293,15 +307,6 @@ KUMobile.News = {
                             
                         }
                         
-                        // Make a new list
-                        var saveList = [];
-                        $("#news-list li a div.main-text").each(function(i){ 
-                            saveList[saveList.length] = $("h1", this).text().trim();
-                        });
-                        
-                        // Store latest news
-                        window.localStorage.setItem("ku_news_read", JSON.stringify(saveList));
-                        
                     }
                     
                     // Refresh and clear both lists
@@ -328,9 +333,9 @@ KUMobile.News = {
                 KUMobile.hideLoading("news-header");
                 KUMobile.News.loading = false;
                 
-                alert("Sorry the news could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the news could not be loaded. Check your" +
+                    " internet connection. If the issue persists then please report the bug.", "ok");
+                
             };
             
             // Get next page
@@ -447,9 +452,9 @@ KUMobile.News = {
             KUMobile.hideLoading(identifier);
             KUMobile.News.loading = false;
             
-            alert("Sorry the news could not be loaded :(. Check your" +
-            " internet connection. If the issue persist then please"+
-            " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+            KUMobile.safeAlert("Error", "Sorry the news could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
+                
         }
         
         // Get the article!

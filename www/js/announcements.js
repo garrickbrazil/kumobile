@@ -232,6 +232,20 @@ KUMobile.Announcements = {
                         // Append to announcements list
                         $(KUMobile.Announcements.listQueue[index]).appendTo("#announcements-list");
                     }
+                    
+                    // Setup link opener
+                    KUMobile.safeBinder("click", "#announcements-list li a", function(e){
+                        
+                        // Android open? Otherwise use _system target
+                        if (KUMobile.Config.isAndroid) navigator.app.loadUrl($(this).attr('href'), {openExternal : true});
+                        else window.open($(this).attr('href'), '_system');
+                        
+                        // Prevent default
+                        e.preventDefault();
+                        return false;
+                        
+                    });
+
                  
                     // Check for new articles only during initialization
                     if(KUMobile.Announcements.initialized != true){
@@ -275,15 +289,6 @@ KUMobile.Announcements = {
                             
                         }
                         
-                        // Make a new list
-                        var saveList = [];
-                        $("#announcements-list li div").each(function(i){ 
-                            saveList[saveList.length] = $("h1", this).text().trim();
-                        });
-                        
-                        // Store latest announcements
-                        window.localStorage.setItem("ku_announcements_read", JSON.stringify(saveList));
-                        
                     }
                  
                     // Refresh and clear lists
@@ -309,9 +314,8 @@ KUMobile.Announcements = {
                 KUMobile.hideLoading("announcements-header");
                 KUMobile.Announcements.loading = false;
                 
-                alert("Sorry the announcements could not be loaded :(. Check your" +
-                " internet connection. If the issue persists then please"+
-                " create a bug at github.com/garrickbrazil/kumobile/issues/new");
+                KUMobile.safeAlert("Error", "Sorry the announcements could not be loaded. Check your" +
+                " internet connection. If the issue persists then please report the bug.", "ok");
             };
             
             // Get next page

@@ -2,7 +2,7 @@
     "project": {
         "name": "KUMobile",
         "description": "Kettering University Mobile Application Project.",
-        "version": "0.0.4",
+        "version": "0.0.6",
         "url": "http://kumobile.info"
     },
     "files": {
@@ -353,6 +353,17 @@
         {
             "file": "www\\js\\KUMobile.js",
             "line": 28,
+            "description": "Last page of the application",
+            "itemtype": "attribute",
+            "name": "lastPage",
+            "type": "{boolean}",
+            "default": "'home'",
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 39,
             "description": "Contains the version information loaded from the app manifest! Note: this\nis only available after the device ready function is called, until then \nit is null",
             "itemtype": "attribute",
             "name": "version",
@@ -363,7 +374,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 41,
+            "line": 52,
             "description": "Event triggered after the home page initialization!",
             "itemtype": "event",
             "name": "ready",
@@ -372,7 +383,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 54,
+            "line": 82,
             "description": "Event triggered when the device is ready, registered with \"deviceready\".\nThe primary purpose is to determine what type of device we are on (Android,\niOS, Windows). Note: this is only triggered if you are ON a device!",
             "itemtype": "event",
             "name": "ready",
@@ -381,7 +392,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 99,
+            "line": 127,
             "description": "Displays the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "showLoading",
@@ -404,7 +415,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 116,
+            "line": 144,
             "description": "Hides the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "hideLoading",
@@ -427,7 +438,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 132,
+            "line": 160,
             "description": "Converts a state name from abbreviation to full state name. If the\nconversion does not work it will simply return the abbreviation to be safe!",
             "itemtype": "method",
             "name": "convertStateToFull",
@@ -450,7 +461,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 185,
+            "line": 213,
             "description": "Binds a jquery event safely by first removing any prexisting event! This\nprevents it from being binded twice.",
             "itemtype": "method",
             "name": "safeBinder",
@@ -479,7 +490,42 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 204,
+            "line": 232,
+            "description": "Shows a dialog with given information when on a device, otherwise uses built\nin dialog using vanilla javascript alerts!",
+            "itemtype": "method",
+            "name": "safeAlert",
+            "params": [
+                {
+                    "name": "title",
+                    "description": "- title the alert should have",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "- the message to display in body",
+                    "type": "String"
+                },
+                {
+                    "name": "button",
+                    "description": "- name of the button to use",
+                    "type": "String"
+                },
+                {
+                    "name": "expectedPage",
+                    "description": "- page which is expected to show dialog on",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "example": [
+                "\n    KUMobile.safeAlert(\"Fun title\", \"Fun message\", \"ok\");"
+            ],
+            "class": "KUMobile",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\KUMobile.js",
+            "line": 261,
             "description": "Scrolls an overflow container to a certain element",
             "itemtype": "method",
             "name": "scrollTo",
@@ -503,7 +549,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 226,
+            "line": 283,
             "description": "Resize function to link to jQM event for throttled resize. The purpose is\nthat this resize function is controlled to not occur *too quickly* and\nadvanced resizing can be done here. Alternative to this is just to use \ncss calc(), but not fully supported across all target devices as of\ntime of development (2/26/2015).",
             "itemtype": "event",
             "name": "throttledResize",
@@ -512,13 +558,13 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 294,
+            "line": 351,
             "class": "KUMobile",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 335,
+            "line": 392,
             "description": "Adds a 'new' indicator for every selected element",
             "itemtype": "method",
             "name": "addNewIndicator",
@@ -537,7 +583,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 355,
+            "line": 412,
             "description": "Takes in html string or DOM elements and removes all dangerous entities\nsuch as scripts and on* functions.",
             "itemtype": "method",
             "name": "sanitize",
@@ -560,7 +606,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 397,
+            "line": 454,
             "description": "Triggered any time a page is changed as registered by jQuery Mobile. \nThe primary purpose is to allow us to resize to be safe that all elements \nare scaled properly.",
             "itemtype": "event",
             "name": "pageChange",
@@ -683,7 +729,7 @@
         },
         {
             "file": "www\\js\\announcements.js",
-            "line": 305,
+            "line": 310,
             "class": "KUMobile.Announcements",
             "module": "KUMobile"
         },
@@ -1113,7 +1159,7 @@
         },
         {
             "file": "www\\js\\events.js",
-            "line": 325,
+            "line": 338,
             "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
             "itemtype": "event",
             "name": "articlePageCreate",
@@ -2120,13 +2166,13 @@
         },
         {
             "file": "www\\js\\news.js",
-            "line": 324,
+            "line": 329,
             "class": "KUMobile.News",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\news.js",
-            "line": 342,
+            "line": 347,
             "description": "Called on create of an article page. Mainly this function just\nattempts to download the article and show it.",
             "itemtype": "event",
             "name": "articlePageCreate",
@@ -2147,6 +2193,17 @@
         {
             "file": "www\\js\\student.js",
             "line": 39,
+            "description": "Is the student logged in according to the application",
+            "itemtype": "attribute",
+            "name": "loggedIn",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 50,
             "description": "Latest courses downloaded from JWEB.",
             "itemtype": "attribute",
             "name": "jwebCourses",
@@ -2157,7 +2214,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 50,
+            "line": 61,
             "description": "Latest courses downloaded from blackboard.",
             "itemtype": "attribute",
             "name": "bbCourses",
@@ -2168,7 +2225,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 61,
+            "line": 72,
             "description": "Latest jweb catalog (containing all offered courses and their times)",
             "itemtype": "attribute",
             "name": "jwebCatalog",
@@ -2179,7 +2236,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 72,
+            "line": 83,
             "description": "Latest working schedules for schedule planner",
             "itemtype": "attribute",
             "name": "workingSchedules",
@@ -2190,7 +2247,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 83,
+            "line": 94,
             "description": "Index for the latest working schedule drawn",
             "itemtype": "attribute",
             "name": "schedulePlannerIndex",
@@ -2201,18 +2258,18 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 94,
+            "line": 105,
             "description": "Evaluation load locked?",
             "itemtype": "attribute",
             "name": "evalLocked",
             "type": "{boolean}",
-            "default": "false",
+            "default": "true",
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 105,
+            "line": 116,
             "description": "Triggered when the student page is first initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInit",
@@ -2221,7 +2278,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 145,
+            "line": 156,
             "description": "Triggered when the student page is first created based on jQuery Mobile\npagecreate event. This is called after the page itself is created but \nbefore any jQuery Mobile styling is applied.",
             "itemtype": "event",
             "name": "pageCreate",
@@ -2230,7 +2287,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 161,
+            "line": 172,
             "description": "Triggered when courses page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitCourses",
@@ -2239,7 +2296,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 222,
+            "line": 234,
             "description": "Triggered when current holds page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitCurrentHolds",
@@ -2248,7 +2305,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 250,
+            "line": 263,
             "description": "Triggered when schedule planner page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitSchedulePlanner",
@@ -2257,7 +2314,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 323,
+            "line": 338,
             "description": "Triggered when schedule page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitSchedule",
@@ -2266,7 +2323,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 392,
+            "line": 408,
             "description": "Triggered when financial aid page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitFinancialAid",
@@ -2275,7 +2332,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 420,
+            "line": 437,
             "description": "Triggered when account summary page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitAccountSummary",
@@ -2284,7 +2341,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 448,
+            "line": 466,
             "description": "Triggered when final grades page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitFinalGrades",
@@ -2293,7 +2350,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 517,
+            "line": 536,
             "description": "Triggered when degree evaluation page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitDegreeEvaluation",
@@ -2302,7 +2359,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 587,
+            "line": 607,
             "description": "Triggered when information page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitInformation",
@@ -2311,7 +2368,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 614,
+            "line": 635,
             "description": "Triggered when any single course page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitSingleCourse",
@@ -2320,7 +2377,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 679,
+            "line": 701,
             "description": "Triggered when any course grades page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitGrades",
@@ -2329,7 +2386,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 770,
+            "line": 793,
             "description": "Triggered when any course roster page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitRoster",
@@ -2338,7 +2395,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 828,
+            "line": 852,
             "description": "Triggered when any course books page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitBooks",
@@ -2347,7 +2404,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1001,
+            "line": 1026,
             "description": "Triggered when any course folder page is initialized based on jQuery Mobile\npageinit event.",
             "itemtype": "event",
             "name": "pageInitFolder",
@@ -2356,7 +2413,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1034,
+            "line": 1060,
             "description": "Populates courses into the student page based on gathered information \nfrom KetteringJS after downloading courses.",
             "itemtype": "event",
             "name": "populateCourses",
@@ -2365,7 +2422,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1121,
+            "line": 1147,
             "description": "Populates course page based on initial content tree.",
             "itemtype": "event",
             "name": "populateCoursePage",
@@ -2374,7 +2431,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1172,
+            "line": 1198,
             "description": "Populates information page based on initial content tree.",
             "itemtype": "event",
             "name": "populateInformation",
@@ -2383,7 +2440,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1213,
+            "line": 1239,
             "description": "Populates current holds page with given information",
             "itemtype": "event",
             "name": "populateCurrentHolds",
@@ -2392,7 +2449,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1245,
+            "line": 1271,
             "description": "Populates financial aid page based on returned information.",
             "itemtype": "event",
             "name": "populateFinancialAid",
@@ -2401,7 +2458,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1287,
+            "line": 1313,
             "description": "Populates account summary page based on returned information.",
             "itemtype": "event",
             "name": "populateAccountSummary",
@@ -2410,7 +2467,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1320,
+            "line": 1346,
             "description": "Populates schedule page based on returned information.",
             "itemtype": "event",
             "name": "populateSchedulePlanner",
@@ -2419,7 +2476,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1410,
+            "line": 1436,
             "description": "Populates schedule page based on returned information.",
             "itemtype": "event",
             "name": "populateSchedule",
@@ -2428,7 +2485,20 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1429,
+            "line": 1455,
+            "description": "Reverts back to defaults for Student",
+            "itemtype": "method",
+            "name": "defaults",
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "KUMobile.Student",
+            "module": "KUMobile"
+        },
+        {
+            "file": "www\\js\\student.js",
+            "line": 1473,
             "description": "Makes and displays a schedule popup for a course. Deletes itself after close!",
             "params": [
                 {
@@ -2478,7 +2548,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1471,
+            "line": 1515,
             "description": "Generates the permutations of schedules based on a give course list. Returns\nan array of schedules html.",
             "itemtype": "method",
             "name": "generatePermutations",
@@ -2491,7 +2561,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1668,
+            "line": 1715,
             "description": "Populates the schedule planner results page with the next working schedule",
             "itemtype": "method",
             "name": "nextWorkingSchedule",
@@ -2504,7 +2574,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1697,
+            "line": 1744,
             "description": "Populates the schedule planner results page with the previous working schedule",
             "itemtype": "method",
             "name": "previousWorkingSchedule",
@@ -2517,7 +2587,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1726,
+            "line": 1773,
             "description": "Parses time from a pattern like 8:00 AM-9:05 AM. Returns an object with \n\"start\" and \"end\" properties representing the minutes past midnight rounded\nto the nearest 15 minute interval.",
             "params": [
                 {
@@ -2537,7 +2607,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1772,
+            "line": 1819,
             "description": "Tests courses to see if a course list works with the provided course",
             "params": [
                 {
@@ -2562,7 +2632,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 1867,
+            "line": 1914,
             "description": "Generates and returns a div with a table and corresponding popups based on courses",
             "params": [
                 {
@@ -2582,7 +2652,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2047,
+            "line": 2094,
             "description": "Populates final grades page based on returned information.",
             "itemtype": "event",
             "name": "populateFinalGrades",
@@ -2591,7 +2661,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2091,
+            "line": 2138,
             "description": "Populates degree evaluation page based on returned information.",
             "itemtype": "event",
             "name": "populateDegreeEvaluation",
@@ -2600,7 +2670,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2277,
+            "line": 2324,
             "description": "Adds a planner course to the set of courses",
             "params": [
                 {
@@ -2628,7 +2698,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2311,
+            "line": 2358,
             "description": "Toggles the term type between plain text (Winter 2015) and integer (201501)",
             "params": [
                 {
@@ -2651,7 +2721,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2362,
+            "line": 2409,
             "description": "Tries to guess which term it is based on today's current date (e.g 201501)",
             "itemtype": "method",
             "name": "guessTerm",
@@ -2667,7 +2737,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2385,
+            "line": 2432,
             "description": "Attempts to open a file. Triggered after an attached file link is clicked.",
             "itemtype": "event",
             "name": "openFile",
@@ -2676,7 +2746,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2497,
+            "line": 2544,
             "description": "Populates course folder page based on a given content tree.",
             "itemtype": "event",
             "name": "populateFolderPage",
@@ -2685,7 +2755,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2652,
+            "line": 2699,
             "description": "Triggered when a new evaluation generate button is clicked",
             "itemtype": "event",
             "name": "degreeEvaluationGenerate",
@@ -2694,7 +2764,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2732,
+            "line": 2780,
             "description": "Triggered when a term for schedule planner page is selected from drop down",
             "itemtype": "event",
             "name": "schedulePlannerTermChange",
@@ -2703,7 +2773,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2774,
+            "line": 2823,
             "description": "Triggered when a term for schedule page is selected from drop down",
             "itemtype": "event",
             "name": "scheduleTermChange",
@@ -2712,7 +2782,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2811,
+            "line": 2861,
             "description": "Triggered when a term for final grades is selected from drop down",
             "itemtype": "event",
             "name": "finalGradesTermChange",
@@ -2721,7 +2791,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2851,
+            "line": 2902,
             "description": "Triggered when a new evaluation is selected to be loaded from the drop down",
             "itemtype": "event",
             "name": "degreeEvaluationChange",
@@ -2730,7 +2800,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2896,
+            "line": 2948,
             "description": "Failure for generic errors on the student page",
             "itemtype": "event",
             "name": "failure",
@@ -2739,7 +2809,7 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2916,
+            "line": 2970,
             "description": "Triggered when the sign in button is pressed and we attempt to login to all\nstudent services!",
             "itemtype": "event",
             "name": "login",
@@ -2748,31 +2818,31 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2954,
+            "line": 3009,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 2971,
+            "line": 3026,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 3014,
+            "line": 3070,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 3021,
+            "line": 3077,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 3035,
+            "line": 3091,
             "description": "Triggered when the logout button is pressed and we attempt to logout of all\nstudent services!",
             "itemtype": "event",
             "name": "logout",
@@ -2781,13 +2851,13 @@
         },
         {
             "file": "www\\js\\student.js",
-            "line": 3069,
+            "line": 3128,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\student.js",
-            "line": 3089,
+            "line": 3153,
             "class": "KUMobile.Student",
             "module": "KUMobile"
         },
@@ -2909,7 +2979,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 228,
+            "line": 227,
             "description": "Triggered when the user does a key up event in order to simulate incremental\nsearching for the attached search bar.",
             "itemtype": "event",
             "name": "incrementalSearch",
@@ -2918,7 +2988,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 268,
+            "line": 267,
             "description": "Triggered when the user does a direct change. The direct change includes \ntyping then changing focus or pressing the clear button. This is redundant\nto the incremental search event, *except for the clear button!!*",
             "itemtype": "event",
             "name": "directSearch",
@@ -2927,7 +2997,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 295,
+            "line": 294,
             "description": "Triggered when the user does a change to the college drop down box.\nWhen this happens, we need to redo the search.",
             "itemtype": "event",
             "name": "collegeChange",
@@ -2936,7 +3006,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 321,
+            "line": 320,
             "description": "Triggered when user chooses the type 'course'. For this we need to rearrange\nsome of the DOM elements.",
             "itemtype": "event",
             "name": "changeTypeToCourse",
@@ -2945,7 +3015,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 361,
+            "line": 360,
             "description": "Triggered when user chooses the type 'college'. For this we need to rearrange\nsome of the DOM elements.",
             "itemtype": "event",
             "name": "changeTypeToCollege",
@@ -2954,7 +3024,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 402,
+            "line": 401,
             "description": "Loads and displays the current set of transfer items searched by course.",
             "itemtype": "method",
             "name": "loadByCourse",
@@ -2966,7 +3036,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 542,
+            "line": 540,
             "description": "Loads and displays the current set of transfer items searched by college.",
             "itemtype": "method",
             "name": "loadByCollege",
@@ -2978,7 +3048,7 @@
         },
         {
             "file": "www\\js\\transfer.js",
-            "line": 646,
+            "line": 643,
             "description": "Reinitializes all properties of KUMobile.Transfer as if to restore\na new/default instance.",
             "itemtype": "method",
             "name": "reinitialize",
