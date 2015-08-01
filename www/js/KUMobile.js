@@ -57,6 +57,13 @@ var KUMobile = {
      ******************************************************************************/
     homeLoaded: function(){
         
+        // Patch Windows Phone scrolling
+        if (navigator.userAgent.match(/IEMobile/)){
+            var ieBodyHeight = $("body").outerHeight();
+            var ieBodyHeightNew = ieBodyHeight - 55;
+            $("head").append('<meta name="viewport" content="height=' + ieBodyHeightNew + '" />');
+        }
+        
         if(typeof KU === 'undefined'){
             KUMobile.safeAlert(
                 "Error", 

@@ -2,7 +2,7 @@
     "project": {
         "name": "KUMobile",
         "description": "Kettering University Mobile Application Project.",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "url": "http://kumobile.info"
     },
     "files": {
@@ -383,7 +383,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 82,
+            "line": 89,
             "description": "Event triggered when the device is ready, registered with \"deviceready\".\nThe primary purpose is to determine what type of device we are on (Android,\niOS, Windows). Note: this is only triggered if you are ON a device!",
             "itemtype": "event",
             "name": "ready",
@@ -392,7 +392,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 127,
+            "line": 134,
             "description": "Displays the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "showLoading",
@@ -415,7 +415,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 144,
+            "line": 151,
             "description": "Hides the loading indicator on the page with the given id",
             "itemtype": "method",
             "name": "hideLoading",
@@ -438,7 +438,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 160,
+            "line": 167,
             "description": "Converts a state name from abbreviation to full state name. If the\nconversion does not work it will simply return the abbreviation to be safe!",
             "itemtype": "method",
             "name": "convertStateToFull",
@@ -461,7 +461,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 213,
+            "line": 220,
             "description": "Binds a jquery event safely by first removing any prexisting event! This\nprevents it from being binded twice.",
             "itemtype": "method",
             "name": "safeBinder",
@@ -490,7 +490,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 232,
+            "line": 239,
             "description": "Shows a dialog with given information when on a device, otherwise uses built\nin dialog using vanilla javascript alerts!",
             "itemtype": "method",
             "name": "safeAlert",
@@ -525,7 +525,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 261,
+            "line": 268,
             "description": "Scrolls an overflow container to a certain element",
             "itemtype": "method",
             "name": "scrollTo",
@@ -549,7 +549,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 283,
+            "line": 290,
             "description": "Resize function to link to jQM event for throttled resize. The purpose is\nthat this resize function is controlled to not occur *too quickly* and\nadvanced resizing can be done here. Alternative to this is just to use \ncss calc(), but not fully supported across all target devices as of\ntime of development (2/26/2015).",
             "itemtype": "event",
             "name": "throttledResize",
@@ -558,13 +558,13 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 351,
+            "line": 358,
             "class": "KUMobile",
             "module": "KUMobile"
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 392,
+            "line": 399,
             "description": "Adds a 'new' indicator for every selected element",
             "itemtype": "method",
             "name": "addNewIndicator",
@@ -583,7 +583,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 412,
+            "line": 419,
             "description": "Takes in html string or DOM elements and removes all dangerous entities\nsuch as scripts and on* functions.",
             "itemtype": "method",
             "name": "sanitize",
@@ -606,7 +606,7 @@
         },
         {
             "file": "www\\js\\KUMobile.js",
-            "line": 454,
+            "line": 461,
             "description": "Triggered any time a page is changed as registered by jQuery Mobile. \nThe primary purpose is to allow us to resize to be safe that all elements \nare scaled properly.",
             "itemtype": "event",
             "name": "pageChange",
