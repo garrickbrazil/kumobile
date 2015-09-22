@@ -95,12 +95,6 @@ var KUMobile = {
      *  @for KUMobile
      ******************************************************************************/
     ready: function(){
-	
-        // Get version and update the about page
-        cordova.getAppVersion(function (version) {
-            KUMobile.version = "v" + version;
-            $("#about #version").text(KUMobile.version);
-        });
         
         // Determine if it is a device
         KUMobile.Config.isDevice = (typeof cordova != "undefined");
@@ -123,6 +117,26 @@ var KUMobile = {
 			KUMobile.Config.isIOS = false;
             KUMobile.Config.isWindows = false;
 		}
+        
+        // Get version and update the about page
+        cordova.getAppVersion(function (version) {
+            
+            // Update version
+            KUMobile.version = "v" + version;
+            $("#about #version").text(KUMobile.version);
+            
+            // Email subject
+            var subject = "KUMobile Feedback: " + KUMobile.version;
+            
+            // Add platform to subject
+            if (KUMobile.Config.isAndroid) subject += " on Android";
+            else if (KUMobile.Config.isIOS) subject += " on iOS";
+            else if (KUMobile.Config.isWindows) subject += " on Windows";
+            
+            // Update feedback button
+            $("#feedback").attr("href", "mailto:garrick@garrickmail.net?subject=" + encodeURI(subject));
+            
+        });
         
         // Hide splash screen (delay to give html a chance to render)
         setTimeout(navigator.splashscreen.hide, 250);
@@ -429,29 +443,55 @@ var KUMobile = {
      ******************************************************************************/
     sanitize: function(dom){
         
-        
         var dom = $(dom);
         
-        // Clear all scripts
-        $("script", dom).remove();
-        
+        // Allowed tags white list
+        var allowed = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol', 
+            'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div', 'span',
+            'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'label', 'img' ];
+            
         $("*", dom).each(function(i){
             
-            // Get attributes
-            var attrs = this.attributes;
+            var passed = false;
             
-            // Go through all attributes
-            for (var i = 0; i < attrs.length; i++){
+            var youtubePattern = /(\\\\)?www.youtube.com\/embed*/;
+            
+            // Check against white list
+            for (var tag = 0; tag < allowed.length; tag++){
+                if ($(this).prop("tagName").toLowerCase() === allowed[tag]) passed = true;
+            }
+            
+            // Whitelist Youtube iframes only
+            if ($(this).prop("tagName").toLowerCase() === "iframe" && youtubePattern.test($(this).attr("src"))){
+                $(this).attr("src", $(this).attr("src").replace("//www", "http://www"));
+                passed = true;
+            }
+        
+            // If passed, then check onclicks and styles
+            if (passed){
+        
+                // Get attributes
+                var attrs = this.attributes;
                 
-                var name = attrs[i].nodeName;
-                
-                // Style
-                if (name.indexOf("style") > -1) $(this).removeAttr(name);
-                
-                // On*
-                if (name.indexOf("on") > -1) $(this).removeAttr(name);
-            }    
+                // Go through all attributes
+                for (var i = 0; i < attrs.length; i++){
+                    
+                    var name = attrs[i].nodeName;
+                    
+                    // Style
+                    if (name.indexOf("style") > -1) $(this).removeAttr(name);
+                    
+                    // On*
+                    if (name.indexOf("on") > -1) $(this).removeAttr(name);
+                }
+            }
+            else{
+                $(this).remove();
+            }
+            
         });
+        
+        
         
         return dom;
       
@@ -467,7 +507,7 @@ var KUMobile = {
      *  @for KUMobile
      ******************************************************************************/
 	pageChange: function( event ) { 
-        
+
         // Page traveling to does not exist? Then go back!!
         if($("#" + $.mobile.activePage.attr('id')).length == 0) $.mobile.back();
 
@@ -491,9 +531,41 @@ var KUMobile = {
                 
                 // Make a new list
                 var saveList = [];
+                
+                // Copy current live list
                 $("#news-list li a div.main-text").each(function(i){ 
-                    saveList[saveList.length] = $("h1", this).text().trim();
+                    
+                    if(saveList.length < 100) saveList[saveList.length] = $("h1", this).text().trim();
                 });
+                
+                // Retrieve old list
+                var oldList = window.localStorage.getItem("ku_news_read");
+                
+                if(oldList != null){
+                
+                    try{
+                                    
+                        // Parse array
+                        oldList = JSON.parse(oldList);
+                    }
+                    catch(error){ oldList = []; }
+                }
+                else oldList = [];
+                
+                for (var i = 0; i < oldList.length && saveList.length < 100; i++){
+                    
+                    var found = false;
+                    
+                    // See if it is already in the list?
+                    for (var saveIndex = 0; saveIndex < saveList.length; saveIndex++){
+                        
+                        if(saveList[saveIndex] === oldList[i]) found = true;
+                    }
+                    
+                    // Not in the list? Then add it!
+                    if(!found) saveList[saveList.length] = oldList[i];
+                    
+                }
                 
                 // Store latest news
                 window.localStorage.setItem("ku_news_read", JSON.stringify(saveList));
@@ -501,6 +573,8 @@ var KUMobile = {
             
             // Coming from announcements -> home?
             if (KUMobile.lastPage == "announcements" && $.mobile.activePage.attr('id') == "home"){
+                
+                
                 
                 // Clear main announcements indicator
                 $("#announcements-listitem .new-icon-indicator").remove();
@@ -516,9 +590,42 @@ var KUMobile = {
                 
                 // Make a new list
                 var saveList = [];
+                
+                // Copy current live list
                 $("#announcements-list li div").each(function(i){ 
-                    saveList[saveList.length] = $("h1", this).text().trim();
+                    
+                    if(saveList.length < 100) saveList[saveList.length] = $("h1", this).text().trim();
                 });
+                
+                // Retrieve old list
+                var oldList = window.localStorage.getItem("ku_announcements_read");
+                
+                if(oldList != null){
+                    
+                    try{
+                        
+                        // Parse array
+                        oldList = JSON.parse(oldList);
+                    }
+                    catch(error){ oldList = []; }
+                }
+                
+                else oldList = [];
+                
+                for (var i = 0; i < oldList.length && saveList.length < 100; i++){
+                    
+                    var found = false;
+                    
+                    // See if it is already in the list?
+                    for (var saveIndex = 0; saveIndex < saveList.length; saveIndex++){
+                        
+                        if(saveList[saveIndex] === oldList[i]) found = true;
+                    }
+                    
+                    // Not in the list? Then add it!
+                    if(!found) saveList[saveList.length] = oldList[i];
+                    
+                }
                 
                 // Store latest announcements
                 window.localStorage.setItem("ku_announcements_read", JSON.stringify(saveList));

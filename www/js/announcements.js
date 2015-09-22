@@ -94,8 +94,8 @@ KUMobile.Announcements = {
      *  @for KUMobile.Announcements
      *  @private 
      ******************************************************************************/
-	listQueue: [],
-	
+	listQueue: [],    
+
 
     /******************************************************************************
      *  Triggered when the announcements page is first initialized based on jQuery 
@@ -245,14 +245,13 @@ KUMobile.Announcements = {
                         return false;
                         
                     });
-
                  
                     // Check for new articles only during initialization
                     if(KUMobile.Announcements.initialized != true){
                         
                         // Get read
                         var announcements_list = window.localStorage.getItem("ku_announcements_read");
-                       
+                        
                         // Make empty or parse array
                         if(announcements_list != null){
                         
@@ -260,9 +259,11 @@ KUMobile.Announcements = {
                                 
                                 // Parse announcements array
                                 announcements_list = JSON.parse(announcements_list);
+                                
                             }
                             catch(object){
                                 announcements_list = [];
+                                
                             }
                         
                             // Go through each list item

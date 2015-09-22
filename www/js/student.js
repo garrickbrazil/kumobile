@@ -1706,7 +1706,6 @@ KUMobile.Student = {
         // Sorry, but no schedules :(
         else{ 
             KUMobile.safeAlert("Schedule Planner", "No schedules appear to work with the given courses.", "ok");
-            KUMobile.Student.logout();
         }
         
     },

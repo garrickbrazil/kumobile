@@ -401,7 +401,7 @@ KUMobile.News = {
             
             // Fix youtube videos
             mainParagraph.find("embed").each(function(i){
-
+                
                 if($(this).attr("src") != undefined && 
                    $(this).attr("src").indexOf("youtube") > -1){
                         
