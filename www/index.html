@@ -4,7 +4,7 @@
 	
 	<head>
 		
-		<title>KU Mobile</title>
+		<title>Kettering Mobile</title>
 		
 		<!-- Styles -->
 		<link rel="stylesheet" href="css/kumobile.jqm.css" />
@@ -30,10 +30,16 @@
                 Refer to 
                 http://stackoverflow.com/questions/32187431/problems-with-window-history-using-jquery-javascript-on-cordova-app-in-ios9
             */
-        
             $(document).bind("mobileinit", function(){
                   $.mobile.hashListeningEnabled = false;
             });
+            
+            // Fix android back button logic (gets disabled with iOS patch above)
+            document.addEventListener("backbutton", function(e){
+                
+                $.mobile.back();
+            }, false);
+        
         </script>  
 		<script src="lib/jquery.mobile-1.4.2.min.js"></script>
 		<script src="lib/leaflet.js"></script>
@@ -142,8 +148,8 @@
 						<a class="grey-grad" href="#directory">
 						<img class="ui-li-icon main-icon" src="img/people.png" alt="directory.png"/>
 						<div class="main-text">
-							<h1>Faculty</h1>
-							<p>Search for information on faculty/staff.</p>
+							<h1>Directory</h1>
+							<p>Search for information on faculty and staff.</p>
 						</div>
 						</a>
 					</li>
@@ -273,7 +279,7 @@
 					<img src="img/loading.gif" class="loading-indicator ui-btn-right" />
 						
 					<!-- Title -->
-					<div class="header-title">Faculty</div>
+					<div class="header-title">Directory</div>
 					
 					<!-- Back button -->
 					<a class="back-button blue-button-grad" data-corners="true" data-theme="b" data-icon="back" data-role="button" data-rel="back" >Back</a>
@@ -595,7 +601,7 @@
                 <li>
                     
                     <div>
-                        <h1 style="font-family:serif;font-weight:bold;font-size:1.2em;" class="left"><big>KUMobile</big></h1>
+                        <h1 style="font-family:serif;font-weight:bold;font-size:1.2em;max-width:60%!important;" class="left"><big>Kettering Mobile</big></h1>
                         <span style="margin-top:1em;margin-bottom:1em;color:#5a5a5a;margin-right:.45em;" id="version" class="right"><small><b> </b></small></span>
                     </div>
                     
@@ -608,7 +614,7 @@
                 <li><a data-rel="popup" href="#credits" data-role="button" data-corners="false">Credits</a></li>
                 <li><a data-rel="popup" href="#license" data-role="button" data-corners="false">License</a></li>
                 <li><a data-rel="popup" href="#attributions" data-role="button" data-corners="false">Attributions</a></li>
-                <li><a rel="external" id="feedback" target="_blank" href="mailto:garrick@garrickmail.net?subject=KUMobile%20Feedback"  data-icon="mail" data-iconpos="right" data-role="button" data-corners="false">Feedback</a></li>
+                <li><a rel="external" id="feedback" target="_blank" href="mailto:garrick@garrickmail.net?subject=Kettering%20Mobile%20Feedback"  data-icon="mail" data-iconpos="right" data-role="button" data-corners="false">Feedback</a></li>
                 </ul>
 			</div>
 			
@@ -922,7 +928,7 @@
                         <li id="foursquare">
                             <div class="license">
                                 <h1>Foursquare</h1>
-                                KUMobile uses Foursquare venue search endpoint API and caching for points of interest searching. 
+                                Kettering Mobile uses Foursquare venue search endpoint API and caching for points of interest searching. 
                                 <br><br>
                                 <ul>
                                     <li>Primary Site: https://foursquare.com</li>
@@ -2725,12 +2731,12 @@
                     <ul id="fun" data-role="listview">
                         <li>
                             <p style="white-space:normal;"><big>
-                                KUMobile is free software: you can redistribute it and/or modify
+                                Kettering Mobile is free software: you can redistribute it and/or modify
                                 it under the terms of the GNU General Public License as published by
                                 the Free Software Foundation, either version 3 of the License, or
                                 (at your option) any later version.
                                 <br><br>
-                                KUMobile is distributed in the hope that it will be useful,
+                                Kettering Mobile is distributed in the hope that it will be useful,
                                 but WITHOUT ANY WARRANTY; without even the implied warranty of
                                 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
                                 GNU General Public License for more details.</big>

@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
         
 <widget id="info.kumobile" 
-		version="0.1.1" 
+		version="0.1.2" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android">
 		
-    <name>KU Mobile</name>
+    <name>Kettering Mobile</name>
     
 	<description>
         Kettering University Mobile Application

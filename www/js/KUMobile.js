@@ -141,6 +141,7 @@ var KUMobile = {
         // Hide splash screen (delay to give html a chance to render)
         setTimeout(navigator.splashscreen.hide, 250);
         
+        /* alert("Debug version. If you see this message than beware you are using a potentially unstable debug version. Email garrick@garrickmail.net to ask for a stable version."); */
 	},
     
     
