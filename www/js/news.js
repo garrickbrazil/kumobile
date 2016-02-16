@@ -207,12 +207,14 @@ KUMobile.News = {
                     var captionTpl = Handlebars.getTemplate("news-item");
                     var pageTpl = Handlebars.getTemplate("dynamic-page");
                     var pageId = 'news-' + KUMobile.News.page + '-' + index;
+                    var info = item.author;
+                    info += (info == "")? item.date: " | " + item.date;
                     
                     // Caption data
                     var captionHtml = captionTpl({
                         "title": item.title,
                         "imgUrl": (item.imgUrl=="")?("img/default_icon.jpg"):(item.imgUrl),
-                        "info": item.author + " | " + item.date,
+                        "info": info,
                         "pageId": pageId
                     });
                     
