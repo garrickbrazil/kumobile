@@ -68,7 +68,7 @@ var KUMobile = {
             KUMobile.safeAlert(
                 "Error", 
                 "There were problems connecting to the internet. Please check your connectivity and restart the application.", 
-                "ok", "home"
+                "ok"
             );
         }
         else{
@@ -270,7 +270,7 @@ var KUMobile = {
       if (typeof expectedPage === 'undefined') expectedPage = "";
       
       // Only show from the correct page
-      if (expectedPage != "" && $.mobile.activePage.attr('id') != expectedPage
+      else if (expectedPage != "" && $.mobile.activePage.attr('id') != expectedPage
         || $.mobile.activePage.attr('id') == "home" && expectedPage != "home") return;
       
       // Use navigator alert for device, and regular alert otherwise
