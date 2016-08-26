@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
         
 <widget id="info.kumobile" 
-		version="0.1.5" 
+		version="0.1.6" 
 		xmlns="http://www.w3.org/ns/widgets" 
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
@@ -18,7 +18,7 @@
     </author>
 	
 	<feature name="http://api.phonegap.com/1.0/device" />
-
+    <preference name="phonegap-version" value="cli-5.1.1" />
     <!-- Permission --> 
 	<feature name="Device"><param name="android-package" value="org.apache.cordova.device.Device" /></feature>
 	<feature name="File"><param name="android-package" value="org.apache.cordova.file.FileUtils" /></feature>
